@@ -493,6 +493,24 @@
         width: 100%;
         height: 100%;
     }
+    /* 时间轴滚动条：收细，别抢画面的视觉重心 */
+    #timelineScroll {
+        scrollbar-width: thin;              /* Firefox */
+        scrollbar-color: #d6cfc2 transparent;
+    }
+    #timelineScroll::-webkit-scrollbar {
+        height: 5px;
+    }
+    #timelineScroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #timelineScroll::-webkit-scrollbar-thumb {
+        background: #d6cfc2;
+        border-radius: 3px;
+    }
+    #timelineScroll::-webkit-scrollbar-thumb:hover {
+        background: #b8ae9c;
+    }
     .tl-dot {
         fill: #2c2a27;
         stroke: #f7f5f0;
@@ -527,6 +545,17 @@
     .dest-collage-grid.cols-5 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; }
     .dest-collage-grid.cols-6 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; }
     .dest-collage-grid .span-2 { grid-column: span 2; }
+    /* 该目的地还没有照片时的空状态，避免露出裸灰块 */
+    .dest-collage-empty {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255,255,255,0.4);
+        font-size: 15px;
+        letter-spacing: 0.15em;
+    }
 
     .dest-content h2 {
         font-size: 28px;
@@ -737,6 +766,9 @@
         html[data-theme="dark"] .tl-card .tl-hint { color: var(--dk-muted); }
         html[data-theme="dark"] .tl-dot  { fill: var(--dk-text); stroke: var(--dk-bg); }
         html[data-theme="dark"] .tl-line { stroke: #5c5548; }
+        html[data-theme="dark"] #timelineScroll { scrollbar-color: var(--dk-border-2) transparent; }
+        html[data-theme="dark"] #timelineScroll::-webkit-scrollbar-thumb { background: var(--dk-border-2); }
+        html[data-theme="dark"] #timelineScroll::-webkit-scrollbar-thumb:hover { background: #55504a; }
 
         /* 节日海报遮罩 */
         html[data-theme="dark"] .holiday-overlay {
@@ -872,27 +904,27 @@
     <div id="normalHero">
     <section class="max-w-7xl mx-auto px-6 pt-12 pb-20 md:px-12 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
         <div class="md:col-span-5 flex flex-col justify-center space-y-6 md:pr-8">
-            <span class="text-xs uppercase tracking-[0.4em] text-[#5c554a]/80" data-i18n="hero.tag">禾木 · 阿勒泰</span>
+            <span class="text-xs uppercase tracking-[0.4em] text-[#5c554a]/80" data-i18n="hero.tag">西藏 · 日喀则</span>
             <h2 class="text-3xl md:text-4xl font-light leading-snug tracking-wide text-[#2c2a27]" data-i18n="hero.heading">
-                零下二十度<br>等一场日出
+                20岁西藏之旅
             </h2>
             <div class="w-12 h-[1px] bg-[#2c2a27]/50"></div>
             <p class="text-[#3d3326] text-sm md:text-base leading-relaxed tracking-wider font-light" data-i18n="hero.quote">
-                二月的禾木村，早上八点，气温零下二十五度。架好三脚架，在雪地里等了一个多小时。鼻涕冻成了冰，手指在快门键上几乎没有知觉。然后天边开始泛光——深蓝，粉紫，直到整片天空被金色的晨光点燃。那一刻所有的冷都值得了。
+                在20岁生日，开始这次奇妙旅途，来到雪域高原。从此我也能讲述一段来自西藏的故事。
             </p>
         </div>
         <div class="md:col-span-7 relative group">
             <!-- Polaroid-styled Hero Cover (Contrasts sharply with 18% gray background) -->
-            <div class="bg-white p-4 pb-16 shadow-2xl rounded-sm transform rotate-1 hover:rotate-0 transition-transform duration-500 border border-[#e2dcd0]">
+            <div class="bg-white p-4 pb-6 shadow-2xl rounded-sm transform rotate-1 hover:rotate-0 transition-transform duration-500 border border-[#e2dcd0]">
                 <div class="aspect-w-16 aspect-h-10 overflow-hidden bg-zinc-200">
-                    <img src="images/URC_2374.jpg"
-                         alt="禾木村 / 阿勒泰地区"
+                    <img src="images/SZX_7779.jpg"
+                         alt="西藏 · 日喀则"
                          data-admin="hero-img"
                          class="object-cover w-full h-[350px] md:h-[420px]"
                          onerror="this.src='https://placehold.co/1200x800/d6cfc2/2c2a27?text=Analog+Vibe'">
                 </div>
                 <div class="mt-6 flex justify-between items-center px-2">
-                    <span class="text-xs text-[#5c554a] tracking-[0.1em]" data-admin="hero-location">#01 禾木村 / 阿勒泰地区</span>
+                    <span class="text-xs text-[#5c554a] tracking-[0.1em]" data-admin="hero-location">#01 西藏 · 日喀则</span>
                     <span class="text-xs text-[#8c8273] font-mono" data-admin="hero-gear">Nikon Z7Ⅱ 24-200mm F4-6.3</span>
                 </div>
             </div>
@@ -1329,9 +1361,9 @@
             'nav.destinations':  { zh: '目的地',        en: 'Journeys' },
             'nav.about':         { zh: '关于',          en: 'About' },
             'nav.lang':          { zh: 'EN',            en: '中' },
-            'hero.tag':          { zh: '禾木 · 阿勒泰', en: 'Hemu · Altay' },
-            'hero.heading':      { zh: '零下二十度<br>等一场日出', en: 'Waiting for Sunrise<br>at -20°C' },
-            'hero.quote':        { zh: '二月的禾木村，凌晨六点，气温零下二十度。我架好三脚架，在及膝的雪地里等了一个多小时。鼻涕冻成了冰，手指在快门键上几乎没有知觉。然后天边开始泛光——先是深蓝，再是粉紫，最后整片天空被金色的晨光点燃。那一刻所有的冷都值得了。', en: 'February in Hemu. 6 a.m., -20°C. I set up my tripod and waited in knee-deep snow for over an hour. My breath crystallized, fingers went numb on the shutter. Then the horizon began to glow. Every frozen second was worth it.' },
+            'hero.tag':          { zh: '西藏 · 日喀则', en: 'Shigatse · Tibet' },
+            'hero.heading':      { zh: '20岁西藏之旅', en: 'Tibet at Twenty' },
+            'hero.quote':        { zh: '在20岁生日，开始这次奇妙旅途，来到雪域高原。从此我也能讲述一段来自西藏的故事。', en: 'On my twentieth birthday this wondrous journey began — I came to the snowy plateau. And now I have a story of Tibet to tell.' },
             'gallery.tag':       { zh: '我的',           en: 'My Works' },
             'gallery.heading':   { zh: '底片册',         en: 'Archive' },
             'destinations.tag':  { zh: '旅途',          en: 'Itinerary' },
@@ -1412,7 +1444,7 @@
 
         // ========== Photography Database ==========
         const photos = [
-            {
+{
                 id: 1,
                 title: "禾木日落",
                 category: "landscape",
@@ -1426,7 +1458,7 @@
                 date: "2026年2月",
                 desc: ""
             },
-            {
+{
                 id: 2,
                 title: "飞驰",
                 category: "landscape",
@@ -1440,7 +1472,7 @@
                 date: "2026年2月",
                 desc: ""
             },
-            {
+{
                 id: 3,
                 title: "出门",
                 category: "landscape",
@@ -1454,7 +1486,7 @@
                 date: "2026年2月",
                 desc: "刚刚走出小木屋，天正在亮"
             },
-            {
+{
                 id: 4,
                 title: "纳木措",
                 category: "landscape",
@@ -1468,8 +1500,22 @@
                 date: "2026年8月",
                 desc: ""
             },
-            {
+{
                 id: 5,
+                title: "禾木日出",
+                category: "landscape",
+                src: "images/URC_2374.jpg",
+                film: "Digital",
+                camera: "Nikon Z7Ⅱ",
+                aperture: "f/6.0",
+                shutter: "1/80s",
+                focal: "60mm",
+                location: "新疆 · 禾木",
+                date: "2026年2月",
+                desc: "二月的禾木村，凌晨六点，气温零下二十度。我架好三脚架，在及膝的雪地里等了一个多小时。鼻涕冻成了冰，手指在快门键上几乎没有知觉。然后天边开始泛光——先是深蓝，再是粉紫，最后整片天空被金色的晨光点燃。那一刻所有的冷都值得了。"
+            },
+{
+                id: 6,
                 title: "blue",
                 category: "landscape",
                 src: "images/SZX_8629_1.jpg",
@@ -1482,8 +1528,8 @@
                 date: "2026年8月",
                 desc: ""
             },
-            {
-                id: 6,
+{
+                id: 7,
                 title: "木雅贡噶",
                 category: "landscape",
                 src: "images/Live_20250804081956996.jpeg",
@@ -1496,8 +1542,8 @@
                 date: "2025年8月",
                 desc: ""
             },
-            {
-                id: 7,
+{
+                id: 8,
                 title: "木雅措垭口",
                 category: "landscape",
                 src: "images/木雅措垭口1.jpg",
@@ -1510,8 +1556,8 @@
                 date: "2025年8月",
                 desc: "川西高原的垭口之上，经幡在稀薄的空气里猎猎作响。远处的雪山沉默如谜。"
             },
-            {
-                id: 8,
+{
+                id: 9,
                 title: "雪岭之间",
                 category: "landscape",
                 src: "images/URC_2558.jpg",
@@ -1524,8 +1570,8 @@
                 date: "2026年2月",
                 desc: ""
             },
-            {
-                id: 9,
+{
+                id: 10,
                 title: "路上",
                 category: "landscape",
                 src: "images/URC_2624.jpg",
@@ -1538,8 +1584,8 @@
                 date: "2026年2月",
                 desc: ""
             },
-            {
-                id: 10,
+{
+                id: 11,
                 title: "遇见彩虹",
                 category: "landscape",
                 src: "images/SZX_66801.jpg",
@@ -1552,8 +1598,8 @@
                 date: "2026年7月",
                 desc: ""
             },
-            {
-                id: 11,
+{
+                id: 12,
                 title: "涟漪",
                 category: "street",
                 src: "images/ZRH_4596-HDR.jpg",
@@ -1566,8 +1612,8 @@
                 date: "",
                 desc: ""
             },
-            {
-                id: 12,
+{
+                id: 13,
                 title: "蓝调",
                 category: "street",
                 src: "images/ZRH_5480-已增强-NR.jpg",
@@ -1580,8 +1626,8 @@
                 date: "",
                 desc: ""
             },
-            {
-                id: 13,
+{
+                id: 14,
                 title: "日出",
                 category: "portrait",
                 src: "images/DSC_1827.jpg",
@@ -1594,8 +1640,8 @@
                 date: "2022年7月",
                 desc: ""
             },
-            {
-                id: 14,
+{
+                id: 15,
                 title: "生命力",
                 category: "landscape",
                 src: "images/生命力.JPG",
@@ -1608,8 +1654,8 @@
                 date: "",
                 desc: "春天到了！🌱"
             },
-            {
-                id: 15,
+{
+                id: 16,
                 title: "夏天的傍晚",
                 category: "landscape",
                 src: "images/SZX_47791.JPG",
@@ -1622,8 +1668,8 @@
                 date: "",
                 desc: ""
             },
-            {
-                id: 16,
+{
+                id: 17,
                 title: "山脉连绵",
                 category: "landscape",
                 src: "images/URC_1629.jpg",
@@ -1636,8 +1682,8 @@
                 date: "2026年2月",
                 desc: "前往乌鲁木齐的路上"
             },
-            {
-                id: 17,
+{
+                id: 18,
                 title: "欢畅的风",
                 category: "landscape",
                 src: "images/IMG_2028.jpeg",
@@ -1650,8 +1696,8 @@
                 date: "2025年8月",
                 desc: ""
             },
-            {
-                id: 18,
+{
+                id: 19,
                 title: "周末",
                 category: "street",
                 src: "images/SZX_3853haha.jpg",
@@ -1664,8 +1710,8 @@
                 date: "",
                 desc: ""
             },
-            {
-                id: 19,
+{
+                id: 20,
                 title: "山湖",
                 category: "landscape",
                 src: "images/SZX_75241.jpg",
@@ -1678,21 +1724,7 @@
                 date: "2026年8月",
                 desc: ""
             },
-            {
-                id: 20,
-                title: "",
-                category: "landscape",
-                src: "images/SZX_7779.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/6.3",
-                shutter: "1/1250s",
-                focal: "46mm",
-                location: "西藏 · 日喀则",
-                date: "2026年8月",
-                desc: ""
-            },
-            {
+{
                 id: 21,
                 title: "",
                 category: "landscape",
@@ -1706,7 +1738,7 @@
                 date: "2026年8月",
                 desc: ""
             },
-            {
+{
                 id: 22,
                 title: "牛",
                 category: "landscape",
@@ -2835,6 +2867,17 @@
                 filter: '西藏',
                 contentZh: '<p>正在路上～</p>',
                 contentEn: '<p>On The Way ~</p>'
+            },
+            {
+                id: 'dangling',
+                nameZh: '党岭',
+                nameEn: 'Dangling',
+                dateZh: '2026.10.04 - 10.06',
+                dateEn: 'Oct 4 - 6, 2026',
+                cover: 'https://placehold.co/400x280/d6cfc2/2c2a27?text=Dangling',
+                filter: '党岭',
+                contentZh: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">即将更新～</p>`,
+                contentEn: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">Coming soon~</p>`
             }
         ];
 
@@ -2866,6 +2909,9 @@
                     gridHTML += `<img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.src='https://placehold.co/400x280/5a5a5a/999?text=Photo'">`;
                 }
             });
+            if (count === 0) {
+                gridHTML += `<div class="dest-collage-empty">${isZh ? '照片即将更新～' : 'Photos coming soon~'}</div>`;
+            }
             gridHTML += '</div>';
             collage.innerHTML = gridHTML;
 
