@@ -1,0 +1,16 @@
+{
+  "name": "Roy Zhao's Blog",
+  "short_name": "Roy Zhao",
+  "start_url": "../",
+  "scope": "../",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#11151b",
+  "background_color": "#11151b",
+  "display": "standalone"
+}

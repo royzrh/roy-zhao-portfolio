@@ -1,0 +1,22 @@
+{
+  "friends": [
+    {
+      "id_name": "friends",
+      "desc": "朋友与我的摄影主页",
+      "link_list": [
+        {
+          "name": "Cyril Fan's Blog",
+          "link": "https://cyril-fan.top/",
+          "avatar": "/avatar/cyril-fan.svg",
+          "intro": "Cyril Fan 的个人博客"
+        },
+        {
+          "name": "Roy Zhao / 赵润涵",
+          "link": "https://royzhao.cn/",
+          "avatar": "/avatar/avatar.png",
+          "intro": "我的摄影主页 · 底片册与旅途故事"
+        }
+      ]
+    }
+  ]
+}
