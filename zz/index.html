@@ -29,8 +29,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts for exquisite Chinese Serif -->
@@ -1204,18 +1202,19 @@
                 <p id="loginTitle" class="text-white/50 text-xs mt-3 tracking-wider">登录你的账号</p>
             </div>
             <div class="space-y-3">
-                <input type="text" id="loginNickname" placeholder="昵称" class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors">
-                <input type="password" id="loginPassword" placeholder="密码（至少6位）" maxlength="32" class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors tracking-[0.3em]">
+                <input type="email" id="loginEmail" placeholder="邮箱" autocomplete="email" class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors">
+                <input type="text" id="loginToken" placeholder="邮箱验证码" inputmode="numeric" autocomplete="one-time-code" minlength="6" maxlength="8" hidden class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors tracking-[0.3em]">
+                <input type="text" id="loginNickname" placeholder="设置账号昵称（保存后固定）" autocomplete="nickname" maxlength="40" hidden class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors">
                 <button id="loginSubmitBtn" onclick="doLogin()" class="w-full py-3 bg-white text-[#2c2a27] text-sm tracking-wider rounded-sm hover:bg-gray-200 transition-colors font-medium">
-                    登录
+                    获取验证码
                 </button>
             </div>
             <p class="text-white/30 text-[10px]">
-                <span id="loginSwitchText">没有账号？</span>
+                <span id="loginSwitchText">首次验证会自动创建账号</span>
                 <button id="loginSwitchBtn" onclick="toggleLoginMode()" class="text-white/60 hover:text-white underline underline-offset-2 transition-colors">注册</button>
             </p>
             <p class="text-white/20 text-[10px]">
-                <button onclick="resetPassword()" class="text-white/30 hover:text-white/60 underline underline-offset-2 transition-colors">忘记密码？</button>
+                <button onclick="resetPassword()" class="text-white/30 hover:text-white/60 underline underline-offset-2 transition-colors">重新获取验证码</button>
             </p>
         </div>
     </div>
@@ -1338,18 +1337,6 @@
     </div>
 
     <script>
-        // ========== Firebase Config ==========
-        const firebaseConfig = {
-            apiKey: "AIzaSyDIsAUYNICA3CPFPF-vjaH1_uhZF-kEClo",
-            authDomain: "my-site-6ad7d.firebaseapp.com",
-            projectId: "my-site-6ad7d",
-            storageBucket: "my-site-6ad7d.firebasestorage.app",
-            messagingSenderId: "417035962967",
-            appId: "1:417035962967:web:9d3fd07e6baf52c0787112"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
         // ========== i18n Language System ==========
         let currentLang = 'zh';
         let currentFilter = 'all';
@@ -1890,81 +1877,12 @@
         let nameFilter = null; // null = show all public, string = show that name's all messages
 
         // Load guestbook from Firestore
-        function loadMessagesFromDB() {
-            return db.collection('guestbook').orderBy('createdAt', 'desc').get().then(snapshot => {
-                messages = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const isNew = (Date.now() - data.createdAt) < 4000;
-                    messages.push({
-                        id: doc.id,
-                        name: data.name || '',
-                        message: data.message || '',
-                        theme: data.theme || 'classic',
-                        date: data.date || '',
-                        time: data.time || '',
-                        city: data.city || '',
-                        weather: data.weather || '',
-                        temp: data.temp,
-                        private: data.private || false,
-                        pinned: data.pinned || false,
-                        likes: data.likes || 0,
-                        replyCount: data.replyCount || 0,
-                        developing: isNew
-                    });
-                });
-                renderMessages();
-            }).catch(err => {
-                console.error('Firestore 读取失败:', err);
-                renderMessages();
-            });
-        }
 
         // Init: load once, then poll every 5 seconds
-        function initGuestbook() {
-            loadMessagesFromDB().then(() => syncAllReplyCounts());
-            setInterval(loadMessagesFromDB, 5000);
-        }
 
         // One-time sync: count replies for all messages
-        function syncAllReplyCounts() {
-            messages.forEach(msg => {
-                db.collection('guestbook').doc(msg.id).collection('replies').get().then(snap => {
-                    const count = snap.size;
-                    if (msg.replyCount !== count) {
-                        msg.replyCount = count;
-                        db.collection('guestbook').doc(msg.id).update({ replyCount: count }).catch(() => {});
-                    }
-                }).catch(() => {});
-            });
-            // Re-render after all counts come back (roughly)
-            setTimeout(() => renderMessages(), 2000);
-        }
 
         // Get filtered messages for display (pinned first)
-        function getFilteredMessages() {
-            let result;
-            if (nameFilter) {
-                // Searching for a specific user
-                if (currentUser && nameFilter === currentUser) {
-                    // Searching for self: show all own messages including private
-                    result = messages.filter(m => !m.private || m.name === currentUser);
-                } else {
-                    // Searching for someone else: only show their public messages
-                    result = messages.filter(m => m.name === nameFilter && !m.private);
-                }
-            } else if (currentUser) {
-                // Logged in, no filter: show public + own private
-                result = messages.filter(m => !m.private || m.name === currentUser);
-            } else {
-                // Not logged in: public only
-                result = messages.filter(m => !m.private);
-            }
-            // Sort: pinned first
-            const pinned = result.filter(m => m.pinned);
-            const unpinned = result.filter(m => !m.pinned);
-            return [...pinned, ...unpinned];
-        }
 
         function filterByName() {
             const name = prompt(currentLang === 'zh' ? '叫什么名字呀~ 👀' : 'What\'s the name? 👀');
@@ -2196,209 +2114,8 @@
             }
         }
 
-        function handleGuestbookSubmit(event) {
-            event.preventDefault();
-
-            const nameInput = document.getElementById('visitorName');
-            const messageInput = document.getElementById('visitorMessage');
-
-            // Capture values BEFORE async weather call
-            const nameVal = currentUser || nameInput.value.trim();
-            const messageVal = messageInput.value.trim();
-            const selectedTheme = document.querySelector('input[name="noteTheme"]:checked').value;
-            const isPrivate = !document.getElementById('visitorPrivate').checked; // unchecked = private
-
-            const today = new Date();
-            const dateStr = today.getFullYear() + '.' + String(today.getMonth() + 1).padStart(2, '0') + '.' + String(today.getDate()).padStart(2, '0');
-            const timeStr = String(today.getHours()).padStart(2, '0') + ':' + String(today.getMinutes()).padStart(2, '0');
-
-            // Clear immediately so user can start typing next message
-            nameInput.value = '';
-            messageInput.value = '';
-            document.getElementById('visitorPrivate').checked = true;
-
-            // Disable button while submitting
-            const submitBtn = document.querySelector('#guestbookForm button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i><span>获取天气中...</span>';
-
-            fetchWeatherInfo().then(weatherInfo => {
-                return db.collection('guestbook').add({
-                    name: nameVal,
-                    message: messageVal,
-                    theme: selectedTheme,
-                    private: isPrivate,
-                    date: dateStr,
-                    time: timeStr,
-                    city: weatherInfo.city || '',
-                    weather: weatherInfo.weather || '',
-                    temp: weatherInfo.temp,
-                    createdAt: Date.now()
-                });
-            }).then(() => {
-                showToast(t('toast.sent'));
-            }).catch(err => {
-                console.error('留言失败:', err);
-                showToast(currentLang === 'zh' ? '留言失败，请重试' : 'Failed to submit, please retry');
-            }).finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-flask"></i><span data-i18n="guestbook.submit">放入显影池</span>';
-            });
-        }
 
         // Render Guestbook Cards (Contrast nicely on the gray wall)
-        // ========== User Login System ==========
-        let currentUser = null; // nickname string
-        let isLoginMode = true; // true=login, false=register
-
-        function openLoginModal() {
-            if (currentUser) {
-                if (confirm('当前登录为: ' + currentUser + '\n\n确定要退出登录吗？')) { logout(); }
-                return;
-            }
-            const modal = document.getElementById('loginModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            document.getElementById('loginNickname').focus();
-            resetLoginForm();
-        }
-
-        function closeLoginModal() {
-            const modal = document.getElementById('loginModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-
-        function resetLoginForm() {
-            document.getElementById('loginNickname').value = '';
-            document.getElementById('loginPassword').value = '';
-            isLoginMode = true;
-            document.getElementById('loginTitle').textContent = '登录你的账号';
-            document.getElementById('loginSubmitBtn').textContent = '登录';
-            document.getElementById('loginSwitchText').textContent = '没有账号？';
-            document.getElementById('loginSwitchBtn').textContent = '注册';
-        }
-
-        function toggleLoginMode() {
-            isLoginMode = !isLoginMode;
-            if (isLoginMode) {
-                document.getElementById('loginTitle').textContent = '登录你的账号';
-                document.getElementById('loginSubmitBtn').textContent = '登录';
-                document.getElementById('loginSwitchText').textContent = '没有账号？';
-                document.getElementById('loginSwitchBtn').textContent = '注册';
-            } else {
-                document.getElementById('loginTitle').textContent = '注册新账号';
-                document.getElementById('loginSubmitBtn').textContent = '注册';
-                document.getElementById('loginSwitchText').textContent = '已有账号？';
-                document.getElementById('loginSwitchBtn').textContent = '登录';
-            }
-        }
-
-        // SHA-256 哈希
-        async function hashPassword(pw) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(pw + 'roy_zhao_salt_2026');
-            const hash = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-        }
-
-        async function doLogin() {
-            const nickname = document.getElementById('loginNickname').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            if (!nickname) { alert('请输入昵称'); return; }
-            if (nickname.length > 20) { alert('昵称太长了'); return; }
-            if (!password || password.length < 6) { alert('密码至少需要6位字符'); return; }
-
-            const userRef = db.collection('users').doc(nickname);
-
-            if (isLoginMode) {
-                // Login: verify hashed password
-                userRef.get().then(async doc => {
-                    if (!doc.exists) { alert('账号不存在，请先注册'); return; }
-                    const data = doc.data();
-                    const inputHash = await hashPassword(password);
-                    if (data.password !== inputHash) { alert('密码错误'); return; }
-                    userRef.update({ lastLogin: Date.now() }).catch(() => {});
-                    loginSuccess(nickname);
-                }).catch(err => { alert('登录失败，请重试'); });
-            } else {
-                // Register: hash password before storing
-                const hashedPw = await hashPassword(password);
-                userRef.get().then(doc => {
-                    if (doc.exists) { alert('该昵称已被注册，换一个吧'); return Promise.reject('EXISTS'); }
-                    return userRef.set({
-                        nickname: nickname,
-                        password: hashedPw,
-                        createdAt: Date.now(),
-                        lastLogin: Date.now()
-                    });
-                }).then(() => {
-                    loginSuccess(nickname);
-                }).catch(err => {
-                    if (err !== 'EXISTS') alert('注册失败，请重试');
-                });
-            }
-        }
-
-        async function resetPassword() {
-            const nickname = prompt('请输入需要重置密码的昵称：');
-            if (!nickname || !nickname.trim()) return;
-            const newPw = prompt('请输入新密码（至少6位字符）：');
-            if (!newPw || !newPw.trim() || newPw.trim().length < 6) { alert('密码至少需要6位字符'); return; }
-
-            const hashedPw = await hashPassword(newPw.trim());
-            const userRef = db.collection('users').doc(nickname.trim());
-            userRef.get().then(doc => {
-                if (!doc.exists) { alert('该账号不存在'); return; }
-                return userRef.update({ password: hashedPw });
-            }).then(() => {
-                alert('密码重置成功！请重新登录');
-            }).catch(err => {
-                alert('重置失败，请重试');
-            });
-        }
-
-        function loginSuccess(nickname) {
-            currentUser = nickname;
-            sessionStorage.setItem('roy_zhao_user', nickname);
-            closeLoginModal();
-            currentPage = 1;
-            updateLoginUI();
-            renderMessages();
-            showToast('你好，' + nickname + ' 👋');
-        }
-
-        function logout() {
-            currentUser = null;
-            currentPage = 1;
-            sessionStorage.removeItem('roy_zhao_user');
-            updateLoginUI();
-            renderMessages();
-            showToast('已退出登录');
-        }
-
-        function loadUser() {
-            const saved = sessionStorage.getItem('roy_zhao_user');
-            if (saved) { currentUser = saved; updateLoginUI(); }
-        }
-
-        function updateLoginUI() {
-            const indicator = document.getElementById('loginIndicator');
-            const nameInput = document.getElementById('visitorName');
-            if (currentUser) {
-                indicator.textContent = currentUser;
-                indicator.classList.remove('hidden');
-                if (nameInput) { nameInput.value = currentUser; nameInput.placeholder = currentUser; }
-            } else {
-                indicator.classList.add('hidden');
-                if (nameInput) { nameInput.value = ''; nameInput.placeholder = 'e.g. 拾光者'; }
-            }
-        }
-
-        // Admin password (change this!)
-        const ADMIN_PASSWORD_HASH = 'cd87789d49b1782efac3c8cc0d828145371588d8ca196cff4cfcaa6a72d571ef';
-        let isAdminMode = false;
-
         function renderMessages() {
             const container = document.getElementById('messageBoard');
             container.innerHTML = '';
@@ -2497,29 +2214,8 @@
         }
 
         // Like tracking (localStorage to prevent double-liking)
-        function getLikedMessages() {
-            try { return JSON.parse(localStorage.getItem('roy_zhao_liked') || '[]'); }
-            catch(e) { return []; }
-        }
         function isLiked(msgId) { return getLikedMessages().includes(msgId); }
 
-        function toggleLike(msgId) {
-            const liked = getLikedMessages();
-            if (liked.includes(msgId)) return; // Already liked
-
-            const msgRef = db.collection('guestbook').doc(msgId);
-            msgRef.get().then(doc => {
-                const current = (doc.exists && doc.data().likes) || 0;
-                return msgRef.update({ likes: current + 1 });
-            }).then(() => {
-                liked.push(msgId);
-                localStorage.setItem('roy_zhao_liked', JSON.stringify(liked));
-                // Update local message
-                const msg = messages.find(m => m.id === msgId);
-                if (msg) msg.likes = (msg.likes || 0) + 1;
-                renderMessages();
-            }).catch(err => console.error('点赞失败:', err));
-        }
 
         function goToPage(page) {
             const board = document.getElementById('messageBoard');
@@ -2568,12 +2264,12 @@
                 <p class="text-sm md:text-base leading-relaxed whitespace-pre-wrap">${escapeHtml(msg.message)}</p>
                 <div class="mt-4 flex gap-3">
                     ${isAdminMode ? `<button onclick="togglePin('${msg.id}')" class="text-xs text-amber-500 hover:text-amber-600 transition-colors">${msg.pinned ? '📌 取消置顶' : '📌 置顶'}</button>` : ''}
-                    ${currentUser && currentUser === msg.name ? `<button onclick="deleteOwnMessage('${msg.id}')" class="text-xs text-red-400 hover:text-red-600 transition-colors"><i class="fa-regular fa-trash-can mr-1"></i>删除</button>` : ''}
+                    ${photoSessionUser && (photoSessionUser.id === msg.userId || (photoAdmin && isAdminMode)) ? `<button onclick="deleteOwnMessage('${msg.id}')" class="text-xs text-red-400 hover:text-red-600 transition-colors"><i class="fa-regular fa-trash-can mr-1"></i>删除</button>` : ''}
                 </div>
             `;
 
             // Clear reply form
-            document.getElementById('modalReplyName').value = '';
+            document.getElementById('modalReplyName').value = currentUser || '';
             document.getElementById('modalReplyMsg').value = '';
 
             // Load replies
@@ -2586,40 +2282,8 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function deleteOwnMessage(msgId) {
-            if (!currentUser) return;
-            const msg = messages.find(m => m.id === msgId);
-            if (!msg || msg.name !== currentUser) return;
-            if (!confirm('确定删除这条留言吗？')) return;
-            // Delete replies subcollection first, then the message
-            const repliesRef = db.collection('guestbook').doc(msgId).collection('replies');
-            deleteSubcollection(repliesRef).then(() => {
-                return db.collection('guestbook').doc(msgId).delete();
-            }).then(() => {
-                closeMessageModal();
-                showToast('留言已删除');
-            }).catch(err => { console.error('删除失败:', err); });
-        }
 
-        function deleteSubcollection(ref) {
-            return ref.get().then(snapshot => {
-                const batch = db.batch();
-                snapshot.forEach(doc => batch.delete(doc.ref));
-                return batch.commit();
-            });
-        }
 
-        function togglePin(msgId) {
-            const msg = messages.find(m => m.id === msgId);
-            if (!msg || !isAdminMode) return;
-            const newPinned = !msg.pinned;
-            db.collection('guestbook').doc(msgId).update({ pinned: newPinned }).then(() => {
-                msg.pinned = newPinned;
-                closeMessageModal();
-                showToast(newPinned ? '已置顶 📌' : '已取消置顶');
-                renderMessages();
-            }).catch(err => { console.error('置顶失败:', err); });
-        }
 
         function closeMessageModal() {
             const modal = document.getElementById('messageModal');
@@ -2629,91 +2293,7 @@
             currentModalMsgId = null;
         }
 
-        function loadReplies(msgId) {
-            const container = document.getElementById('modalReplies');
-            container.innerHTML = '<div class="text-center text-white/40 text-xs py-2"><i class="fa-solid fa-spinner animate-spin mr-1"></i> 加载回复...</div>';
 
-            db.collection('guestbook').doc(msgId).collection('replies').orderBy('createdAt', 'asc').get().then(snapshot => {
-                // Sync reply count to parent message
-                const count = snapshot.size;
-                db.collection('guestbook').doc(msgId).update({ replyCount: count }).catch(() => {});
-                // Update local message
-                const localMsg = messages.find(m => m.id === msgId);
-                if (localMsg) localMsg.replyCount = count;
-
-                if (snapshot.empty) {
-                    container.innerHTML = '<div class="text-center text-white/30 text-xs py-4">暂无回复，来说点什么吧</div>';
-                    return;
-                }
-                container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const d = doc.data();
-                    // 彼此可见: reply author, original poster, or admin
-                    if (d.private && !isAdminMode) {
-                        const viewerName = nameFilter; // set by 查看我的留言
-                        const isReplyAuthor = viewerName && viewerName === d.name;
-                        const isOriginalPoster = viewerName && viewerName === d.replyTo;
-                        if (!isReplyAuthor && !isOriginalPoster) return;
-                    }
-
-                    const div = document.createElement('div');
-                    div.className = 'bg-white/10 backdrop-blur p-4 rounded-sm border border-white/10 text-white';
-                    div.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-sm font-semibold">${escapeHtml(d.name || '')}${d.private ? ' <span class="text-[10px] text-white/40">🔒 彼此</span>' : ''}</span>
-                            <span class="text-[10px] text-white/50 font-mono">${d.date || ''} ${d.time || ''}</span>
-                        </div>
-                        <p class="text-sm leading-relaxed whitespace-pre-wrap text-white/80">${escapeHtml(d.message || '')}</p>
-                    `;
-                    container.appendChild(div);
-                });
-            }).catch(err => {
-                container.innerHTML = '<div class="text-center text-white/30 text-xs py-4">加载失败</div>';
-            });
-        }
-
-        function submitModalReply() {
-            if (!currentModalMsgId) return;
-            const nameEl = document.getElementById('modalReplyName');
-            const msgEl = document.getElementById('modalReplyMsg');
-            const nameVal = nameEl.value.trim();
-            const msgVal = msgEl.value.trim();
-            if (!nameVal || !msgVal) return;
-
-            const replyPublic = document.getElementById('modalReplyPublic').checked;
-            const today = new Date();
-            const dateStr = today.getFullYear() + '.' + String(today.getMonth() + 1).padStart(2, '0') + '.' + String(today.getDate()).padStart(2, '0');
-            const timeStr = String(today.getHours()).padStart(2, '0') + ':' + String(today.getMinutes()).padStart(2, '0');
-
-            // Get original poster name for 彼此可见
-            const parentMsg = messages.find(m => m.id === currentModalMsgId);
-            const replyToName = parentMsg ? parentMsg.name : '';
-
-            // Increment reply count
-            const msgRef = db.collection('guestbook').doc(currentModalMsgId);
-            msgRef.get().then(doc => {
-                const c = (doc.exists && doc.data().replyCount) || 0;
-                msgRef.update({ replyCount: c + 1 }).catch(() => {});
-            }).catch(() => {});
-
-            // Add reply to subcollection
-            msgRef.collection('replies').add({
-                name: nameVal,
-                message: msgVal,
-                date: dateStr,
-                time: timeStr,
-                private: !replyPublic,
-                replyTo: replyToName,
-                createdAt: Date.now()
-            }).then(() => {
-                nameEl.value = '';
-                msgEl.value = '';
-                document.getElementById('modalReplyPublic').checked = true;
-                loadReplies(currentModalMsgId);
-            }).catch(err => {
-                console.error('回复失败:', err);
-            });
-        }
 
         // Keyboard: ESC to close modal
         document.addEventListener('keydown', (e) => {
@@ -2726,30 +2306,8 @@
         });
 
         // Admin toggle
-        async function toggleAdmin() {
-            if (isAdminMode) { isAdminMode = false; currentPage = 1; renderMessages(); return; }
-            const pw = prompt('输入神奇小密码！🔮');
-            if (!pw) return;
-            const inputHash = await hashPassword(pw);
-            if (inputHash === ADMIN_PASSWORD_HASH) { isAdminMode = true; currentPage = 1; renderMessages(); showToast('管理模式已开启，显示所有留言'); }
-            else { alert('密码错误'); }
-        }
 
         // Clear messages from Firestore
-        function clearMessages() {
-            if (!confirm(currentLang === 'zh' ? '确定要清空所有留言吗？此操作不可撤销。' : 'Clear all messages? This cannot be undone.')) return;
-
-            const batch = db.batch();
-            db.collection('guestbook').get().then(snapshot => {
-                if (snapshot.empty) { showToast(t('toast.cleared')); return; }
-                snapshot.forEach(doc => { batch.delete(doc.ref); });
-                return batch.commit();
-            }).then(() => {
-                showToast(t('toast.cleared'));
-            }).catch(err => {
-                console.error('清空失败:', err);
-            });
-        }
 
         // Simple HTML escape
         function escapeHtml(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -3213,5 +2771,7 @@
             checkHoliday();
         };
     </script>
+<script src="/shared/photo-guestbook-ui.js"></script>
+<script type="module" src="/shared/photo-client.js" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
 <script data-home-preview>if(location.protocol==='file:'){for(const a of document.querySelectorAll('a[href="/"]'))a.href='../index.html';}</script></body>
 </html>
