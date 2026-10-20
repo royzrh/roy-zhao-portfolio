@@ -1,5 +1,7 @@
 # Roy Zhao 摄影作品集 — 完整项目文档
 
+> 2026-10-20 迁移说明：本文件以下内容保留历史记录。新主站为 https://royzhao.cn/，摄影站迁入 `/zz/`；本文提到的摄影 `index.html`、`web se.html`、`admin.html`、`images/` 现在都位于 `zz/`。最新位置及维护方式见根目录 `维护说明.md`。摄影站底部 ROYZHAO 按钮返回主站，Z-Album 已移除。
+
 > 最后更新：2026年6月23日
 
 ---

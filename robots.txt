@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://royzhao.cn/sitemap-index.xml
