@@ -2,7 +2,7 @@
   "friends": [
     {
       "id_name": "friends",
-      "desc": "朋友与我的摄影主页",
+      "desc": "朋友与我的相册主页",
       "link_list": [
         {
           "name": "Cyril Fan's Blog",
@@ -14,7 +14,7 @@
           "name": "Roy Zhao / 赵润涵",
           "link": "/zz/",
           "avatar": "/avatar/avatar.png",
-          "intro": "我的摄影主页"
+          "intro": "我的相册主页"
         }
       ]
     }

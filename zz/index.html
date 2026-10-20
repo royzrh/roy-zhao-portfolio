@@ -28,7 +28,6 @@
     </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Firebase SDK -->
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts for exquisite Chinese Serif -->
@@ -1740,7 +1739,7 @@
             }
         ];
 
-        // ========== Admin Data Bridge (syncs with admin.html) ==========
+        // ========== Legacy local content overrides ==========
         (function loadAdminData() {
             try {
                 const raw = localStorage.getItem('roy_zhao_admin_data');
@@ -1764,6 +1763,7 @@
                 if (admin.destinations && admin.destinations.length) {
                     destinations.length = 0;
                     admin.destinations.forEach((d, i) => {
+                        if (d.id === 'dangling' || d.nameZh === '党岭') return;
                         destinations.push({
                             id: d.id || ('dest_' + i),
                             nameZh: d.nameZh || '', nameEn: d.nameEn || '',
@@ -2424,17 +2424,6 @@
                 filter: '西藏',
                 contentZh: '<p>正在路上～</p>',
                 contentEn: '<p>On The Way ~</p>'
-            },
-            {
-                id: 'dangling',
-                nameZh: '党岭',
-                nameEn: 'Dangling',
-                dateZh: '2026.10.04 - 10.06',
-                dateEn: 'Oct 4 - 6, 2026',
-                cover: 'https://placehold.co/400x280/d6cfc2/2c2a27?text=Dangling',
-                filter: '党岭',
-                contentZh: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">即将更新～</p>`,
-                contentEn: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">Coming soon~</p>`
             }
         ];
 
