@@ -1198,23 +1198,14 @@
         <div class="text-center space-y-5 max-w-sm w-full mx-auto px-6">
             <div>
                 <span class="text-3xl font-light text-white tracking-[0.05em]">zᶻ</span>
-                <p id="loginTitle" class="text-white/50 text-xs mt-3 tracking-wider">登录你的账号</p>
+                <p id="loginTitle" class="text-white/50 text-xs mt-3 tracking-wider">邮箱登录</p>
             </div>
-            <div class="space-y-3">
-                <input type="email" id="loginEmail" placeholder="邮箱" autocomplete="email" class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors">
-                <input type="text" id="loginToken" placeholder="邮箱验证码" inputmode="numeric" autocomplete="one-time-code" minlength="6" maxlength="8" hidden class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors tracking-[0.3em]">
-                <input type="text" id="loginNickname" placeholder="设置账号昵称（保存后固定）" autocomplete="nickname" maxlength="40" hidden class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors">
-                <button id="loginSubmitBtn" onclick="doLogin()" class="w-full py-3 bg-white text-[#2c2a27] text-sm tracking-wider rounded-sm hover:bg-gray-200 transition-colors font-medium">
-                    获取验证码
-                </button>
-            </div>
-            <p class="text-white/30 text-[10px]">
-                <span id="loginSwitchText">首次验证会自动创建账号</span>
-                <button id="loginSwitchBtn" onclick="toggleLoginMode()" class="text-white/60 hover:text-white underline underline-offset-2 transition-colors">注册</button>
-            </p>
-            <p class="text-white/20 text-[10px]">
-                <button onclick="resetPassword()" class="text-white/30 hover:text-white/60 underline underline-offset-2 transition-colors">重新获取验证码</button>
-            </p>
+            <link rel="stylesheet" href="/shared/account-auth.css">
+            <roy-account-auth id="photoAccountAuth" data-variant="photo"></roy-account-auth>
+            <form id="photoProfileForm" class="space-y-3" hidden onsubmit="event.preventDefault();doLogin()">
+                <input type="text" id="loginNickname" placeholder="设置账号昵称（保存后固定）" autocomplete="nickname" maxlength="40" required class="w-full px-5 py-3 bg-white/10 border border-white/20 rounded-sm text-white text-center text-lg placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors">
+                <button id="loginSubmitBtn" type="submit" class="w-full py-3 bg-white text-[#2c2a27] text-sm tracking-wider rounded-sm hover:bg-gray-200 transition-colors font-medium">保存昵称</button>
+            </form>
         </div>
     </div>
 

@@ -5,9 +5,6 @@ let photoAdmin = false;
 let isAdminMode = false;
 let photoApi = null;
 let photoAuthVersion = 0;
-let photoLoginStep = 'email';
-let photoPendingEmail = '';
-let photoResendAfter = 0;
 let photoLoading = false;
 const photoReady = new Promise(resolve => {
     if (location.protocol === 'file:') { resolve(null); return; }
@@ -84,65 +81,40 @@ function updateLoginUI() {
     reply.value = currentUser || ''; reply.readOnly = true;
     const label = document.getElementById('adminBtnLabel');
     label.textContent = isAdminMode ? 'ROYZHAO ✓' : 'ROYZHAO';
+    syncPhotoLoginForm();
 }
-function resetLoginForm() {
-    photoLoginStep = photoSessionUser && !currentUser ? 'profile' : 'email';
-    document.getElementById('loginEmail').hidden = photoLoginStep==='profile';
-    document.getElementById('loginToken').hidden = true;
-    document.getElementById('loginNickname').hidden = photoLoginStep!=='profile';
-    document.getElementById('loginToken').value = '';
-    document.getElementById('loginTitle').textContent = photoLoginStep==='profile' ? '设置账号昵称，保存后固定使用' : '邮箱验证码登录';
-    document.getElementById('loginSubmitBtn').textContent = photoLoginStep==='profile' ? '保存昵称' : '获取验证码';
-    document.getElementById('loginSwitchText').textContent = '首次验证会自动创建账号';
+function syncPhotoLoginForm(){
+    const account=document.getElementById('photoAccountAuth');
+    const setup=!!photoSessionUser&&!account.hidden;
+    document.getElementById('photoProfileForm').hidden=!photoSessionUser||!!currentUser||setup;
+    document.getElementById('loginTitle').textContent=setup?'设置账号密码':photoSessionUser&&!currentUser?'设置账号昵称，保存后固定使用':'邮箱登录';
+    if(photoSessionUser&&currentUser&&account.hidden&&!document.getElementById('loginModal').classList.contains('hidden'))closeLoginModal();
 }
 function openLoginModal() {
-    if (currentUser) {
-        if (confirm('当前登录为: '+currentUser+'\n\n确定要退出登录吗？')) void logout();
-        return;
-    }
-    resetLoginForm();
-    const modal = document.getElementById('loginModal');
-    modal.classList.remove('hidden');
+    const account=document.getElementById('photoAccountAuth');
+    if(currentUser&&account.hidden){if(confirm('当前登录为: '+currentUser+'\n\n确定要退出登录吗？'))void logout();return;}
+    syncPhotoLoginForm();
+    const modal=document.getElementById('loginModal');modal.classList.remove('hidden');
     setTimeout(()=>modal.classList.remove('opacity-0'),10);
-    document.getElementById(photoLoginStep==='profile'?'loginNickname':'loginEmail').focus();
+    (document.querySelector('#photoAccountAuth [data-set-password]:not([hidden]) input, #photoAccountAuth [data-credentials]:not([hidden]) input, #photoAccountAuth [data-verify]:not([hidden]) input')||document.getElementById('loginNickname')).focus();
 }
-function closeLoginModal() {
-    const modal=document.getElementById('loginModal');modal.classList.add('opacity-0');
-    setTimeout(()=>modal.classList.add('hidden'),300);
-}
-function toggleLoginMode() {resetLoginForm();document.getElementById('loginTitle').textContent='邮箱验证后登录或注册';}
-function resetPassword() {if(photoSessionUser&&!currentUser){resetLoginForm();return;} photoLoginStep='email';void doLogin();}
-async function doLogin() {
-    const button=document.getElementById('loginSubmitBtn');
-    if(button.disabled)return;button.disabled=true;
-    try {
-        const api=await photoClient();
-        if(photoLoginStep==='profile'){
-            if(!photoSessionUser)throw new Error('Sign in first');
-            const nickname=document.getElementById('loginNickname').value.trim();
-            if(!nickname||nickname.length>40){showToast('请输入 1～40 字的账号昵称');return;}
-            const {error}=await api.from('roy_top_profiles').insert({user_id:photoSessionUser.id,nickname});
-            if(error)throw error;
-            await refreshPhotoUser(photoSessionUser);closeLoginModal();showToast('你好，'+currentUser+' 👋');
-        }else if(photoLoginStep==='code'){
-            const token=document.getElementById('loginToken').value.trim();
-            if(!/^\d{6,8}$/.test(token)){showToast('请输入邮件中的完整验证码');return;}
-            const {data,error}=await api.auth.verifyOtp({email:photoPendingEmail,token,type:'email'});
-            if(error)throw error;
-            await refreshPhotoUser(data.user);
-            if(currentUser){closeLoginModal();showToast('你好，'+currentUser+' 👋');}else resetLoginForm();
-        }else{
-            if(Date.now()<photoResendAfter){showToast('请稍后再重新获取验证码');return;}
-            const email=document.getElementById('loginEmail').value.trim();
-            if(!document.getElementById('loginEmail').checkValidity()||!email){showToast('请输入正确的邮箱');return;}
-            const {error}=await api.auth.signInWithOtp({email,options:{shouldCreateUser:true}});
-            if(error)throw error;
-            photoPendingEmail=email;photoResendAfter=Date.now()+60000;photoLoginStep='code';
-            document.getElementById('loginToken').hidden=false;document.getElementById('loginToken').focus();
-            button.textContent='验证并登录';showToast('验证码已发送，请查看邮箱');
-        }
+function closeLoginModal(){const modal=document.getElementById('loginModal');modal.classList.add('opacity-0');setTimeout(()=>modal.classList.add('hidden'),300);}
+async function doLogin(){
+    if(!photoSessionUser||currentUser)return;
+    const button=document.getElementById('loginSubmitBtn');if(button.disabled)return;button.disabled=true;
+    try{
+        const nickname=document.getElementById('loginNickname').value.trim();
+        if(!nickname||nickname.length>40){showToast('请输入 1～40 字的账号昵称');return;}
+        const api=await photoClient();const {error}=await api.from('roy_top_profiles').insert({user_id:photoSessionUser.id,nickname});if(error)throw error;
+        await refreshPhotoUser(photoSessionUser);closeLoginModal();showToast('你好，'+currentUser+' 👋');
     }catch(error){showToast(photoFailure(error));}finally{button.disabled=false;}
 }
+const photoAccountElement=document.getElementById('photoAccountAuth');
+new MutationObserver(()=>syncPhotoLoginForm()).observe(photoAccountElement,{attributes:true,attributeFilter:['hidden','data-mode']});
+photoAccountElement.addEventListener('roy-auth-complete',async event=>{
+    await refreshPhotoUser(event.detail.user);syncPhotoLoginForm();
+    if(currentUser){closeLoginModal();showToast('你好，'+currentUser+' 👋');}else document.getElementById('loginNickname').focus();
+});
 async function logout() {
     try{const api=await photoClient();const {error}=await api.auth.signOut({scope:'local'});if(error)throw error;
     await refreshPhotoUser(null);showToast('已退出登录');}catch(error){showToast(photoFailure(error));}
