@@ -1,3 +1,6 @@
 # 备份文件
 web copy.html
 web.html
+
+# macOS
+.DS_Store
