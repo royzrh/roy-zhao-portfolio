@@ -1,8 +1,8 @@
 [
-  ".DS_Store",
   "404.html",
   "about",
   "academic",
+  "api",
   "archives",
   "assets",
   "avatar",
@@ -17,6 +17,7 @@
   "links",
   "links.json",
   "moments",
+  "pages",
   "projects",
   "robots.txt",
   "rss.xml",

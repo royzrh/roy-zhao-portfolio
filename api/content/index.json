@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "site": "https://royzhao.cn",
+  "format": "static JSON",
+  "methods": [
+    "GET"
+  ],
+  "feeds": {
+    "blog": "/api/content/blog.json",
+    "blogEn": "/api/content/blog-en.json",
+    "research": "/api/content/research.json",
+    "researchEn": "/api/content/research-en.json"
+  },
+  "detail": {
+    "blog": "/api/content/blog/{id}.json",
+    "blogEn": "/api/content/blog-en/{id}.json",
+    "research": "/api/content/research/{id}.json",
+    "researchEn": "/api/content/research-en/{id}.json"
+  },
+  "notes": "Generated at build time. Drafts and future-dated content are excluded. To publish, edit local Markdown files and rebuild."
+}
