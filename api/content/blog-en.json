@@ -2,6 +2,24 @@
   "schemaVersion": 1,
   "type": "blog",
   "locale": "en",
-  "total": 0,
-  "items": []
+  "total": 1,
+  "items": [
+    {
+      "id": "test",
+      "type": "blog",
+      "locale": "en",
+      "contentLanguage": "zh",
+      "title": "Test",
+      "description": "这是一段测试文字",
+      "publishDate": "2026-10-21T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "test"
+      ],
+      "url": "https://royzhao.cn/en/blog/test",
+      "path": "/en/blog/test",
+      "heroImage": null,
+      "category": "daily"
+    }
+  ]
 }

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "test",
+  "type": "blog",
+  "locale": "zh",
+  "contentLanguage": "zh",
+  "title": "Test",
+  "description": "这是一段测试文字",
+  "publishDate": "2026-10-21T00:00:00.000Z",
+  "updatedDate": null,
+  "tags": [
+    "test"
+  ],
+  "url": "https://royzhao.cn/blog/test",
+  "path": "/blog/test",
+  "heroImage": null,
+  "category": "daily",
+  "editorMetadata": {
+    "title": "Test",
+    "description": "这是一段测试文字",
+    "publishDate": "2026-10-21T00:00:00.000Z",
+    "tags": [
+      "test"
+    ],
+    "draft": false,
+    "comment": true,
+    "language": "zh",
+    "category": "daily"
+  },
+  "format": "markdown",
+  "body": "# Markdown 格式测试\n\n这是一段用于测试 Markdown 渲染效果 的示例文字，包含标题、段落、列表、表格、代码块、数学公式等常见元素。\n\n## 1. 文本格式测试\n\n这是一段普通文本，可以使用 加粗、斜体、加粗斜体、删除线、下划线 和 `行内代码`。\n\n> 这是一段引用文字。Markdown 是一种轻量级标记语言，广泛应用于技术文档、博客以及 GitHub 项目说明。\n\n## 2. 列表测试\n\n- 第一项：学习 Markdown 语法\n- 第二项：掌握 Python 编程\n  - 子项目 A：数据处理\n  - 子项目 B：数据可视化\n- 第三项：完成科研项目\n\n## 3. 任务清单测试\n\n- 完成基础理论学习\n- 搭建 Python 运行环境\n- 完成神经网络训练\n- 整理实验结果\n\n## 4. 表格测试\n\n| 参数    | 数值        | 单位    |\n| ----- | --------- | ----- |\n| 激光波长  | 1550      | nm    |\n| 衍射层数  | 5         | 层     |\n| 神经元数量 | 200 × 200 | 每层    |\n| 层间距离  | 100       | mm    |\n| 训练轮数  | 15        | Epoch |\n\n## 5. 数学公式测试\n\n行内公式：\\\\(E=Ae^{i\\phi}\\\\)\n\n独立公式：\n\n\\\\[ I(x,y)=|E(x,y)|^2 \\\\]\n\n衍射神经网络中的光场传播可以表示为：\n\n\\\\[ U\\_{l+1}(x,y)=\\mathcal{P}\\_{z}\\left[U_l(x,y)e^{i\\phi_l(x,y)}\\right] \\\\]\n\n## 6. 代码块测试\n\n```\nimport numpy as npwavelength = 1550e-9layers = 5def optical_intensity(field):    return np.abs(field) ** 2print(f\"波长：{wavelength * 1e9:.0f} nm\")print(f\"衍射层数：{layers}\")\n```\n\n## 7. 链接测试\n\n这是一个指向 [GitHub 官方网站](https://github.com?utm_source=chatgpt.com) 的超链接。\n\n测试结束。 以上内容可用于检查 Markdown 的标题层级、文字样式、缩进、表格、公式、代码高亮和分隔线等渲染效果。"
+}
