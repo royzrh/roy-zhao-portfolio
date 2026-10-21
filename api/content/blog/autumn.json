@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "autumn",
+  "type": "blog",
+  "locale": "zh",
+  "contentLanguage": "zh",
+  "title": "秋天",
+  "description": "autumn",
+  "publishDate": "2025-10-31T00:00:00.000Z",
+  "updatedDate": null,
+  "tags": [],
+  "url": "https://royzhao.cn/blog/autumn",
+  "path": "/blog/autumn",
+  "heroImage": {
+    "src": "/assets/site-cdf3508d4v1d082f8c5de2e6a1420b06-4cb57dbe.CIjHK5j3.jpeg",
+    "alt": "cdf3508d4v1d082f8c5de2e6a1420b06.jpeg"
+  },
+  "category": "daily",
+  "editorMetadata": {
+    "title": "秋天",
+    "description": "autumn",
+    "publishDate": "2025-10-31T00:00:00.000Z",
+    "tags": [],
+    "draft": false,
+    "comment": true,
+    "language": "zh",
+    "heroImage": {
+      "src": "/assets/site-cdf3508d4v1d082f8c5de2e6a1420b06-4cb57dbe.CIjHK5j3.jpeg",
+      "alt": "cdf3508d4v1d082f8c5de2e6a1420b06.jpeg"
+    },
+    "category": "daily"
+  },
+  "format": "markdown",
+  "body": "## 正文\n\n我还是一如既往的想念秋天，秋天的人和事儿。\n总说西南没有秋天，可是有桂花香满街，有绵绵不断的冷冰冰的雨，我喜欢在雨天慢慢的踱步。早上冒热气的米粉和油茶，晚上烫嘴的红薯煮。想念晚秋的银杏，黄灿灿落了一地，在温热的太阳下闪闪发光。"
+}

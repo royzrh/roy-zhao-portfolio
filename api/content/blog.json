@@ -2,6 +2,25 @@
   "schemaVersion": 1,
   "type": "blog",
   "locale": "zh",
-  "total": 0,
-  "items": []
+  "total": 1,
+  "items": [
+    {
+      "id": "autumn",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "秋天",
+      "description": "autumn",
+      "publishDate": "2025-10-31T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [],
+      "url": "https://royzhao.cn/blog/autumn",
+      "path": "/blog/autumn",
+      "heroImage": {
+        "src": "/assets/site-cdf3508d4v1d082f8c5de2e6a1420b06-4cb57dbe.CIjHK5j3.jpeg",
+        "alt": "cdf3508d4v1d082f8c5de2e6a1420b06.jpeg"
+      },
+      "category": "daily"
+    }
+  ]
 }
