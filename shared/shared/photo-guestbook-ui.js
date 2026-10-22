@@ -6,6 +6,7 @@ let isAdminMode = false;
 let photoApi = null;
 let photoAuthVersion = 0;
 let photoLoading = false;
+let photoReloadPending = false;
 const photoReady = new Promise(resolve => {
     if (location.protocol === 'file:') { resolve(null); return; }
     const ready = () => resolve(window.RoyPhotoClient || null);
@@ -54,6 +55,7 @@ async function refreshPhotoUser(user) {
             if (error || adminError) throw error || adminError;
             if (version !== photoAuthVersion) return;
             currentUser = profile?.nickname || null; photoAdmin = admin === true;
+            await window.RoyPhotoAvatars?.load([user.id]);
         } catch(error) { if(version===photoAuthVersion) showToast(photoFailure(error)); }
     }
     if (version !== photoAuthVersion) return;
@@ -64,7 +66,7 @@ async function refreshPhotoUser(user) {
 async function loadUser() {
     try {
         const api = await photoClient();
-        api.auth.onAuthStateChange((_event,session) => {setTimeout(() => void refreshPhotoUser(session?.user || null),0);});
+        api.auth.onAuthStateChange((_event,session) => {if(photoSessionUser?.id!==session?.user?.id)setTimeout(() => void refreshPhotoUser(session?.user || null),0);});
         const {data,error} = await api.auth.getSession();
         if(error) throw error;
         await refreshPhotoUser(data.session?.user || null);
@@ -74,6 +76,9 @@ function updateLoginUI() {
     const indicator = document.getElementById('loginIndicator');
     indicator.textContent = currentUser || (photoSessionUser ? '设置昵称' : '');
     indicator.classList.toggle('hidden',!photoSessionUser);
+    document.getElementById('photoHeaderIdentity')?.classList.toggle('hidden',!photoSessionUser);
+    const avatar=document.getElementById('photoHeaderAvatar');
+    if(avatar){avatar.replaceChildren();if(photoSessionUser&&window.RoyPhotoAvatars)avatar.append(window.RoyPhotoAvatars.create(photoSessionUser.id,currentUser||'R',''));}
     const input = document.getElementById('visitorName');
     input.value = currentUser || ''; input.readOnly = true;
     input.placeholder = photoSessionUser ? '请先设置账号昵称' : '请点击左上角登录';
@@ -120,7 +125,7 @@ async function logout() {
     await refreshPhotoUser(null);showToast('已退出登录');}catch(error){showToast(photoFailure(error));}
 }
 async function loadMessagesFromDB() {
-    if(photoLoading)return;photoLoading=true;
+    if(photoLoading){photoReloadPending=true;return;}photoLoading=true;
     const version=photoAuthVersion;
     try {
         const rows=await photoRows('roy_photo_messages',photoMessageColumns,q=>q.order('created_at',{ascending:false}).order('id'));
@@ -131,9 +136,24 @@ async function loadMessagesFromDB() {
         await window.RoyPhotoAvatars?.load(rows.map(row=>row.user_id));
         if(version!==photoAuthVersion)return;
         renderMessages();
-    }catch(error){showToast(photoFailure(error));}finally{photoLoading=false;}
+    }catch(error){showToast(photoFailure(error));}finally{photoLoading=false;if(photoReloadPending){photoReloadPending=false;void loadMessagesFromDB();}}
 }
-function initGuestbook(){void loadMessagesFromDB();setInterval(()=>{if(!document.hidden)void loadMessagesFromDB();},5000);}
+function initGuestbook(){void loadMessagesFromDB();}
+async function refreshPhotoMessages(){
+ const button=document.getElementById('photoRefreshMessages');if(button.disabled||photoLoading)return;
+ button.disabled=true;button.querySelector('i')?.classList.add('animate-spin');
+ try{await loadMessagesFromDB();}finally{button.disabled=false;button.querySelector('i')?.classList.remove('animate-spin');}
+}
+let photoDevelopTimer;
+function schedulePhotoDeveloping(){
+ clearTimeout(photoDevelopTimer);
+ const fresh=messages.filter(m=>m.developing);if(!fresh.length)return;
+ const remaining=Math.max(...fresh.map(m=>4000-(Date.now()-m.createdAt)),0);
+ photoDevelopTimer=setTimeout(()=>{
+  messages.forEach(m=>m.developing=false);
+  document.querySelectorAll('#messageBoard .developing-card').forEach(card=>{card.classList.remove('developing-card','overflow-hidden');card.querySelector('.animate-pulse')?.remove();});
+ },remaining+30);
+}
 function getFilteredMessages(){
     let result=messages.filter(m=>!m.private||m.userId===photoSessionUser?.id);
     if(nameFilter)result=result.filter(m=>m.name===nameFilter);
@@ -225,6 +245,6 @@ function decoratePhotoAvatars(){
  });
 }
 const originalPhotoRenderMessages=renderMessages;
-renderMessages=function(){originalPhotoRenderMessages();decoratePhotoAvatars();};
+renderMessages=function(){originalPhotoRenderMessages();decoratePhotoAvatars();schedulePhotoDeveloping();};
 const originalPhotoOpenMessageModal=openMessageModal;
 openMessageModal=function(...args){originalPhotoOpenMessageModal(...args);decoratePhotoAvatars();};

@@ -816,6 +816,7 @@
         }
 
     </style>
+<link rel="stylesheet" href="../shared/photo-layout.css?v=20261022-layout">
 </head>
 <body class="relative min-h-screen selection:bg-[#2c2a27] selection:text-[#f7f4eb]">
 
@@ -880,19 +881,21 @@
 
     <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-white/10 px-6 py-4 md:px-12 md:py-6 vintage-transition">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="photo-brand-account">
             <!-- Brand Logo / Login -->
             <button onclick="openLoginModal()" class="flex items-center group" id="loginBtn" title="点击登录">
                 <span class="text-3xl md:text-4xl font-light tracking-[0.05em] text-white group-hover:text-gray-300 transition-colors">zᶻ</span>
-                <span id="loginIndicator" class="hidden ml-3 text-[10px] text-white/50 tracking-wider"></span>
-            </button>
 
+            </button>
+            <div id="photoHeaderIdentity" class="hidden photo-header-identity"><span id="photoHeaderAvatar"></span><span id="loginIndicator"></span></div>
+
+            </div>
             <!-- Menu Navigation -->
             <nav class="flex items-center space-x-7 text-base tracking-[0.05em]">
                 <button onclick="scrollToSection('gallery-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.gallery">底片册</button>
                 <button onclick="scrollToSection('destinations-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.destinations">目的地</button>
                 <button onclick="scrollToSection('guestbook-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.guestbook">留言</button>
                 <button onclick="scrollToSection('about-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.about">关于</button>
-                <button onclick="toggleLang()" class="text-sm tracking-[0.05em] text-white/70 hover:text-white transition-colors border border-white/30 rounded px-2 py-1" data-i18n="nav.lang">中</button>
             </nav>
         </div>
     </header>
@@ -1066,6 +1069,7 @@
                     <div class="flex justify-between items-center border-b border-[#e2dcd0] pb-3">
                         <span class="text-xs uppercase tracking-[0.2em] text-[#5c554a]" data-i18n="guestbook.wall">note</span>
                         <div class="flex items-center gap-3">
+                            <button id="photoRefreshMessages" onclick="refreshPhotoMessages()" class="text-[10px] uppercase tracking-wider text-[#a39b90] hover:text-[#2c2a27] transition-colors"><i class="fa-solid fa-rotate-right mr-1" aria-hidden="true"></i>刷新</button>
                             <button onclick="filterByName()" class="text-[10px] uppercase tracking-wider text-[#a39b90] hover:text-[#2c2a27] transition-colors">
                                 🔍 <span id="nameFilterLabel">查找留言</span>
                             </button>
@@ -1120,74 +1124,11 @@
                 </p>
             </div>
 
-            <!-- Custom Direct Contacts & Socials -->
-            <div class="space-y-6 pt-2">
-                <!-- Direct Communication -->
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="mailto:roy_zrh@foxmail.com" data-admin="about-email" class="flex items-center justify-center space-x-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs uppercase tracking-widest transition-all rounded-sm w-full sm:w-auto text-[#2c2a27]">
-                        <i class="fa-regular fa-envelope"></i>
-                        <span data-admin="about-email-text">roy_zrh@foxmail.com</span>
-                    </a>
-                    <div class="flex items-center justify-center space-x-2 px-5 py-3 border border-[#c5beb4] rounded-sm w-full sm:w-auto text-[#2c2a27] text-xs tracking-widest">
-                        <i class="fa-solid fa-graduation-cap text-[#8c8273]"></i>
-                        <span data-admin="about-school">深圳大学</span>
-                    </div>
-                    <div class="flex items-center justify-center space-x-2 px-5 py-3 border border-[#c5beb4] text-xs tracking-widest rounded-sm w-full sm:w-auto text-[#2c2a27]">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                            <path d="M8.69 3.46C3.9 3.46 0 6.57 0 10.39c0 2.1 1.1 3.99 2.81 5.25l-.7 2.11 2.42-1.21c.84.24 1.75.37 2.69.37.32 0 .63-.02.94-.05-.14-.52-.22-1.06-.22-1.62 0-3.2 3.03-5.8 6.77-5.8.25 0 .5.01.74.03C14.74 6.19 11.93 3.46 8.69 3.46zm-2.9 4.17c.4 0 .73.31.73.69 0 .39-.33.7-.73.7-.41 0-.73-.31-.73-.7 0-.38.32-.69.73-.69zm5.1 0c.4 0 .73.31.73.69 0 .39-.33.7-.73.7-.41 0-.73-.31-.73-.7 0-.38.32-.69.73-.69z"/>
-                            <path d="M16.38 11.5c-3.35 0-6.07 2.23-6.07 4.97 0 2.75 2.72 4.98 6.07 4.98.82 0 1.6-.13 2.33-.37l2.09 1.04-.6-1.81c1.47-1.04 2.32-2.42 2.32-3.84 0-2.74-2.72-4.97-6.07-4.97h-.07zm-1.45 2.82c.35 0 .63.27.63.6 0 .34-.28.6-.63.6-.34 0-.62-.26-.62-.6 0-.33.28-.6.62-.6zm3.56 0c.35 0 .63.27.63.6 0 .34-.28.6-.63.6-.34 0-.62-.26-.62-.6 0-.33.28-.6.62-.6z"/>
-                        </svg>
-                        <span data-admin="about-wechat">royzrh</span>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-6">
-                    <!-- Douyin -->
-                    <a href="https://v.douyin.com/ortI32aj29M/" target="_blank" rel="noopener noreferrer"
-                       class="group flex items-center justify-center w-10 h-10 rounded-full border border-[#d6cfc2] bg-[#f5f4f0] hover:bg-black hover:border-black transition-all shadow-sm"
-                       title="抖音" data-admin="about-douyin">
-                        <svg class="w-4 h-4 fill-current text-[#5c554a] group-hover:text-white transition-colors" viewBox="0 0 24 24">
-                            <path d="M19.6 5.5c-1.4-.7-2.4-1.8-2.8-3.2-.1-.3-.3-.4-.6-.3h-3.5v14.3c0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7.3 0 .6.1.8.2v-3.6c-.3 0-.5-.1-.8-.1-3.6 0-6.5 2.9-6.5 6.5s2.9 6.5 6.5 6.5 6.5-2.9 6.5-6.5V8.1c1.2.9 2.7 1.4 4.2 1.4v-3.5c-.3 0-.6-.2-.8-.5h.7z"/>
-                        </svg>
-                    </a>
-
-                    <!-- Xiaohongshu -->
-                    <a href="https://xhslink.com/m/31Yz5FdEYJM" target="_blank" rel="noopener noreferrer"
-                       class="group flex items-center justify-center w-10 h-10 rounded-full border border-[#d6cfc2] bg-[#f5f4f0] hover:bg-[#ff2442] hover:border-[#ff2442] transition-all shadow-sm"
-                       title="小红书" data-admin="about-xhs">
-                        <svg class="w-4 h-4 fill-current text-[#5c554a] group-hover:text-white transition-colors" viewBox="0 0 24 24">
-                            <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4v11h2v-5h1a4 4 0 1 0 0-8H6v2zm4 2h-2V8h2a2 2 0 1 1 0 4v-2h-2v2zm5-2h2v9h-2V6zm2-2h-2v2h2V4z"/>
-                        </svg>
-                    </a>
-
-                    <!-- QQ Music -->
-                    <a href="https://c6.y.qq.com/base/fcgi-bin/u?__=nYEFboNA7l3f" target="_blank" rel="noopener noreferrer"
-                       class="group flex items-center justify-center w-10 h-10 rounded-full border border-[#d6cfc2] bg-[#f5f4f0] hover:bg-[#31c27c] hover:border-[#31c27c] transition-all shadow-sm"
-                       title="QQ音乐">
-                        <svg class="w-4 h-4 fill-current text-[#5c554a] group-hover:text-white transition-colors" viewBox="0 0 24 24">
-                            <path d="M12 3v9.5a3.5 3.5 0 1 0 1 2.45V7h6V3H12z"/>
-                        </svg>
-                    </a>
-
-                    <!-- Weibo -->
-                    <a href="https://m.weibo.cn/u/6174044607?uid=6174044607&t=userinfo" target="_blank" rel="noopener noreferrer"
-                       class="group flex items-center justify-center w-10 h-10 rounded-full border border-[#d6cfc2] bg-[#f5f4f0] hover:bg-[#e6162d] hover:border-[#e6162d] transition-all shadow-sm"
-                       title="微博" data-admin="about-weibo">
-                        <svg class="w-4 h-4 fill-current text-[#5c554a] group-hover:text-white transition-colors" viewBox="0 0 24 24">
-                            <ellipse cx="12" cy="13" rx="9" ry="8" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <circle cx="12" cy="13" r="3.5" fill="currentColor"/>
-                            <path d="M3 8c2-3 6-5 10-4 3 1 5 2 7 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        </svg>
-                    </a>
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/runhan__" target="_blank" rel="noopener noreferrer"
-                       class="social-ig group flex items-center justify-center w-10 h-10 rounded-full border border-[#d6cfc2] bg-[#f5f4f0] transition-all shadow-sm"
-                       title="Instagram" data-admin="about-instagram">
-                        <svg class="w-4 h-4 fill-current text-[#5c554a] group-hover:text-white transition-colors" viewBox="0 0 24 24">
-                            <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-                        </svg>
-                    </a>
-                </div>
+            <!-- Social links -->
+            <div class="photo-social-links grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <a href="https://xhslink.com/m/31Yz5FdEYJM" target="_blank" rel="noopener noreferrer" data-admin="about-xhs" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 8v8M11 8v8M14 8h3v3h-3v5h3"/></svg><span>小红书</span></a>
+                <a href="https://m.weibo.cn/u/6174044607?uid=6174044607&t=userinfo" target="_blank" rel="noopener noreferrer" data-admin="about-weibo" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10c2 1 3 2 3 4 0 3-4 6-9 6s-9-2-9-5c0-2 2-5 4-7s4-2 4 0l-1 2c3-2 6-2 6 0"/><ellipse cx="11" cy="15" rx="4" ry="2.5"/><path d="M17 3c3 0 5 2 5 5M17 6c1 0 2 1 2 2"/></svg><span>微博</span></a>
+                <a href="https://www.instagram.com/runhan__" target="_blank" rel="noopener noreferrer" data-admin="about-instagram" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
             </div>
         </div>
     </section>
@@ -1258,6 +1199,7 @@
                     royzhao.top
                 </a>
                 
+                <a href="https://pan.baidu.com/s/5ZoW1Y9CIVdlBE6AAzT1RXw" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">下载原图</a>
                 <a href="/" target="_blank" rel="noopener" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">ROYZHAO</a>
             </div>
         </div>
@@ -1273,13 +1215,13 @@
         <div class="max-w-6xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             <!-- Left: Zoomed Photo Box -->
             <div class="md:col-span-8 flex justify-center items-center relative group">
-                <button onclick="prevPhoto()" class="absolute left-2 text-white/60 hover:text-white text-2xl bg-black/30 hover:bg-black/50 p-3 rounded-full transition-all">
+                <button aria-label="上一张照片" onclick="prevPhoto()" class="lightbox-page-control absolute left-2 text-white/60 hover:text-white text-2xl bg-black/30 hover:bg-black/50 p-3 rounded-full transition-all">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
 
                 <img id="lightboxImg" src="" alt="Zoomed View" class="max-h-[75vh] max-w-full object-contain shadow-2xl transition-transform duration-300">
 
-                <button onclick="nextPhoto()" class="absolute right-2 text-white/60 hover:text-white text-2xl bg-black/30 hover:bg-black/50 p-3 rounded-full transition-all">
+                <button aria-label="下一张照片" onclick="nextPhoto()" class="lightbox-page-control absolute right-2 text-white/60 hover:text-white text-2xl bg-black/30 hover:bg-black/50 p-3 rounded-full transition-all">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
@@ -1385,12 +1327,6 @@
             return (i18n[key] && i18n[key][currentLang]) || key;
         }
 
-        function toggleLang() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            localStorage.setItem('roy_zhao_lang', currentLang);
-            applyLang();
-        }
-
         function applyLang() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1415,8 +1351,7 @@
         }
 
         function loadLang() {
-            const saved = localStorage.getItem('roy_zhao_lang');
-            if (saved) currentLang = saved;
+            currentLang = 'zh';
             applyLang();
         }
 
@@ -1863,7 +1798,7 @@
         let messages = [];
 
         // Pagination & pin
-        const PAGE_SIZE = 6;
+        function messagePageSize(){return matchMedia('(max-width:767px)').matches?4:6;}
         let currentPage = 1;
 
         // Name-based filter state
@@ -1896,7 +1831,7 @@
         }
 
         // Gallery Pagination
-        const GALLERY_PAGE_SIZE = 6;
+        function galleryPageSize(){return matchMedia('(max-width:767px)').matches?2:6;}
         let galleryCurrentPage = 1;
 
         // 原图存档链接（百度网盘）
@@ -1923,14 +1858,16 @@
             }
 
             // Pagination
-            const totalPages = Math.ceil(filtered.length / GALLERY_PAGE_SIZE) || 1;
+            const totalPages = Math.ceil(filtered.length / galleryPageSize()) || 1;
             if (page > totalPages) page = totalPages;
             galleryCurrentPage = page;
-            const start = (page - 1) * GALLERY_PAGE_SIZE;
-            const pagePhotos = filtered.slice(start, start + GALLERY_PAGE_SIZE);
+            const start = (page - 1) * galleryPageSize();
+            const pagePhotos = filtered.slice(start, start + galleryPageSize());
 
             // Render cards
-            pagePhotos.forEach(photo => {
+            let galleryPage;
+            filtered.forEach((photo,index) => {
+                if(index%galleryPageSize()===0){galleryPage=document.createElement('div');galleryPage.className='gallery-page';galleryPage.setAttribute('role','group');galleryPage.setAttribute('aria-label',`第 ${Math.floor(index/galleryPageSize())+1} 页`);grid.appendChild(galleryPage);}
                 const card = document.createElement('div');
                 card.className = "gallery-card group bg-white px-4 pt-3 pb-4 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-sm border border-[#e2dcd0] transform hover:-translate-y-1 cursor-pointer";
                 card.onclick = () => openLightbox(photo.id);
@@ -1957,67 +1894,30 @@
                         </span>
                     </div>
                 `;
-                grid.appendChild(card);
+                galleryPage.appendChild(card);
             });
 
             // Pagination controls
+            grid.dataset.totalPages=String(totalPages);grid.dataset.totalPhotos=String(filtered.length);
             renderGalleryPagination(totalPages, page, filtered.length);
+            requestAnimationFrame(()=>{grid.scrollLeft=(page-1)*grid.clientWidth;});
         }
 
         // Gallery Pagination UI
-        function renderGalleryPagination(totalPages, currentPage, totalPhotos) {
-            const grid = document.getElementById('photoGrid');
-            const section = grid.parentElement;
-            const oldPag = section.querySelector('.gallery-pagination');
-            if (oldPag) oldPag.remove();
-
-            const pagDiv = document.createElement('div');
-            pagDiv.className = 'gallery-pagination col-span-full mt-6 pt-4 border-t border-[#e2dcd0]';
-
-            let html = '';
-            html += '<div class="flex justify-center items-center gap-2 flex-wrap">';
-
-            // ===== 翻页控件（只有一页时不显示）=====
-            if (totalPages > 1) {
-                // Prev
-                html += `<button onclick="goToGalleryPage(${currentPage - 1}, event)" ${currentPage <= 1 ? 'disabled' : ''} class="px-3 py-1 text-xs border rounded ${currentPage <= 1 ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-[#2c2a27] border-[#c5beb4] hover:bg-[#f5f4f0]'}">${t('pagination.prev')}</button>`;
-
-                // Page numbers
-                for (let p = 1; p <= totalPages; p++) {
-                    if (p === currentPage) {
-                        html += `<span class="px-3 py-1 text-xs bg-[#2c2a27] text-white rounded">${p}</span>`;
-                    } else if (Math.abs(p - currentPage) <= 2 || p === 1 || p === totalPages) {
-                        html += `<button onclick="goToGalleryPage(${p}, event)" class="px-3 py-1 text-xs border border-[#c5beb4] rounded hover:bg-[#f5f4f0] text-[#2c2a27]">${p}</button>`;
-                    } else if (Math.abs(p - currentPage) === 3) {
-                        html += '<span class="text-xs text-gray-400">...</span>';
-                    }
-                }
-
-                // Next
-                html += `<button onclick="goToGalleryPage(${currentPage + 1}, event)" ${currentPage >= totalPages ? 'disabled' : ''} class="px-3 py-1 text-xs border rounded ${currentPage >= totalPages ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-[#2c2a27] border-[#c5beb4] hover:bg-[#f5f4f0]'}">${t('pagination.next')}</button>`;
-
-                // Stats
-                html += `<span class="text-[10px] text-gray-400 ml-3">${totalPhotos} ${t('pagination.photos')} · ${totalPages} ${t('pagination.pages')}</span>`;
-            }
-
-            // ===== 原图（跳转百度网盘）=====
-            html += `<a href="${ORIGINAL_ARCHIVE_URL}" target="_blank" rel="noopener noreferrer" class="ml-3 px-3 py-1 text-xs border border-[#c5beb4] rounded text-[#2c2a27] hover:bg-[#f5f4f0] transition-colors">${t('gallery.originals')}</a>`;
-
-            html += '</div>';
-
-            pagDiv.innerHTML = html;
-            section.appendChild(pagDiv);
+        function renderGalleryPagination(totalPages,currentPage,totalPhotos){
+            const grid=document.getElementById('photoGrid'),section=grid.parentElement;
+            section.querySelector('.gallery-pagination')?.remove();
+            if(totalPages<=1)return;
+            const bar=document.createElement('div');bar.className='gallery-pagination';
+            bar.innerHTML=`<button type="button" aria-label="上一页照片" onclick="goToGalleryPage(${currentPage-1},event)" ${currentPage<=1?'disabled':''}>‹</button><span class="gallery-page-indicator" aria-live="polite"><strong>${String(currentPage).padStart(2,'0')}</strong><span>/</span><span>${String(totalPages).padStart(2,'0')}</span></span><button type="button" aria-label="下一页照片" onclick="goToGalleryPage(${currentPage+1},event)" ${currentPage>=totalPages?'disabled':''}>›</button>`;
+            section.appendChild(bar);
         }
 
-        function goToGalleryPage(page, event) {
-            if (event) { event.preventDefault(); event.stopPropagation(); }
-            const grid = document.getElementById('photoGrid');
-            grid.classList.add('transitioning');
-            setTimeout(() => {
-                galleryCurrentPage = page;
-                renderGallery(currentFilter, page);
-                grid.classList.remove('transitioning');
-            }, 200);
+        function goToGalleryPage(page,event){
+            if(event){event.preventDefault();event.stopPropagation();}
+            const grid=document.getElementById('photoGrid');
+            page=Math.max(1,Math.min(page,Number(grid.dataset.totalPages)||1));
+            grid.scrollTo({left:(page-1)*grid.clientWidth,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
         }
 
         // Film Type Filter
@@ -2060,9 +1960,11 @@
                 lightbox.classList.remove('opacity-0');
             }, 10);
             document.body.style.overflow = 'hidden';
+            revealPhotoControls();
         }
 
         function closeLightbox() {
+            clearTimeout(photoControlsTimer);
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.add('opacity-0');
             setTimeout(() => {
@@ -2118,10 +2020,10 @@
             const displayMessages = isAdminMode ? messages : getFilteredMessages();
 
             // Pagination
-            const totalPages = Math.ceil(displayMessages.length / PAGE_SIZE) || 1;
+            const totalPages = Math.ceil(displayMessages.length / messagePageSize()) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
-            const start = (currentPage - 1) * PAGE_SIZE;
-            const pageMessages = displayMessages.slice(start, start + PAGE_SIZE);
+            const start = (currentPage - 1) * messagePageSize();
+            const pageMessages = displayMessages.slice(start, start + messagePageSize());
 
             pageMessages.forEach(msg => {
                 const card = document.createElement('div');
@@ -2184,25 +2086,11 @@
                 container.appendChild(card);
             });
 
-            // Pagination controls
-            if (totalPages > 1) {
-                const pagDiv = document.createElement('div');
-                pagDiv.className = 'pagination-row col-span-full flex justify-center items-center gap-2 mt-6 pt-4 border-t border-[#e2dcd0]';
-                let pagHTML = '';
-                pagHTML += `<button onclick="goToPage(${currentPage-1})" ${currentPage<=1?'disabled':''} class="px-3 py-1 text-xs border rounded ${currentPage<=1?'text-gray-300 border-gray-200 cursor-not-allowed':'text-[#2c2a27] border-[#c5beb4] hover:bg-[#f5f4f0]'}">‹ 上一页</button>`;
-                for (let p = 1; p <= totalPages; p++) {
-                    if (p === currentPage) {
-                        pagHTML += `<span class="px-3 py-1 text-xs bg-[#2c2a27] text-white rounded">${p}</span>`;
-                    } else if (Math.abs(p - currentPage) <= 2 || p === 1 || p === totalPages) {
-                        pagHTML += `<button onclick="goToPage(${p})" class="px-3 py-1 text-xs border border-[#c5beb4] rounded hover:bg-[#f5f4f0] text-[#2c2a27]">${p}</button>`;
-                    } else if (Math.abs(p - currentPage) === 3) {
-                        pagHTML += '<span class="text-xs text-gray-400">...</span>';
-                    }
-                }
-                pagHTML += `<button onclick="goToPage(${currentPage+1})" ${currentPage>=totalPages?'disabled':''} class="px-3 py-1 text-xs border rounded ${currentPage>=totalPages?'text-gray-300 border-gray-200 cursor-not-allowed':'text-[#2c2a27] border-[#c5beb4] hover:bg-[#f5f4f0]'}">下一页 ›</button>`;
-                pagHTML += `<span class="text-[10px] text-gray-400 ml-3">${displayMessages.length} 条留言 · ${totalPages} 页</span>`;
-                pagDiv.innerHTML = pagHTML;
-                container.parentElement.appendChild(pagDiv);
+            // Compact page controls; guestbook keeps its existing click-to-page behavior.
+            if(totalPages>1){
+                const bar=document.createElement('div');bar.className='pagination-row gallery-pagination';
+                bar.innerHTML=`<button type="button" aria-label="上一页留言" onclick="goToPage(${currentPage-1})" ${currentPage<=1?'disabled':''}>‹</button><span class="gallery-page-indicator" aria-live="polite"><strong>${String(currentPage).padStart(2,'0')}</strong><span>/</span><span>${String(totalPages).padStart(2,'0')}</span></span><button type="button" aria-label="下一页留言" onclick="goToPage(${currentPage+1})" ${currentPage>=totalPages?'disabled':''}>›</button>`;
+                container.parentElement.appendChild(bar);
             }
         }
 
@@ -2217,6 +2105,7 @@
                 currentPage = page;
                 renderMessages();
                 board.classList.remove('transitioning');
+                requestAnimationFrame(()=>{const first=board.firstElementChild;if(first)first.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});});
             }, 200);
         }
 
@@ -2354,7 +2243,7 @@
             if (!target) return;
 
             const start = window.scrollY;
-            const end = target.getBoundingClientRect().top + start - 70;
+            const end = target.getBoundingClientRect().top + start - document.querySelector('header').getBoundingClientRect().height - 16;
             const duration = 900;
             const startTime = performance.now();
 
@@ -2667,7 +2556,7 @@
 
             const today = new Date();
             const day = today.getDate();
-            const currentLang = localStorage.getItem('roy_zhao_lang') || 'zh';
+            const currentLang = 'zh';
 
             // 日期文案映射
             const prefixZh = { 27: '今天', 28: '昨天', 29: '前天' };
@@ -2753,7 +2642,33 @@
             checkHoliday();
         };
     </script>
-<script src="/shared/photo-guestbook-ui.js"></script>
+
+<script>
+let photoControlsTimer;
+function revealPhotoControls(){
+ const box=document.getElementById('lightbox');if(box.classList.contains('hidden'))return;
+ box.classList.remove('photo-controls-hidden');clearTimeout(photoControlsTimer);
+ photoControlsTimer=setTimeout(()=>box.classList.add('photo-controls-hidden'),1400);
+}
+const photoBox=document.getElementById('lightbox');
+photoBox.addEventListener('pointermove',revealPhotoControls,{passive:true});
+photoBox.addEventListener('pointerdown',revealPhotoControls,{passive:true});
+const photoTrack=document.getElementById('photoGrid');let photoScrollFrame=0;
+photoTrack.addEventListener('scroll',()=>{cancelAnimationFrame(photoScrollFrame);photoScrollFrame=requestAnimationFrame(()=>{
+ const page=Math.round(photoTrack.scrollLeft/Math.max(1,photoTrack.clientWidth))+1;
+ if(page!==galleryCurrentPage){galleryCurrentPage=page;renderGalleryPagination(Number(photoTrack.dataset.totalPages)||1,page,Number(photoTrack.dataset.totalPhotos)||0);}
+});},{passive:true});
+let dragStart=null,dragged=false;
+photoTrack.addEventListener('pointerdown',event=>{if(event.pointerType!=='mouse'||event.button!==0)return;dragStart={x:event.clientX,left:photoTrack.scrollLeft,id:event.pointerId};dragged=false;});
+photoTrack.addEventListener('pointermove',event=>{if(!dragStart)return;const delta=event.clientX-dragStart.x;if(Math.abs(delta)>8&&!dragged){dragged=true;photoTrack.setPointerCapture(event.pointerId);photoTrack.classList.add('photo-dragging');}if(dragged){event.preventDefault();photoTrack.scrollLeft=dragStart.left-delta;}});
+function endPhotoDrag(){if(!dragStart)return;const hadDrag=dragged;dragStart=null;photoTrack.classList.remove('photo-dragging');if(hadDrag)goToGalleryPage(Math.round(photoTrack.scrollLeft/photoTrack.clientWidth)+1);}
+photoTrack.addEventListener('pointerup',endPhotoDrag);photoTrack.addEventListener('pointercancel',endPhotoDrag);
+photoTrack.addEventListener('click',event=>{if(dragged){event.preventDefault();event.stopImmediatePropagation();dragged=false;}},true);
+photoTrack.addEventListener('dragstart',event=>event.preventDefault());
+matchMedia('(max-width:767px)').addEventListener('change',()=>{renderGallery(currentFilter,1);currentPage=1;renderMessages();});
+</script>
+
+<script src="/shared/photo-guestbook-ui.js?v=20261022-layout"></script>
 <script type="module" src="/shared/photo-client.js" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
 <script data-home-preview>if(location.protocol==='file:'){for(const a of document.querySelectorAll('a[href="/"]'))a.href='../index.html';}</script></body>
 </html>
