@@ -128,6 +128,8 @@ async function loadMessagesFromDB() {
         if(version!==photoAuthVersion)return;
         const counts=new Map();for(const r of replyRows)counts.set(r.message_id,(counts.get(r.message_id)||0)+1);
         messages=rows.map(row=>({...row,date:escapeHtml(row.date),time:escapeHtml(row.time),city:escapeHtml(row.city),weather:escapeHtml(row.weather),userId:row.user_id,createdAt:Date.parse(row.created_at),replyCount:counts.get(row.id)||0,developing:Date.now()-Date.parse(row.created_at)<4000}));
+        await window.RoyPhotoAvatars?.load(rows.map(row=>row.user_id));
+        if(version!==photoAuthVersion)return;
         renderMessages();
     }catch(error){showToast(photoFailure(error));}finally{photoLoading=false;}
 }
@@ -180,9 +182,12 @@ async function loadReplies(msgId){
         if(currentModalMsgId!==msgId)return;
         const parent=messages.find(m=>m.id===msgId);
         const visible=rows.filter(r=>!r.private||(photoAdmin&&isAdminMode)||r.user_id===photoSessionUser?.id||parent?.userId===photoSessionUser?.id);
+        await window.RoyPhotoAvatars?.load(visible.map(row=>row.user_id));
+        if(currentModalMsgId!==msgId)return;
         container.replaceChildren();
         for(const d of visible){const div=document.createElement('div');div.className='bg-white/10 backdrop-blur p-4 rounded-sm border border-white/10 text-white';
-        div.innerHTML=`<div class="flex justify-between items-start mb-2"><span class="text-sm font-semibold">${escapeHtml(d.name)}${d.private?' <span class="text-[10px] text-white/40">🔒 彼此</span>':''}</span><span class="text-[10px] text-white/50 font-mono">${escapeHtml(d.date)} ${escapeHtml(d.time)}</span></div><p class="text-sm leading-relaxed whitespace-pre-wrap text-white/80">${escapeHtml(d.message)}</p>`;container.appendChild(div);}
+        div.innerHTML=`<div class="flex justify-between items-start mb-2"><span class="text-sm font-semibold"><span data-photo-avatar="${escapeHtml(d.user_id||'')}" data-avatar-name="${escapeHtml(d.name)}"></span>${escapeHtml(d.name)}${d.private?' <span class="text-[10px] text-white/40">🔒 彼此</span>':''}</span><span class="text-[10px] text-white/50 font-mono">${escapeHtml(d.date)} ${escapeHtml(d.time)}</span></div><p class="text-sm leading-relaxed whitespace-pre-wrap text-white/80">${escapeHtml(d.message)}</p>`;container.appendChild(div);}
+        decoratePhotoAvatars();
         if(!visible.length)container.innerHTML='<div class="text-center text-white/30 text-xs py-4">暂无回复，来说点什么吧</div>';
     }catch(error){container.innerHTML='<div class="text-center text-white/30 text-xs py-4">加载失败，请稍后重试</div>';}
 }
@@ -209,3 +214,17 @@ async function clearMessages(){
     if(!confirm('确定清空留言簿吗？留言会移入数据库回收区。'))return;
     try{const api=await photoClient();const {error}=await api.rpc('roy_photo_clear');if(error)throw error;await loadMessagesFromDB();showToast(t('toast.cleared'));}catch(error){showToast(photoFailure(error));}
 }
+
+// Keep the existing album layout; only decorate account identities.
+function decoratePhotoAvatars(){
+ if(!window.RoyPhotoAvatars)return;
+ document.querySelectorAll('[data-photo-avatar]').forEach(node=>{
+  if(node.firstChild)return;
+  const avatar=window.RoyPhotoAvatars.create(node.dataset.photoAvatar,node.dataset.avatarName||'R','roy-photo-avatar');
+  avatar.addEventListener('click',event=>event.stopPropagation());node.append(avatar);
+ });
+}
+const originalPhotoRenderMessages=renderMessages;
+renderMessages=function(){originalPhotoRenderMessages();decoratePhotoAvatars();};
+const originalPhotoOpenMessageModal=openMessageModal;
+openMessageModal=function(...args){originalPhotoOpenMessageModal(...args);decoratePhotoAvatars();};
