@@ -817,7 +817,38 @@
 
     </style>
 <link rel="stylesheet" href="../shared/photo-layout.css?v=20261022-layout">
-</head>
+<script id="album-content-escape">function albumContentEscape(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}</script><script id="album-photo-format">function formatCamera(value){
+ return String(value||'').replace(/NIKON\s+CORPORATION\s*/gi,'').replace(/\bNIKON\b/gi,'Nikon').replace(/Ⅲ/g,'III').replace(/Ⅱ/g,'II').replace(/\bZ\s*(\d+)_2\b/gi,'Z$1II').replace(/\bZ\s*(\d+)\s*(III|II)\b/gi,'Z$1$2').trim()
+}
+function formatPhotoDate(value){
+ return String(value||'').replace(/(\d{1,2}:\d{2}):\d{2}(?:\.\d+)?(?=$|[ Z+-])/g,'$1')
+}</script><script id="album-photo-coordinates">function albumPhotoCoordinates(photo){const node=document.getElementById('lightboxCoordinates'),g=photo.gps;if(!node)return;const valid=g&&Number.isFinite(g.latitude)&&Number.isFinite(g.longitude)&&Math.abs(g.latitude)<=90&&Math.abs(g.longitude)<=180;node.hidden=!valid;node.textContent=valid?'纬度 '+Math.abs(g.latitude).toFixed(2)+'° '+(g.latitude<0?'S':'N')+' · 经度 '+Math.abs(g.longitude).toFixed(2)+'° '+(g.longitude<0?'W':'E'):'';}</script><style id="album-lightbox-style">
+#lightbox{background:#737578;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;-webkit-overflow-scrolling:touch;touch-action:pan-y pinch-zoom;box-sizing:border-box}
+html[data-theme="dark"] #lightbox{background:#0f0e0d}
+#lightbox .album-lightbox-layout{box-sizing:border-box;width:100%;max-width:1440px;min-height:100vh;min-height:100dvh;margin:auto;padding:72px 72px;display:grid;grid-template-columns:minmax(0,1fr) 320px;align-items:center;gap:56px}
+#lightbox .album-lightbox-photo{position:relative;display:flex;justify-content:center;align-items:center;min-width:0;height:calc(100vh - 144px);height:calc(100dvh - 144px)}
+#lightboxImg{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 12px 44px #0003}
+#lightbox .album-lightbox-info{min-width:0;width:100%;max-height:calc(100vh - 144px);max-height:calc(100dvh - 144px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;color:#fff;line-height:1.8;padding-right:8px;overflow-wrap:anywhere}
+#lightbox .album-lightbox-info>div+div{margin-top:24px}
+#lightboxFilm{font-size:10px;letter-spacing:.18em;margin-bottom:12px;padding:5px 10px;line-height:1.4}
+#lightboxTitle{font-size:28px;line-height:1.4;letter-spacing:.06em;text-wrap:pretty}
+#lightboxLocation{font-size:12px;line-height:1.9;margin-top:10px;color:#ffffffb3}
+#lightboxCoordinates{font-size:11px;line-height:1.8;margin-top:8px;color:#ffffff99;letter-spacing:.02em}
+#lightbox .album-lightbox-exif{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 24px;font-size:13px;line-height:1.6}
+#lightbox .album-lightbox-exif>div>span:first-child{font-size:10px;letter-spacing:.12em;color:#ffffff80;margin-bottom:6px}
+#lightbox .album-lightbox-exif>div>span:last-child{overflow-wrap:anywhere}
+#lightbox .album-lightbox-story{border-top:1px solid #ffffff26;padding-top:24px;color:#ffffffb3;font-size:14px;line-height:1.9}
+#lightboxDesc{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:10px}
+#lightbox .album-lightbox-close{position:fixed;top:max(18px,env(safe-area-inset-top));right:max(20px,env(safe-area-inset-right));width:44px;height:44px;border:1px solid #ffffff26;border-radius:50%;background:#171614d9;color:#ffffffd9;font-size:24px;line-height:1;z-index:60;display:grid;place-items:center;cursor:pointer}
+#lightbox .lightbox-page-control{width:44px;height:44px;padding:0;display:grid;place-items:center;font-size:20px;background:#17161499;border:1px solid #ffffff26;color:#fff;z-index:2}
+#lightbox button:focus-visible{outline:2px solid #fff;outline-offset:4px}
+#lightbox .album-lightbox-info:focus-visible{outline:1px solid #ffffff80;outline-offset:8px}
+@media(max-width:1000px) and (min-width:768px){#lightbox .album-lightbox-layout{padding:72px 32px;grid-template-columns:minmax(0,1fr) 260px;gap:28px}#lightboxTitle{font-size:24px}}
+@media(max-width:767px){#lightbox .album-lightbox-layout{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:28px;padding:72px 20px max(36px,env(safe-area-inset-bottom))}#lightbox .album-lightbox-photo{height:auto;min-height:0;flex:none}#lightboxImg{max-height:56vh;max-height:56dvh;max-width:100%;width:auto;height:auto;margin:auto}#lightbox .album-lightbox-info{max-height:none;overflow:visible;padding:0}#lightboxTitle{font-size:24px}#lightbox .album-lightbox-close{top:max(14px,env(safe-area-inset-top));right:16px}#lightbox .album-lightbox-exif{gap:20px 24px}#lightbox .album-lightbox-info>div+div{margin-top:22px}}
+@media(max-height:500px) and (min-width:768px){#lightbox .album-lightbox-layout{padding-top:64px;padding-bottom:32px}#lightbox .album-lightbox-photo{height:calc(100dvh - 96px)}#lightbox .album-lightbox-info{max-height:calc(100dvh - 96px)}}
+</style><style id="album-destination-style">
+html[data-theme] #destDetail,#destDetail{background:#7c7c7c!important;opacity:1!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transition:none!important;color:white}#destDetail .album-destination-close{position:absolute;right:28px;top:20px;background:transparent;border:0;color:white;font:40px/1 Georgia;cursor:pointer;z-index:3}#destDetail .album-destination-dialog{height:100%;max-width:1100px;margin:auto;padding:56px 64px 30px;display:flex;flex-direction:column;justify-content:center;gap:18px}#destDetail .album-destination-viewer{position:relative;min-height:0}#destCollage{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;width:100%;height:min(65vh,720px);align-items:center}#destCollage::-webkit-scrollbar{display:none}#destCollage figure{margin:0;flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center}#destCollage img{width:100%;height:100%;object-fit:contain}#destCollage>p{text-align:center;width:100%}.album-destination-prev,.album-destination-next{position:absolute;top:45%;background:#0003;color:white;border:0;border-radius:50%;width:42px;height:42px;font-size:32px;z-index:2;cursor:pointer}.album-destination-prev{left:-50px}.album-destination-next{right:-50px}#destContent{text-align:center;overflow:visible;padding:0;color:white}#destContent h2{font-size:26px;margin:0 0 8px;font-weight:400}#destContent .dest-date{margin:0 0 14px;font:13px Georgia;letter-spacing:.15em;color:#fffc}#destContent a{display:inline-block;color:white;border:1px solid #fff7;padding:9px 20px;font-size:13px;text-decoration:none}@media(max-width:600px){#destDetail .album-destination-dialog{padding:60px 24px 24px}.album-destination-prev{left:0}.album-destination-next{right:0}}
+</style></head>
 <body class="relative min-h-screen selection:bg-[#2c2a27] selection:text-[#f7f4eb]">
 
     <div class="vignette"></div>
@@ -861,22 +892,9 @@
     <div id="waterfallEmojis" class="waterfall-emojis"></div>
 
     <!-- ===== 目的地详情遮罩 ===== -->
-    <div id="destDetail" class="fixed inset-0 bg-[#7c7c7c] z-50 hidden opacity-0 transition-opacity duration-300" onclick="if(event.target===this)closeDestination()">
-        <button onclick="closeDestination()" class="absolute top-6 right-6 text-white/60 hover:text-white text-3xl font-light transition-colors z-50">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="h-full flex items-center justify-center px-6 md:px-16 py-12">
-            <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-10 items-start">
-                <!-- 左侧：照片拼图 6:7 -->
-                <div id="destCollage" class="md:col-span-2">
-                    <!-- JS 动态填充拼图 -->
-                </div>
-                <!-- 右侧：游记内容 -->
-                <div id="destContent" class="md:col-span-3 text-white max-h-[80vh] overflow-y-auto custom-scroll pr-2">
-                    <!-- JS 动态填充内容 -->
-                </div>
-            </div>
-        </div>
+    <div id="destDetail" role="dialog" aria-modal="true" aria-labelledby="albumDestinationTitle" class="fixed inset-0 bg-[#7c7c7c] z-50 hidden" onclick="if(event.target===this)closeDestination()">
+      <button class="album-destination-close" aria-label="关闭目的地" onclick="closeDestination()">×</button>
+      <div class="album-destination-dialog"><div class="album-destination-viewer"><button class="album-destination-prev" aria-label="上一张照片" onclick="albumDestinationStep(-1)">‹</button><div id="destCollage" tabindex="0" aria-label="目的地照片，左右滑动浏览"></div><button class="album-destination-next" aria-label="下一张照片" onclick="albumDestinationStep(1)">›</button></div><div id="destContent"></div></div>
     </div>
 
     <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-white/10 px-6 py-4 md:px-12 md:py-6 vintage-transition">
@@ -1205,16 +1223,16 @@
         </div>
     </footer>
 
-    <div id="lightbox" class="fixed inset-0 bg-[#737578] z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+    <div id="lightbox" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
         <!-- Close Button -->
-        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/60 hover:text-white text-3xl font-light transition-colors z-50">
+        <button onclick="closeLightbox()" class="album-lightbox-close" aria-label="关闭照片预览">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
         <!-- Main Modal Content -->
-        <div class="max-w-6xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <div class="album-lightbox-layout">
             <!-- Left: Zoomed Photo Box -->
-            <div class="md:col-span-8 flex justify-center items-center relative group">
+            <div class="album-lightbox-photo">
                 <button aria-label="上一张照片" onclick="prevPhoto()" class="lightbox-page-control absolute left-2 text-white/60 hover:text-white text-2xl bg-black/30 hover:bg-black/50 p-3 rounded-full transition-all">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
@@ -1227,7 +1245,7 @@
             </div>
 
             <!-- Right: EXIF & Narrative Panel -->
-            <div class="md:col-span-4 text-white space-y-6">
+            <div class="album-lightbox-info" tabindex="0" role="region" aria-label="照片信息与摄影手记">
                 <div>
                     <span id="lightboxFilm" class="inline-block px-3 py-1 bg-white/15 text-[10px] tracking-[0.3em] uppercase rounded-sm text-white/80 mb-3">
                         KODAK PORTRA 400
@@ -1235,13 +1253,13 @@
                     <h4 id="lightboxTitle" class="text-2xl font-light tracking-[0.1em] text-white">照片标题 Title</h4>
                     <p id="lightboxLocation" class="text-xs text-white/60 mt-1 tracking-wider">
                         <i class="fa-solid fa-location-dot mr-1 text-white/40"></i> Tokyo, Japan
-                    </p>
+                    </p><p id="lightboxCoordinates" hidden class="text-xs text-white/50 mt-2 font-mono leading-relaxed"></p>
                 </div>
 
                 <div class="h-[1px] bg-white/15"></div>
 
                 <!-- EXIF Details -->
-                <div class="grid grid-cols-2 gap-y-4 gap-x-6 text-xs font-light">
+                <div class="album-lightbox-exif">
                     <div>
                         <span class="block text-white/40 uppercase tracking-wider text-[10px] mb-1">Camera Body</span>
                         <span id="exifCamera" class="font-mono text-white">Leica M6</span>
@@ -1260,9 +1278,9 @@
                     </div>
                 </div>
 
-                <div class="h-[1px] bg-white/15"></div>
 
-                <div class="text-white/70 text-sm tracking-wide leading-relaxed">
+
+                <div class="album-lightbox-story">
                     <span class="text-xs uppercase block text-white/40 mb-1">Story / 摄影手记</span>
                     <p id="lightboxDesc">手记心声...</p>
                 </div>
@@ -1276,52 +1294,187 @@
         let currentFilter = 'all';
 
         const i18n = {
-            'nav.gallery':       { zh: '底片册',        en: 'Gallery' },
-            'nav.guestbook':     { zh: '留言',          en: 'Guestbook' },
-            'nav.destinations':  { zh: '目的地',        en: 'Journeys' },
-            'nav.about':         { zh: '关于',          en: 'About' },
-            'nav.lang':          { zh: 'EN',            en: '中' },
-            'hero.tag':          { zh: '西藏 · 日喀则', en: 'Shigatse · Tibet' },
-            'hero.heading':      { zh: '20岁西藏之旅', en: 'Tibet at Twenty' },
-            'hero.quote':        { zh: '在20岁生日，开始这次奇妙旅途，来到雪域高原。从此我也能讲述一段来自西藏的故事。', en: 'On my twentieth birthday this wondrous journey began — I came to the snowy plateau. And now I have a story of Tibet to tell.' },
-            'gallery.tag':       { zh: '我的',           en: 'My Works' },
-            'gallery.heading':   { zh: '底片册',         en: 'Archive' },
-            'destinations.tag':  { zh: '旅途',          en: 'Itinerary' },
-            'destinations.heading': { zh: '目的地',      en: 'Destinations' },
-            'destinations.view': { zh: '查看照片',       en: 'View Photos' },
-            'guestbook.tag':     { zh: '有什么想对我说的吗', en: 'Leave me a note' },
-            'guestbook.heading': { zh: '留言簿',         en: 'Guestbook' },
-            'guestbook.title':   { zh: '留下墨迹',       en: 'Add Message' },
-            'guestbook.name':    { zh: '称呼',           en: 'Name' },
-            'guestbook.name_ph': { zh: 'e.g. 拾光者',    en: 'e.g. Light Chaser' },
-            'guestbook.theme':   { zh: '选择相纸颜色',   en: 'Choose Paper Tone' },
-            'guestbook.warm':    { zh: '暖白',           en: 'Warm' },
-            'guestbook.sepia':   { zh: '焦糖',           en: 'Sepia' },
-            'guestbook.blue':    { zh: '蓝晒',           en: 'Cyan' },
-            'guestbook.msg':     { zh: '留言',           en: 'Message' },
-            'guestbook.msg_ph':  { zh: '写点东西吧！...', en: 'Write something...' },
-            'guestbook.submit':  { zh: '放入显影池',     en: 'Develop Note' },
-            'guestbook.wall':    { zh: 'note',       en: 'Wall of Shadows' },
-            'guestbook.clear':   { zh: '清空留言',       en: 'Clear Messages' },
-            'card.view':         { zh: '浏览',           en: 'View' },
-            'about.heading':     { zh: '关于我',         en: 'About' },
-            'about.intro':       { zh: '你好，我是<span class="text-[#2c2a27] font-semibold">赵润涵</span>。', en: 'Hi, I\'m <span class="text-[#2c2a27] font-semibold">Roy Zhao</span>.' },
-            'about.equip':       { zh: '设备',           en: 'Equipment' },
-            'about.film':        { zh: '底片',           en: 'Preferred Stock' },
-            'about.location':    { zh: '地区',           en: 'Location' },
-            'footer.copy':       { zh: '© 2026 Roy Zhao / 赵润涵. 保留所有权利。', en: '© 2026 Roy Zhao / 赵润涵. All Rights Reserved.' },
-            'toast.sent':        { zh: '底片已入显影池，正在暗房成像...', en: 'Note in the developer bath, imaging in progress...' },
-            'toast.cleared':     { zh: '已恢复预设留言簿。', en: 'Guestbook restored to defaults.' },
-            'confirm.clear':     { zh: '确定要清空所有留言吗？', en: 'Clear all messages? This cannot be undone.' },
-            'filter.all':        { zh: '全部',            en: 'All' },
-            'filter.digital':    { zh: '数码',            en: 'Digital' },
-            'filter.film':       { zh: '胶片',            en: 'Film' },
-            'pagination.prev':   { zh: '‹ 上一页',        en: '‹ Prev' },
-            'pagination.next':   { zh: '下一页 ›',        en: 'Next ›' },
-            'pagination.photos': { zh: '张照片',          en: ' photos' },
-            'pagination.pages':  { zh: '页',              en: ' pages' },
-            'gallery.originals':     { zh: '原图',        en: 'Originals' },
-        };
+  "nav.gallery": {
+    "zh": "底片册",
+    "en": "Gallery"
+  },
+  "nav.guestbook": {
+    "zh": "留言",
+    "en": "Guestbook"
+  },
+  "nav.destinations": {
+    "zh": "目的地",
+    "en": "Journeys"
+  },
+  "nav.about": {
+    "zh": "关于",
+    "en": "About"
+  },
+  "nav.lang": {
+    "zh": "EN",
+    "en": "中"
+  },
+  "hero.tag": {
+    "zh": "西藏 · 日喀则",
+    "en": "Shigatse · Tibet"
+  },
+  "hero.heading": {
+    "zh": "20岁西藏之旅",
+    "en": "Tibet at Twenty"
+  },
+  "hero.quote": {
+    "zh": "在20岁生日，开始这次奇妙旅途，来到雪域高原。从此我也能讲述一段来自西藏的故事。",
+    "en": "On my twentieth birthday this wondrous journey began — I came to the snowy plateau. And now I have a story of Tibet to tell."
+  },
+  "gallery.tag": {
+    "zh": "我的",
+    "en": "My Works"
+  },
+  "gallery.heading": {
+    "zh": "底片册",
+    "en": "Archive"
+  },
+  "destinations.tag": {
+    "zh": "旅途",
+    "en": "Itinerary"
+  },
+  "destinations.heading": {
+    "zh": "目的地",
+    "en": "Destinations"
+  },
+  "destinations.view": {
+    "zh": "查看照片",
+    "en": "View Photos"
+  },
+  "guestbook.tag": {
+    "zh": "有什么想对我说的吗",
+    "en": "Leave me a note"
+  },
+  "guestbook.heading": {
+    "zh": "留言簿",
+    "en": "Guestbook"
+  },
+  "guestbook.title": {
+    "zh": "留下墨迹",
+    "en": "Add Message"
+  },
+  "guestbook.name": {
+    "zh": "称呼",
+    "en": "Name"
+  },
+  "guestbook.name_ph": {
+    "zh": "e.g. 拾光者",
+    "en": "e.g. Light Chaser"
+  },
+  "guestbook.theme": {
+    "zh": "选择相纸颜色",
+    "en": "Choose Paper Tone"
+  },
+  "guestbook.warm": {
+    "zh": "暖白",
+    "en": "Warm"
+  },
+  "guestbook.sepia": {
+    "zh": "焦糖",
+    "en": "Sepia"
+  },
+  "guestbook.blue": {
+    "zh": "蓝晒",
+    "en": "Cyan"
+  },
+  "guestbook.msg": {
+    "zh": "留言",
+    "en": "Message"
+  },
+  "guestbook.msg_ph": {
+    "zh": "写点东西吧！...",
+    "en": "Write something..."
+  },
+  "guestbook.submit": {
+    "zh": "放入显影池",
+    "en": "Develop Note"
+  },
+  "guestbook.wall": {
+    "zh": "note",
+    "en": "Wall of Shadows"
+  },
+  "guestbook.clear": {
+    "zh": "清空留言",
+    "en": "Clear Messages"
+  },
+  "card.view": {
+    "zh": "浏览",
+    "en": "View"
+  },
+  "about.heading": {
+    "zh": "关于我",
+    "en": "About"
+  },
+  "about.intro": {
+    "zh": "你好，我是\u003cspan class=\"text-[#2c2a27] font-semibold\">赵润涵\u003c/span>。",
+    "en": "Hi, I'm \u003cspan class=\"text-[#2c2a27] font-semibold\">Roy Zhao\u003c/span>."
+  },
+  "about.equip": {
+    "zh": "设备",
+    "en": "Equipment"
+  },
+  "about.film": {
+    "zh": "底片",
+    "en": "Preferred Stock"
+  },
+  "about.location": {
+    "zh": "地区",
+    "en": "Location"
+  },
+  "footer.copy": {
+    "zh": "© 2026 Roy Zhao / 赵润涵. 保留所有权利。",
+    "en": "© 2026 Roy Zhao / 赵润涵. All Rights Reserved."
+  },
+  "toast.sent": {
+    "zh": "底片已入显影池，正在暗房成像...",
+    "en": "Note in the developer bath, imaging in progress..."
+  },
+  "toast.cleared": {
+    "zh": "已恢复预设留言簿。",
+    "en": "Guestbook restored to defaults."
+  },
+  "confirm.clear": {
+    "zh": "确定要清空所有留言吗？",
+    "en": "Clear all messages? This cannot be undone."
+  },
+  "filter.all": {
+    "zh": "全部",
+    "en": "All"
+  },
+  "filter.digital": {
+    "zh": "数码",
+    "en": "Digital"
+  },
+  "filter.film": {
+    "zh": "胶片",
+    "en": "Film"
+  },
+  "pagination.prev": {
+    "zh": "‹ 上一页",
+    "en": "‹ Prev"
+  },
+  "pagination.next": {
+    "zh": "下一页 ›",
+    "en": "Next ›"
+  },
+  "pagination.photos": {
+    "zh": "张照片",
+    "en": " photos"
+  },
+  "pagination.pages": {
+    "zh": "页",
+    "en": " pages"
+  },
+  "gallery.originals": {
+    "zh": "原图",
+    "en": "Originals"
+  }
+};
 
         function t(key) {
             return (i18n[key] && i18n[key][currentLang]) || key;
@@ -1357,414 +1510,318 @@
 
         // ========== Photography Database ==========
         const photos = [
-{
-                id: 1,
-                title: "禾木日落",
-                category: "landscape",
-                src: "images/URC_2245.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/1.8",
-                shutter: "1/400s",
-                focal: "35mm",
-                location: "新疆 · 禾木",
-                date: "2026年2月",
-                desc: ""
-            },
-{
-                id: 2,
-                title: "飞驰",
-                category: "landscape",
-                src: "images/URC_3014.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/1.8",
-                shutter: "1/30s",
-                focal: "35mm",
-                location: "新疆 · 赛里木湖",
-                date: "2026年2月",
-                desc: ""
-            },
-{
-                id: 3,
-                title: "出门",
-                category: "landscape",
-                src: "images/URC_2364.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/5.6",
-                shutter: "1/125s",
-                focal: "24-200mm",
-                location: "新疆 · 禾木",
-                date: "2026年2月",
-                desc: "刚刚走出小木屋，天正在亮"
-            },
-{
-                id: 4,
-                title: "纳木措",
-                category: "landscape",
-                src: "images/SZX_8685.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/6.3",
-                shutter: "1/1000s",
-                focal: "200mm",
-                location: "西藏 · 纳木措",
-                date: "2026年8月",
-                desc: ""
-            },
-{
-                id: 5,
-                title: "禾木日出",
-                category: "landscape",
-                src: "images/URC_2374.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/6.0",
-                shutter: "1/80s",
-                focal: "60mm",
-                location: "新疆 · 禾木",
-                date: "2026年2月",
-                desc: "二月的禾木村，凌晨六点，气温零下二十度。我架好三脚架，在及膝的雪地里等了一个多小时。鼻涕冻成了冰，手指在快门键上几乎没有知觉。然后天边开始泛光——先是深蓝，再是粉紫，最后整片天空被金色的晨光点燃。那一刻所有的冷都值得了。"
-            },
-{
-                id: 6,
-                title: "blue",
-                category: "landscape",
-                src: "images/SZX_8629_1.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/7.1",
-                shutter: "1/800s",
-                focal: "104mm",
-                location: "西藏 · 纳木措",
-                date: "2026年8月",
-                desc: ""
-            },
-{
-                id: 7,
-                title: "木雅贡噶",
-                category: "landscape",
-                src: "images/Live_20250804081956996.jpeg",
-                film: "Digital",
-                camera: "Nikon Z5",
-                aperture: "f/8.0",
-                shutter: "1/120s",
-                focal: "50mm",
-                location: "甘孜藏族自治州",
-                date: "2025年8月",
-                desc: ""
-            },
-{
-                id: 8,
-                title: "木雅措垭口",
-                category: "landscape",
-                src: "images/木雅措垭口1.jpg",
-                film: "Digital",
-                camera: "Nikon Z5",
-                aperture: "f/8.0",
-                shutter: "1/250s",
-                focal: "24-200mm",
-                location: "甘孜 · 木雅措垭口",
-                date: "2025年8月",
-                desc: "川西高原的垭口之上，经幡在稀薄的空气里猎猎作响。远处的雪山沉默如谜。"
-            },
-{
-                id: 9,
-                title: "雪岭之间",
-                category: "landscape",
-                src: "images/URC_2558.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/5.6",
-                shutter: "1/500s",
-                focal: "24-200mm",
-                location: "新疆 · 阿勒泰",
-                date: "2026年2月",
-                desc: ""
-            },
-{
-                id: 10,
-                title: "路上",
-                category: "landscape",
-                src: "images/URC_2624.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/1.8",
-                shutter: "1/8000s",
-                focal: "35mm",
-                location: "新疆 · 伊犁",
-                date: "2026年2月",
-                desc: ""
-            },
-{
-                id: 11,
-                title: "遇见彩虹",
-                category: "landscape",
-                src: "images/SZX_66801.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/8.0",
-                shutter: "1/320s",
-                focal: "160mm",
-                location: "西藏 · 林芝",
-                date: "2026年7月",
-                desc: ""
-            },
-{
-                id: 12,
-                title: "涟漪",
-                category: "street",
-                src: "images/ZRH_4596-HDR.jpg",
-                film: "Digital",
-                camera: "Nikon Z5",
-                aperture: "f/1.8",
-                shutter: "1/8000s",
-                focal: "35mm",
-                location: "深圳·深圳湾公园",
-                date: "",
-                desc: ""
-            },
-{
-                id: 13,
-                title: "蓝调",
-                category: "street",
-                src: "images/ZRH_5480-已增强-NR.jpg",
-                film: "Digital",
-                camera: "Nikon Z5",
-                aperture: "f/4",
-                shutter: "1/125s",
-                focal: "24-200mm",
-                location: "深圳·大南山",
-                date: "",
-                desc: ""
-            },
-{
-                id: 14,
-                title: "日出",
-                category: "portrait",
-                src: "images/DSC_1827.jpg",
-                film: "Digital",
-                camera: "Nikon Z5",
-                aperture: "f/16",
-                shutter: "1/500s",
-                focal: "24mm",
-                location: "甘肃·扎尕那",
-                date: "2022年7月",
-                desc: ""
-            },
-{
-                id: 15,
-                title: "生命力",
-                category: "landscape",
-                src: "images/生命力.JPG",
-                film: "Digital",
-                camera: "Nikon Z5",
-                aperture: "f/4",
-                shutter: "1/2000s",
-                focal: "35mm",
-                location: "四川 · 射洪",
-                date: "",
-                desc: "春天到了！🌱"
-            },
-{
-                id: 16,
-                title: "夏天的傍晚",
-                category: "landscape",
-                src: "images/SZX_47791.JPG",
-                film: "Kodak 5219",
-                camera: "Nikon FE2",
-                aperture: "f/5.6",
-                shutter: "1/125s",
-                focal: "35mm",
-                location: "深圳",
-                date: "",
-                desc: ""
-            },
-{
-                id: 17,
-                title: "山脉连绵",
-                category: "landscape",
-                src: "images/URC_1629.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/5.6",
-                shutter: "1/125s",
-                focal: "24-200mm",
-                location: "新疆",
-                date: "2026年2月",
-                desc: "前往乌鲁木齐的路上"
-            },
-{
-                id: 18,
-                title: "欢畅的风",
-                category: "landscape",
-                src: "images/IMG_2028.jpeg",
-                film: "Digital",
-                camera: "iPhone 15 Pro",
-                aperture: "f/1.8",
-                shutter: "1/50s",
-                focal: "6.765mm",
-                location: "甘孜藏族自治州",
-                date: "2025年8月",
-                desc: ""
-            },
-{
-                id: 19,
-                title: "周末",
-                category: "street",
-                src: "images/SZX_3853haha.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/1.8",
-                shutter: "1/1250s",
-                focal: "35mm",
-                location: "深圳大学",
-                date: "",
-                desc: ""
-            },
-{
-                id: 20,
-                title: "山湖",
-                category: "landscape",
-                src: "images/SZX_75241.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/6.3",
-                shutter: "1/1250s",
-                focal: "140mm",
-                location: "西藏 · 羊卓雍措",
-                date: "2026年8月",
-                desc: ""
-            },
-{
-                id: 21,
-                title: "",
-                category: "landscape",
-                src: "images/SZX_8737_2.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/8.0",
-                shutter: "1/640s",
-                focal: "135mm",
-                location: "西藏 · 纳木措",
-                date: "2026年8月",
-                desc: ""
-            },
-{
-                id: 22,
-                title: "牛",
-                category: "landscape",
-                src: "images/SZX_70671.jpg",
-                film: "Digital",
-                camera: "Nikon Z7Ⅱ",
-                aperture: "f/7.1",
-                shutter: "1/400s",
-                focal: "81mm",
-                location: "西藏 · 羊卓雍措",
-                date: "2026年8月",
-                desc: ""
-            }
-        ];
+  {
+    "id": 1,
+    "title": "禾木日落",
+    "category": "landscape",
+    "src": "images/URC_2245.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/1.8",
+    "shutter": "1/400s",
+    "focal": "35mm",
+    "location": "新疆 · 禾木",
+    "date": "2026年2月",
+    "desc": ""
+  },
+  {
+    "id": 2,
+    "title": "飞驰",
+    "category": "landscape",
+    "src": "images/URC_3014.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/1.8",
+    "shutter": "1/30s",
+    "focal": "35mm",
+    "location": "新疆 · 赛里木湖",
+    "date": "2026年2月",
+    "desc": ""
+  },
+  {
+    "id": 3,
+    "title": "出门",
+    "category": "landscape",
+    "src": "images/URC_2364.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/5.6",
+    "shutter": "1/125s",
+    "focal": "24-200mm",
+    "location": "新疆 · 禾木",
+    "date": "2026年2月",
+    "desc": "刚刚走出小木屋，天正在亮"
+  },
+  {
+    "id": 4,
+    "title": "纳木措",
+    "category": "landscape",
+    "src": "images/SZX_8685.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/6.3",
+    "shutter": "1/1000s",
+    "focal": "200mm",
+    "location": "西藏 · 纳木措",
+    "date": "2026年8月",
+    "desc": ""
+  },
+  {
+    "id": 5,
+    "title": "禾木日出",
+    "category": "landscape",
+    "src": "images/URC_2374.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/6.0",
+    "shutter": "1/80s",
+    "focal": "60mm",
+    "location": "新疆 · 禾木",
+    "date": "2026年2月",
+    "desc": "二月的禾木村，凌晨六点，气温零下二十度。我架好三脚架，在及膝的雪地里等了一个多小时。鼻涕冻成了冰，手指在快门键上几乎没有知觉。然后天边开始泛光——先是深蓝，再是粉紫，最后整片天空被金色的晨光点燃。那一刻所有的冷都值得了。"
+  },
+  {
+    "id": 6,
+    "title": "blue",
+    "category": "landscape",
+    "src": "images/SZX_8629_1.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/7.1",
+    "shutter": "1/800s",
+    "focal": "104mm",
+    "location": "西藏 · 纳木措",
+    "date": "2026年8月",
+    "desc": ""
+  },
+  {
+    "id": 7,
+    "title": "木雅贡噶",
+    "category": "landscape",
+    "src": "images/Live_20250804081956996.jpeg",
+    "film": "Digital",
+    "camera": "Nikon Z5",
+    "aperture": "f/8.0",
+    "shutter": "1/120s",
+    "focal": "50mm",
+    "location": "甘孜藏族自治州",
+    "date": "2025年8月",
+    "desc": ""
+  },
+  {
+    "id": 8,
+    "title": "木雅措垭口",
+    "category": "landscape",
+    "src": "images/木雅措垭口1.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z5",
+    "aperture": "f/8.0",
+    "shutter": "1/250s",
+    "focal": "24-200mm",
+    "location": "甘孜 · 木雅措垭口",
+    "date": "2025年8月",
+    "desc": "川西高原的垭口之上，经幡在稀薄的空气里猎猎作响。远处的雪山沉默如谜。"
+  },
+  {
+    "id": 9,
+    "title": "雪岭之间",
+    "category": "landscape",
+    "src": "images/URC_2558.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/5.6",
+    "shutter": "1/500s",
+    "focal": "24-200mm",
+    "location": "新疆 · 阿勒泰",
+    "date": "2026年2月",
+    "desc": ""
+  },
+  {
+    "id": 10,
+    "title": "路上",
+    "category": "landscape",
+    "src": "images/URC_2624.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/1.8",
+    "shutter": "1/8000s",
+    "focal": "35mm",
+    "location": "新疆 · 伊犁",
+    "date": "2026年2月",
+    "desc": ""
+  },
+  {
+    "id": 11,
+    "title": "遇见彩虹",
+    "category": "landscape",
+    "src": "images/SZX_66801.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/8.0",
+    "shutter": "1/320s",
+    "focal": "160mm",
+    "location": "西藏 · 林芝",
+    "date": "2026年7月",
+    "desc": ""
+  },
+  {
+    "id": 12,
+    "title": "涟漪",
+    "category": "street",
+    "src": "images/ZRH_4596-HDR.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z5",
+    "aperture": "f/1.8",
+    "shutter": "1/8000s",
+    "focal": "35mm",
+    "location": "深圳·深圳湾公园",
+    "date": "",
+    "desc": ""
+  },
+  {
+    "id": 13,
+    "title": "蓝调",
+    "category": "street",
+    "src": "images/ZRH_5480-已增强-NR.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z5",
+    "aperture": "f/4",
+    "shutter": "1/125s",
+    "focal": "24-200mm",
+    "location": "深圳·大南山",
+    "date": "",
+    "desc": ""
+  },
+  {
+    "id": 14,
+    "title": "日出",
+    "category": "portrait",
+    "src": "images/DSC_1827.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z5",
+    "aperture": "f/16",
+    "shutter": "1/500s",
+    "focal": "24mm",
+    "location": "甘肃·扎尕那",
+    "date": "2022年7月",
+    "desc": ""
+  },
+  {
+    "id": 15,
+    "title": "生命力",
+    "category": "landscape",
+    "src": "images/生命力.JPG",
+    "film": "Digital",
+    "camera": "Nikon Z5",
+    "aperture": "f/4",
+    "shutter": "1/2000s",
+    "focal": "35mm",
+    "location": "四川 · 射洪",
+    "date": "",
+    "desc": "春天到了！🌱"
+  },
+  {
+    "id": 16,
+    "title": "夏天的傍晚",
+    "category": "landscape",
+    "src": "images/SZX_47791.JPG",
+    "film": "Kodak 5219",
+    "camera": "Nikon FE2",
+    "aperture": "f/5.6",
+    "shutter": "1/125s",
+    "focal": "35mm",
+    "location": "深圳",
+    "date": "",
+    "desc": ""
+  },
+  {
+    "id": 17,
+    "title": "山脉连绵",
+    "category": "landscape",
+    "src": "images/URC_1629.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/5.6",
+    "shutter": "1/125s",
+    "focal": "24-200mm",
+    "location": "新疆",
+    "date": "2026年2月",
+    "desc": "前往乌鲁木齐的路上"
+  },
+  {
+    "id": 18,
+    "title": "欢畅的风",
+    "category": "landscape",
+    "src": "images/IMG_2028.jpeg",
+    "film": "Digital",
+    "camera": "iPhone 15 Pro",
+    "aperture": "f/1.8",
+    "shutter": "1/50s",
+    "focal": "6.765mm",
+    "location": "甘孜藏族自治州",
+    "date": "2025年8月",
+    "desc": ""
+  },
+  {
+    "id": 19,
+    "title": "周末",
+    "category": "street",
+    "src": "images/SZX_3853haha.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/1.8",
+    "shutter": "1/1250s",
+    "focal": "35mm",
+    "location": "深圳大学",
+    "date": "",
+    "desc": ""
+  },
+  {
+    "id": 20,
+    "title": "山湖",
+    "category": "landscape",
+    "src": "images/SZX_75241.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/6.3",
+    "shutter": "1/1250s",
+    "focal": "140mm",
+    "location": "西藏 · 羊卓雍措",
+    "date": "2026年8月",
+    "desc": ""
+  },
+  {
+    "id": 21,
+    "title": "",
+    "category": "landscape",
+    "src": "images/SZX_8737_2.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/8.0",
+    "shutter": "1/640s",
+    "focal": "135mm",
+    "location": "西藏 · 纳木措",
+    "date": "2026年8月",
+    "desc": ""
+  },
+  {
+    "id": 22,
+    "title": "牛",
+    "category": "landscape",
+    "src": "images/SZX_70671.jpg",
+    "film": "Digital",
+    "camera": "Nikon Z7Ⅱ",
+    "aperture": "f/7.1",
+    "shutter": "1/400s",
+    "focal": "81mm",
+    "location": "西藏 · 羊卓雍措",
+    "date": "2026年8月",
+    "desc": ""
+  }
+];
 
         // ========== Legacy local content overrides ==========
-        (function loadAdminData() {
-            try {
-                const raw = localStorage.getItem('roy_zhao_admin_data');
-                if (!raw) return;
-                const admin = JSON.parse(raw);
-
-                // --- Photos ---
-                if (admin.photos && admin.photos.length) {
-                    photos.length = 0;
-                    admin.photos.forEach((p, i) => {
-                        photos.push({
-                            id: i + 1, title: p.title || '', category: p.category || 'landscape',
-                            src: p.src || '', film: p.film || 'Digital', camera: p.camera || '',
-                            aperture: p.aperture || '', shutter: p.shutter || '', focal: p.focal || '',
-                            location: p.location || '', date: p.date || '', desc: p.desc || ''
-                        });
-                    });
-                }
-
-                // --- Destinations ---
-                if (admin.destinations && admin.destinations.length) {
-                    destinations.length = 0;
-                    admin.destinations.forEach((d, i) => {
-                        if (d.id === 'dangling' || d.nameZh === '党岭') return;
-                        destinations.push({
-                            id: d.id || ('dest_' + i),
-                            nameZh: d.nameZh || '', nameEn: d.nameEn || '',
-                            dateZh: d.dateZh || '', dateEn: d.dateEn || '',
-                            cover: d.cover || '', filter: d.filter || '',
-                            contentZh: d.contentZh || '', contentEn: d.contentEn || ''
-                        });
-                    });
-                }
-
-                // --- Hero ---
-                if (admin.hero) {
-                    const h = admin.hero;
-                    if (h.tagZh) i18n['hero.tag'].zh = h.tagZh;
-                    if (h.tagEn) i18n['hero.tag'].en = h.tagEn;
-                    if (h.headingZh) i18n['hero.heading'].zh = h.headingZh;
-                    if (h.headingEn) i18n['hero.heading'].en = h.headingEn;
-                    if (h.quoteZh) i18n['hero.quote'].zh = h.quoteZh;
-                    if (h.quoteEn) i18n['hero.quote'].en = h.quoteEn;
-                    if (h.src) {
-                        const el = document.querySelector('[data-admin="hero-img"]');
-                        if (el) el.src = h.src;
-                    }
-                    if (h.location) {
-                        const el = document.querySelector('[data-admin="hero-location"]');
-                        if (el) el.textContent = h.location;
-                    }
-                    if (h.gear) {
-                        const el = document.querySelector('[data-admin="hero-gear"]');
-                        if (el) el.textContent = h.gear;
-                    }
-                }
-
-                // --- About ---
-                if (admin.about) {
-                    const a = admin.about;
-                    if (a.introZh) i18n['about.intro'].zh = a.introZh;
-                    if (a.introEn) i18n['about.intro'].en = a.introEn;
-                    if (a.portrait) {
-                        const el = document.querySelector('[data-admin="about-portrait"]');
-                        if (el) el.src = a.portrait;
-                    }
-                    if (a.portraitLabel) {
-                        const el = document.querySelector('[data-admin="about-portrait-label"]');
-                        if (el) el.textContent = a.portraitLabel;
-                    }
-                    // 7 previously-missing fields
-                    const setText = (sel, val) => { if (val) { const el = document.querySelector(sel); if (el) el.textContent = val; } };
-                    const setHref = (sel, val) => { if (val) { const el = document.querySelector(sel); if (el) el.href = val; } };
-                    setText('[data-admin="about-equip"]', a.equip);
-                    setText('[data-admin="about-film"]', a.film);
-                    setText('[data-admin="about-location"]', a.location);
-                    setText('[data-admin="about-email-text"]', a.email);
-                    if (a.email) { const el = document.querySelector('[data-admin="about-email"]'); if (el) el.href = 'mailto:' + a.email; }
-                    setText('[data-admin="about-school"]', a.school);
-                    setText('[data-admin="about-wechat"]', a.wechat);
-                    setHref('[data-admin="about-douyin"]', a.douyin);
-                    setHref('[data-admin="about-xhs"]', a.xhs);
-                    setHref('[data-admin="about-weibo"]', a.weibo);
-                }
-
-                // --- Guestbook ---
-                if (admin.guestbook) {
-                    const g = admin.guestbook;
-                    if (g.tagZh) i18n['guestbook.tag'].zh = g.tagZh;
-                    if (g.tagEn) i18n['guestbook.tag'].en = g.tagEn;
-                    if (g.headingZh) i18n['guestbook.heading'].zh = g.headingZh;
-                    if (g.headingEn) i18n['guestbook.heading'].en = g.headingEn;
-                }
-
-                console.log('Admin data synced from editor');
-            } catch (e) { console.warn('Admin sync failed:', e); }
-        })();
+        /* Legacy content overrides disabled by the local album editor. */
 
         // Default Messages Array
         const defaultMessages = [
@@ -1875,7 +1932,7 @@
                 card.innerHTML = `
                     <div class="overflow-hidden bg-stone-100 relative">
                         <img src="${photo.src}"
-                             alt="${photo.title}"
+                             alt="${albumContentEscape(photo.title)}"
                              class="object-cover w-full filter grayscale-[5%] sepia-[10%] group-hover:scale-105 duration-700 ease-in-out"
                              loading="lazy"
                              onerror="this.src='https://placehold.co/600x450/d6cfc2/2c2a27?text=Film+Photo'">
@@ -1887,10 +1944,10 @@
                     </div>
                     <div class="mt-4 flex justify-between items-center">
                         <span class="text-sm text-[#2c2a27] tracking-wider font-light group-hover:text-[#8c8273] transition-colors">
-                            ${photo.location}
+                            ${albumContentEscape(photo.location)}
                         </span>
                         <span class="inline-block px-3 py-1 bg-[#9c9c9c]/85 text-[10px] tracking-[0.3em] uppercase rounded-sm text-white whitespace-nowrap">
-                            ${photo.film}
+                            ${albumContentEscape(photo.film)}
                         </span>
                     </div>
                 `;
@@ -1943,13 +2000,14 @@
             const photo = photos.find(p => p.id === id);
             if (!photo) return;
 
-            document.getElementById('lightboxImg').src = photo.src;
+            document.getElementById('lightboxImg').src = photo.src;document.querySelector('.album-lightbox-info').scrollTop=0;document.getElementById('lightbox').scrollTop=0;
             document.getElementById('lightboxTitle').innerText = photo.title;
             document.getElementById('lightboxFilm').innerText = photo.film;
-            document.getElementById('lightboxLocation').innerHTML = `<i class="fa-solid fa-location-dot mr-1 text-[#8c8273]"></i> ${photo.location}${photo.date ? ' · ' + photo.date : ''}`;
-            document.getElementById('lightboxDesc').innerText = photo.desc;
+            document.getElementById('lightboxLocation').innerHTML = `<i class="fa-solid fa-location-dot mr-1 text-[#8c8273]"></i> ${albumContentEscape(photo.location)}${photo.date ? ' · ' + albumContentEscape(formatPhotoDate(photo.date)) : ''}`;
+            albumPhotoCoordinates(photo);
+            document.getElementById('lightboxDesc').innerText = photo.desc;document.getElementById('lightboxDesc').parentNode.hidden=!String(photo.desc||'').trim();
 
-            document.getElementById('exifCamera').innerText = photo.camera;
+            document.getElementById('exifCamera').innerText = formatCamera(photo.camera);
             document.getElementById('exifAperture').innerText = photo.aperture;
             document.getElementById('exifShutter').innerText = photo.shutter;
             document.getElementById('exifFocal').innerText = photo.focal;
@@ -2219,20 +2277,22 @@
         });
 
         // Swipe Gestures for Mobile Lightbox
+        let albumTouchStartY=0,albumTouchEndY=0;
         let touchstartX = 0;
         let touchendX = 0;
-        const gestureZone = document.getElementById('lightbox');
+        const gestureZone = document.querySelector('#lightbox .album-lightbox-photo');
 
         gestureZone.addEventListener('touchstart', function(event) {
-            touchstartX = event.changedTouches[0].screenX;
+            touchstartX = event.changedTouches[0].screenX;albumTouchStartY=event.changedTouches[0].screenY;
         }, false);
 
         gestureZone.addEventListener('touchend', function(event) {
-            touchendX = event.changedTouches[0].screenX;
+            touchendX = event.changedTouches[0].screenX;albumTouchEndY=event.changedTouches[0].screenY;
             handleGesture();
         }, false);
 
         function handleGesture() {
+            if(Math.abs(touchendX-touchstartX)<=Math.abs(albumTouchEndY-albumTouchStartY)*1.25)return;
             if (touchendX < touchstartX - 50) nextPhoto();
             if (touchendX > touchstartX + 50) prevPhoto();
         }
@@ -2263,109 +2323,92 @@
 
         // ===== 目的地数据 =====
         const destinations = [
-            {
-                id: 'gannan',
-                nameZh: '甘南',
-                nameEn: 'Gannan',
-                dateZh: '2022.08.06',
-                dateEn: 'Aug 6, 2022',
-                cover: 'images/DSC_1827.jpg',
-                filter: '甘南',
-                contentZh: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">即将更新～</p>`,
-                contentEn: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">Coming soon~</p>`
-            },
-            {
-                id: 'garze',
-                nameZh: '甘孜',
-                nameEn: 'Garze',
-                dateZh: '2025.08.03',
-                dateEn: 'Aug 3, 2025',
-                cover: 'images/木雅措垭口1.jpg',
-                filter: '甘孜',
-                contentZh: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">即将更新～</p>`,
-                contentEn: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">Coming soon~</p>`
-            },
-            {
-                id: 'xinjiang',
-                nameZh: '新疆',
-                nameEn: 'Xinjiang',
-                dateZh: '2026.01.30 - 02.05',
-                dateEn: 'Jan 30 - Feb 5, 2026',
-                cover: 'images/URC_2245.jpg',
-                filter: '新疆',
-                contentZh: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">即将更新～</p>`,
-                contentEn: `<p style="color:rgba(255,255,255,0.4); font-size:18px; letter-spacing:0.15em; margin-top:40px;">Coming soon~</p>`
-            },
-            {
-                id: 'xizang',
-                nameZh: '西藏',
-                nameEn: 'Tibet',
-                dateZh: '2026.07.27 - 08.09',
-                dateEn: 'Jul 27 - Aug 9, 2026',
-                cover: 'images/SZX_66801.jpg',
-                filter: '西藏',
-                contentZh: '<p>正在路上～</p>',
-                contentEn: '<p>On The Way ~</p>'
-            }
-        ];
+  {
+    "id": "gannan",
+    "nameZh": "甘南",
+    "nameEn": "Gannan",
+    "dateZh": "2022.08.06",
+    "dateEn": "Aug 6, 2022",
+    "filter": "甘南",
+    "cover": "images/DSC_1827.jpg",
+    "photoIds": [
+      14
+    ],
+    "contentZh": "\u003cp>即将更新～\u003c/p>",
+    "contentEn": "\u003cp>Coming soon~\u003c/p>"
+  },
+  {
+    "id": "garze",
+    "nameZh": "甘孜",
+    "nameEn": "Garze",
+    "dateZh": "2025.08.03",
+    "dateEn": "Aug 3, 2025",
+    "filter": "甘孜",
+    "cover": "images/木雅措垭口1.jpg",
+    "photoIds": [
+      7,
+      8,
+      18
+    ],
+    "contentZh": "\u003cp>即将更新～\u003c/p>",
+    "contentEn": "\u003cp>Coming soon~\u003c/p>"
+  },
+  {
+    "id": "xinjiang",
+    "nameZh": "新疆",
+    "nameEn": "Xinjiang",
+    "dateZh": "2026.01.30 - 02.05",
+    "dateEn": "Jan 30 - Feb 5, 2026",
+    "filter": "新疆",
+    "cover": "images/URC_2245.jpg",
+    "photoIds": [
+      1,
+      2,
+      3,
+      5,
+      9,
+      10,
+      17
+    ],
+    "contentZh": "\u003cp>即将更新～\u003c/p>",
+    "contentEn": "\u003cp>Coming soon~\u003c/p>"
+  },
+  {
+    "id": "xizang",
+    "nameZh": "西藏",
+    "nameEn": "Tibet",
+    "dateZh": "2026.07.27 - 08.09",
+    "dateEn": "Jul 27 - Aug 9, 2026",
+    "filter": "西藏",
+    "cover": "images/SZX_66801.jpg",
+    "photoIds": [
+      4,
+      6,
+      11,
+      20,
+      21,
+      22
+    ],
+    "contentZh": "\u003cp>正在路上～\u003c/p>",
+    "contentEn": "\u003cp>On The Way ~\u003c/p>"
+  }
+];
 
         // ===== 目的地详情遮罩 =====
         function openDestination(id) {
-            const dest = destinations.find(d => d.id === id);
-            if (!dest) return;
+ const dest=destinations.find(d=>d.id===id);if(!dest)return;
+ const zh=currentLang==='zh';const selected=Array.isArray(dest.photoIds)?dest.photoIds.map(id=>photos.find(p=>String(p.id)===String(id))).filter(Boolean):photos.filter(p=>p.location.includes(dest.filter));
+ const track=document.getElementById('destCollage');track.replaceChildren();
+ for(const p of selected){const frame=document.createElement('figure'),image=document.createElement('img');image.src=p.src;image.alt=p.title||'';image.loading='lazy';frame.append(image);track.append(frame);}
+ if(!selected.length){const empty=document.createElement('p');empty.textContent=zh?'照片即将更新':'Photos coming soon';track.append(empty);}
+ const content=document.getElementById('destContent');content.replaceChildren();
+ const title=document.createElement('h2');title.id='albumDestinationTitle';title.textContent=zh?dest.nameZh:dest.nameEn||dest.nameZh;
+ const date=document.createElement('p');date.className='dest-date';date.textContent=zh?dest.dateZh:dest.dateEn||dest.dateZh;
+ const link=document.createElement('a');link.textContent=zh?'查看此目的地 →':'Explore this destination →';link.href='destinations/'+encodeURIComponent(dest.id)+'/';content.append(title,date,link);
+ const overlay=document.getElementById('destDetail');window.albumDestinationFocus=document.activeElement;overlay.classList.remove('hidden');track.scrollLeft=0;overlay.querySelector('button').focus();document.body.style.overflow='hidden';
+}
 
-            const isZh = currentLang === 'zh';
-
-            // Build photo collage
-            const collagePhotos = photos.filter(p => p.location.includes(dest.filter));
-            const collage = document.getElementById('destCollage');
-            const count = collagePhotos.length;
-            let gridClass = 'dest-collage-grid ';
-            if (count === 1) gridClass += 'cols-1';
-            else if (count === 2) gridClass += 'cols-2';
-            else if (count === 3) gridClass += 'cols-3';
-            else if (count === 4) gridClass += 'cols-4';
-            else if (count <= 6) gridClass += 'cols-6';
-            else gridClass += 'cols-6';
-
-            let gridHTML = `<div class="${gridClass}">`;
-            collagePhotos.forEach((p, i) => {
-                // For 3 photos, first one spans full width
-                if (count === 3 && i === 0) {
-                    gridHTML += `<img src="${p.src}" alt="${p.title}" class="span-2" loading="lazy" onerror="this.src='https://placehold.co/400x280/5a5a5a/999?text=Photo'">`;
-                } else {
-                    gridHTML += `<img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.src='https://placehold.co/400x280/5a5a5a/999?text=Photo'">`;
-                }
-            });
-            if (count === 0) {
-                gridHTML += `<div class="dest-collage-empty">${isZh ? '照片即将更新～' : 'Photos coming soon~'}</div>`;
-            }
-            gridHTML += '</div>';
-            collage.innerHTML = gridHTML;
-
-            // Build content
-            const contentDiv = document.getElementById('destContent');
-            contentDiv.innerHTML = `
-                <h2>${isZh ? dest.nameZh : dest.nameEn}</h2>
-                <div class="dest-date">${isZh ? dest.dateZh : dest.dateEn}</div>
-                ${isZh ? dest.contentZh : dest.contentEn}
-            `;
-
-            // Show overlay
-            const overlay = document.getElementById('destDetail');
-            overlay.classList.remove('hidden');
-            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDestination() {
-            const overlay = document.getElementById('destDetail');
-            overlay.classList.add('opacity-0');
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        }
+        function closeDestination(){const overlay=document.getElementById('destDetail');overlay.classList.add('hidden');document.body.style.overflow='';window.albumDestinationFocus?.focus();}
 
         // ESC key for destination overlay
         document.addEventListener('keydown', (e) => {
@@ -2397,10 +2440,10 @@
                 card.className = 'tl-card';
                 card.onclick = () => openDestination(dest.id);
                 card.innerHTML = `
-                    <img src="${dest.cover}" alt="${isZh ? dest.nameZh : dest.nameEn}" class="tl-img" loading="lazy" onerror="this.src='https://placehold.co/400x280/d6cfc2/2c2a27?text=Destination'">
+                    <img src="${dest.cover}" alt="${albumContentEscape(isZh ? dest.nameZh : dest.nameEn)}" class="tl-img" loading="lazy" onerror="this.src='https://placehold.co/400x280/d6cfc2/2c2a27?text=Destination'">
                     <div class="tl-info">
-                        <div class="tl-name">${isZh ? dest.nameZh : dest.nameEn}</div>
-                        <div class="tl-date">${isZh ? dest.dateZh : dest.dateEn}</div>
+                        <div class="tl-name">${albumContentEscape(isZh ? dest.nameZh : dest.nameEn)}</div>
+                        <div class="tl-date">${albumContentEscape(isZh ? dest.dateZh : dest.dateEn)}</div>
                         <div class="tl-hint">${t('destinations.view')} →</div>
                     </div>
                 `;
@@ -2670,5 +2713,29 @@ matchMedia('(max-width:767px)').addEventListener('change',()=>{renderGallery(cur
 
 <script src="/shared/photo-guestbook-ui.js?v=20261022-layout"></script>
 <script type="module" src="/shared/photo-client.js" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
-<script data-home-preview>if(location.protocol==='file:'){for(const a of document.querySelectorAll('a[href="/"]'))a.href='../index.html';}</script></body>
+<script data-home-preview>if(location.protocol==='file:'){for(const a of document.querySelectorAll('a[href="/"]'))a.href='../index.html';}</script><script id="photo-editor-content" type="application/json">{
+  "gannan": {
+    "markdown": "即将更新～",
+    "markdownEn": "Coming soon~",
+    "comments": true
+  },
+  "garze": {
+    "markdown": "即将更新～",
+    "markdownEn": "Coming soon~",
+    "comments": true
+  },
+  "xinjiang": {
+    "markdown": "即将更新～",
+    "markdownEn": "Coming soon~",
+    "comments": true
+  },
+  "xizang": {
+    "markdown": "正在路上～",
+    "markdownEn": "On The Way ~",
+    "comments": true
+  }
+}</script><script id="album-destination-script">
+function albumDestinationStep(delta){const track=document.getElementById('destCollage');track.scrollBy({left:delta*track.clientWidth,behavior:'smooth'});}
+document.addEventListener('keydown',event=>{const overlay=document.getElementById('destDetail');if(overlay.classList.contains('hidden'))return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();albumDestinationStep(event.key==='ArrowLeft'?-1:1);}if(event.key==='Tab'){const nodes=[...overlay.querySelectorAll('button,a,[tabindex]')];const first=nodes[0],last=nodes[nodes.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}});
+</script></body>
 </html>
