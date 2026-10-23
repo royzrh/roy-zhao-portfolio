@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         html {
             color-scheme: light; /* 基线；深色下由 html[data-theme="dark"] 覆盖 */
@@ -77,7 +77,7 @@
                 opacity: 1;
             }
         }
-        
+
         .developing-card {
             animation: polaroidDevelop 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
@@ -1009,7 +1009,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
 
     <section id="gallery-section" class="bg-[#f5f4f0] py-20 border-y border-[#e2dcd0] vintage-transition">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
-            
+
             <!-- Section Title -->
             <div class="text-center space-y-3 mb-6">
                 <span class="text-xs uppercase tracking-[0.5em] text-[#8c8273]" data-i18n="gallery.tag">我的</span>
@@ -1161,7 +1161,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                 <h3 class="text-3xl font-light tracking-wide text-[#2c2a27]" data-i18n="about.heading">关于我</h3>
                 <div class="w-12 h-[1px] bg-[#2c2a27]/50"></div>
             </div>
-            
+
             <div class="space-y-4 text-[#3d3326] text-sm md:text-base leading-relaxed tracking-wider font-light">
                 <p data-i18n="about.intro">
                     大家好，我是<span class="text-[#2c2a27] font-semibold">赵润涵</span>。
@@ -1215,7 +1215,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                 <h5 class="text-xs text-white/70 mb-3 tracking-wider uppercase">回复 Reply</h5>
                 <div class="flex gap-3">
                     <input type="text" id="modalReplyName" placeholder="称呼" class="flex-1 px-3 py-2 bg-white/90 rounded-sm text-sm text-[#2c2a27] placeholder-[#a39b90] focus:outline-none">
-                    <button onclick="submitModalReply()" class="px-5 py-2 bg-white text-[#2c2a27] text-xs tracking-wider rounded-sm hover:bg-gray-200 transition">
+                    <button type="button" data-submit-photo-reply onclick="submitModalReply()" class="px-5 py-2 bg-white text-[#2c2a27] text-xs tracking-wider rounded-sm hover:bg-gray-200 transition">
                         回复
                     </button>
                 </div>
@@ -1242,7 +1242,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                 <a href="https://royzhao.top" target="_blank" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">
                     royzhao.top
                 </a>
-                
+
                 <a href="https://pan.baidu.com/s/5ZoW1Y9CIVdlBE6AAzT1RXw" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">下载原图</a>
                 <a href="/" target="_blank" rel="noopener" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">ROYZHAO</a>
             </div>
@@ -2153,7 +2153,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                         </span>
                         <span class="font-mono text-[10px] ${headerIndicator} shrink-0 ml-2">${msg.pinned ? '📌 ' : ''}${msg.date}</span>
                     </div>
-                    <p class="text-xs md:text-sm leading-relaxed tracking-wide font-light whitespace-pre-wrap min-h-[4rem] text-left" onclick="openMessageModal('${msg.id}')">${escapeHtml(msg.message)}</p>
+                    <div class="roy-rich-body text-xs md:text-sm leading-relaxed tracking-wide font-light min-h-[4rem] text-left" onclick="if(!event.target.closest('a'))openMessageModal('${msg.id}')">${window.RoyRichComments?window.RoyRichComments.bodyHTML(msg.message):escapeHtml(msg.message)}</div>
                     <div class="mt-4 pt-3 border-t border-black/5 flex justify-between items-end text-[9px] ${headerIndicator}">
                         <span class="tracking-wider flex items-center gap-3">
                             <span>${msg.time || ''}</span>
@@ -2227,7 +2227,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                     </div>
                     <span class="text-xs text-gray-400 font-mono">${weatherLine}</span>
                 </div>
-                <p class="text-sm md:text-base leading-relaxed whitespace-pre-wrap">${escapeHtml(msg.message)}</p>
+                <div class="roy-rich-body text-sm md:text-base leading-relaxed">${window.RoyRichComments?window.RoyRichComments.bodyHTML(msg.message):escapeHtml(msg.message)}</div>
                 <div class="mt-4 flex gap-3">
                     ${isAdminMode ? `<button onclick="togglePin('${msg.id}')" class="text-xs text-amber-500 hover:text-amber-600 transition-colors">${msg.pinned ? '📌 取消置顶' : '📌 置顶'}</button>` : ''}
                     ${photoSessionUser && (photoSessionUser.id === msg.userId || (photoAdmin && isAdminMode)) ? `<button onclick="deleteOwnMessage('${msg.id}')" class="text-xs text-red-400 hover:text-red-600 transition-colors"><i class="fa-regular fa-trash-can mr-1"></i>删除</button>` : ''}
@@ -2236,7 +2236,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
 
             // Clear reply form
             document.getElementById('modalReplyName').value = currentUser || '';
-            document.getElementById('modalReplyMsg').value = '';
+            document.getElementById('modalReplyMsg').value = '';replyComposer?.clear();
 
             // Load replies
             loadReplies(msgId);
@@ -2282,7 +2282,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
         function showToast(text) {
             const toast = document.getElementById('toastNotification');
             document.getElementById('toastText').innerText = text;
-            
+
             toast.classList.remove('translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
 
@@ -2739,8 +2739,8 @@ photoTrack.addEventListener('dragstart',event=>event.preventDefault());
 matchMedia('(max-width:767px)').addEventListener('change',()=>{renderGallery(currentFilter,1);currentPage=1;renderMessages();});
 </script>
 
-<script src="/shared/photo-guestbook-ui.js?v=20261022-layout"></script>
-<script type="module" src="/shared/photo-client.js" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
+<script src="/shared/photo-guestbook-ui.js?v=20261024-rich"></script>
+<script type="module" src="/shared/photo-client.js?v=20261024-rich" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
 <script data-home-preview>if(location.protocol==='file:'){for(const a of document.querySelectorAll('a[href="/"]'))a.href='../index.html';}</script><script id="photo-editor-content" type="application/json">{
   "gannan": {
     "markdown": "即将更新～",
