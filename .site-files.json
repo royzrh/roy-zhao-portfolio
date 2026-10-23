@@ -1,6 +1,7 @@
 [
   "404.html",
   "about",
+  "about-page.json",
   "academic",
   "api",
   "archives",
@@ -17,7 +18,9 @@
   "links",
   "links.json",
   "moments",
+  "project-page.json",
   "projects",
+  "research-page.json",
   "robots.txt",
   "rss.xml",
   "scripts",
