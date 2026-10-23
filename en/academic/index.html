@@ -214,10 +214,10 @@ const needPercent = true;
     function calculateScrollPercent() {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       if (scrollTop < articleTop) return
-
+      
       const scrollableHeight = Math.max(scrollHeight - clientHeight, 1)
       const scrolledAmount = scrollTop - articleTop
-
+      
       const percent = Math.round((scrolledAmount / scrollableHeight) * 100)
       return Math.max(0, Math.min(100, percent))
     }

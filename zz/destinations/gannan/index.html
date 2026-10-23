@@ -58,6 +58,6 @@ more.onclick=()=>void load();reload.onclick=async()=>{if(!api){location.reload()
 identity();
 const startupTimer=setTimeout(()=>{if(!started){message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'}},12000);
 window.addEventListener('roy-photo-ready',()=>void ready(),{once:true});
-if(window.RoyPhotoClient)void ready();else import('/shared/photo-client.js?v=20261024-rich').then(()=>void ready()).catch(()=>{clearTimeout(startupTimer);message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'});
+if(window.RoyPhotoClient)void ready();else import('/shared/photo-client.js?v=20261024-inline').then(()=>void ready()).catch(()=>{clearTimeout(startupTimer);message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'});
 
 </script></body></html>
