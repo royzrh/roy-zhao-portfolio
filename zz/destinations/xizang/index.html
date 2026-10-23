@@ -33,7 +33,7 @@ function render(){
  list.replaceChildren();
  for(const row of rows){const item=document.createElement('li'),header=document.createElement('div');header.className='note-meta';header.append(text('strong',row.author_name));
   const date=document.createElement('time');date.dateTime=row.created_at;date.textContent=new Date(row.created_at).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});header.append(date);
-  const content=document.createElement('div');if(window.RoyRichComments)window.RoyRichComments.renderBody(content,row.body);else content.textContent=row.body;item.append(header,content);if(row.status==='pending'&&row.user_id===user?.id)item.append(text('small','待审核，仅自己可见'));
+  const content=document.createElement('div');if(window.RoyRichComments)window.RoyRichComments.renderBody(content,row.body,{markdown:false});else content.textContent=row.body;item.append(header,content);if(row.status==='pending'&&row.user_id===user?.id)item.append(text('small','待审核，仅自己可见'));
   if(row.user_id===user?.id){const remove=text('button','删除');remove.type='button';remove.className='note-delete';remove.onclick=async()=>{if(!confirm('删除这条留言？'))return;remove.disabled=true;try{const {error}=await api.from('roy_top_comments').delete().eq('id',row.id).eq('user_id',user.id).abortSignal(AbortSignal.timeout(12000));if(error)throw error;await load(true);postMessage('留言已删除。')}catch(error){remove.disabled=false;postMessage(failure(error))}};item.append(remove)}list.append(item);
  }
 }
@@ -45,7 +45,7 @@ async function load(reset=false){
 }
 async function ready(){
  if(started||!window.RoyPhotoClient)return;started=true;clearTimeout(startupTimer);api=window.RoyPhotoClient;
- if(window.RoyRichComments){richComposer=window.RoyRichComments.createComposer(bodyInput,{limit:2000});bodyInput.addEventListener('roy-rich-change',identity)}
+ if(window.RoyRichComments){richComposer=window.RoyRichComments.createComposer(bodyInput,{limit:2000,markdown:false});bodyInput.addEventListener('roy-rich-change',identity)}
  api.auth.onAuthStateChange((_event,next)=>{++authRequest;setTimeout(async()=>{await applyUser(next?.user||null);await load(true)},0)});await Promise.all([syncSession(),load(true)]);
 }
 authToggle.onclick=()=>{authPanel.hidden=!authPanel.hidden;authToggle.setAttribute('aria-expanded',String(!authPanel.hidden));if(!authPanel.hidden)authPanel.querySelector('input')?.focus()};
@@ -58,6 +58,6 @@ more.onclick=()=>void load();reload.onclick=async()=>{if(!api){location.reload()
 identity();
 const startupTimer=setTimeout(()=>{if(!started){message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'}},12000);
 window.addEventListener('roy-photo-ready',()=>void ready(),{once:true});
-if(window.RoyPhotoClient)void ready();else import('/shared/photo-client.js?v=20261024-inline').then(()=>void ready()).catch(()=>{clearTimeout(startupTimer);message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'});
+if(window.RoyPhotoClient)void ready();else import('/shared/photo-client.js?v=20261024-native-emoji').then(()=>void ready()).catch(()=>{clearTimeout(startupTimer);message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'});
 
 </script></body></html>

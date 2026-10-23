@@ -10,7 +10,7 @@ let photoLoading = false;
 let photoReloadPending = false;
 const photoReady = new Promise(resolve => {
     if (location.protocol === 'file:') { resolve(null); return; }
-    const ready = () => {if(window.RoyRichComments){guestbookComposer ||= window.RoyRichComments.createComposer(document.getElementById('visitorMessage'),{limit:6000});replyComposer ||= window.RoyRichComments.createComposer(document.getElementById('modalReplyMsg'),{limit:6000});window.RoyRichComments.installStyles()}resolve(window.RoyPhotoClient || null)};
+    const ready = () => {if(window.RoyRichComments){guestbookComposer ||= window.RoyRichComments.createComposer(document.getElementById('visitorMessage'),{limit:6000,markdown:false});replyComposer ||= window.RoyRichComments.createComposer(document.getElementById('modalReplyMsg'),{limit:6000,markdown:false});window.RoyRichComments.installStyles()}resolve(window.RoyPhotoClient || null)};
     if (window.RoyPhotoClient) ready();
     else window.addEventListener('roy-photo-ready', ready, {once:true});
 });
@@ -207,7 +207,7 @@ async function loadReplies(msgId){
         if(currentModalMsgId!==msgId)return;
         container.replaceChildren();
         for(const d of visible){const div=document.createElement('div');div.className='bg-white/10 backdrop-blur p-4 rounded-sm border border-white/10 text-white';
-        div.innerHTML=`<div class="flex justify-between items-start mb-2"><span class="text-sm font-semibold"><span data-photo-avatar="${escapeHtml(d.user_id||'')}" data-avatar-name="${escapeHtml(d.name)}"></span>${escapeHtml(d.name)}${d.private?' <span class="text-[10px] text-white/40">🔒 彼此</span>':''}</span><span class="text-[10px] text-white/50 font-mono">${escapeHtml(d.date)} ${escapeHtml(d.time)}</span></div><div class="roy-rich-body text-sm leading-relaxed text-white/80">${window.RoyRichComments?window.RoyRichComments.bodyHTML(d.message):escapeHtml(d.message)}</div>`;container.appendChild(div);}
+        div.innerHTML=`<div class="flex justify-between items-start mb-2"><span class="text-sm font-semibold"><span data-photo-avatar="${escapeHtml(d.user_id||'')}" data-avatar-name="${escapeHtml(d.name)}"></span>${escapeHtml(d.name)}${d.private?' <span class="text-[10px] text-white/40">🔒 彼此</span>':''}</span><span class="text-[10px] text-white/50 font-mono">${escapeHtml(d.date)} ${escapeHtml(d.time)}</span></div><div class="roy-rich-body text-sm leading-relaxed text-white/80">${window.RoyRichComments?window.RoyRichComments.bodyHTML(d.message,{markdown:false}):escapeHtml(d.message)}</div>`;container.appendChild(div);}
         decoratePhotoAvatars();
         if(!visible.length)container.innerHTML='<div class="text-center text-white/30 text-xs py-4">暂无回复，来说点什么吧</div>';
     }catch(error){container.innerHTML='<div class="text-center text-white/30 text-xs py-4">加载失败，请稍后重试</div>';}
