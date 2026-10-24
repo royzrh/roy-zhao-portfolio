@@ -1063,7 +1063,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                 <div class="lg:col-span-4 bg-white p-6 md:p-8 rounded-sm border border-[#e2dcd0] shadow-xl space-y-6">
                     <h4 class="text-lg font-light tracking-wider text-[#2c2a27] border-b border-[#e2dcd0] pb-3" data-i18n="guestbook.title">留下墨迹</h4>
 
-                    <link rel="stylesheet" href="/shared/account-avatar.css">
+                    <link rel="stylesheet" href="/shared/account-avatar.css?v=20261024-blog">
                     <form id="guestbookForm" onsubmit="handleGuestbookSubmit(event)" class="space-y-4">
                         <div id="nameFieldWrapper">
                             <label class="block text-xs uppercase tracking-widest text-[#5c554a] mb-2" data-i18n="guestbook.name">称呼</label>
@@ -2740,8 +2740,8 @@ photoTrack.addEventListener('dragstart',event=>event.preventDefault());
 matchMedia('(max-width:767px)').addEventListener('change',()=>{renderGallery(currentFilter,1);currentPage=1;renderMessages();});
 </script>
 
-<script src="/shared/photo-guestbook-ui.js?v=20261024-native-emoji"></script>
-<script type="module" src="/shared/photo-client.js?v=20261024-native-emoji" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
+<script src="/shared/photo-guestbook-ui.js?v=20261024-blog"></script>
+<script type="module" src="/shared/photo-client.js?v=20261024-blog" onerror="window.dispatchEvent(new Event('roy-photo-ready'))"></script>
 <script data-home-preview>if(location.protocol==='file:'){for(const a of document.querySelectorAll('a[href="/"]'))a.href='../index.html';}</script><script id="photo-editor-content" type="application/json">{
   "gannan": {
     "markdown": "即将更新～",

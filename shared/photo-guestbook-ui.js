@@ -5,6 +5,7 @@ let photoAdmin = false;
 let isAdminMode = false;
 let photoApi = null;
 let guestbookComposer,replyComposer;
+let photoReplyTarget=null;
 let photoAuthVersion = 0;
 let photoLoading = false;
 let photoReloadPending = false;
@@ -15,7 +16,7 @@ const photoReady = new Promise(resolve => {
     else window.addEventListener('roy-photo-ready', ready, {once:true});
 });
 const photoMessageColumns = 'id,user_id,name,message,theme,private,pinned,likes,date,time,city,weather,temp,created_at';
-const photoReplyColumns = 'id,message_id,user_id,name,message,private,reply_to,date,time,created_at';
+const photoReplyColumns = 'id,message_id,user_id,name,message,private,reply_to,parent_reply_id,date,time,created_at';
 function photoFailure(error) {
     if (error?.code === 'otp_expired') return '验证码无效或过期，请重新获取';
     if (error?.code === '23505') return '昵称已经设置，请刷新后重试';
@@ -207,7 +208,7 @@ async function loadReplies(msgId){
         if(currentModalMsgId!==msgId)return;
         container.replaceChildren();
         for(const d of visible){const div=document.createElement('div');div.className='bg-white/10 backdrop-blur p-4 rounded-sm border border-white/10 text-white';
-        div.innerHTML=`<div class="flex justify-between items-start mb-2"><span class="text-sm font-semibold"><span data-photo-avatar="${escapeHtml(d.user_id||'')}" data-avatar-name="${escapeHtml(d.name)}"></span>${escapeHtml(d.name)}${d.private?' <span class="text-[10px] text-white/40">🔒 彼此</span>':''}</span><span class="text-[10px] text-white/50 font-mono">${escapeHtml(d.date)} ${escapeHtml(d.time)}</span></div><div class="roy-rich-body text-sm leading-relaxed text-white/80">${window.RoyRichComments?window.RoyRichComments.bodyHTML(d.message,{markdown:false}):escapeHtml(d.message)}</div>`;container.appendChild(div);}
+        div.innerHTML=`<div class="flex justify-between items-start mb-2"><span class="text-sm font-semibold"><span data-photo-avatar="${escapeHtml(d.user_id||'')}" data-avatar-name="${escapeHtml(d.name)}"></span>${escapeHtml(d.name)}${d.private?' <span class="text-[10px] text-white/40">🔒 彼此</span>':''}</span><span class="text-[10px] text-white/50 font-mono">${escapeHtml(d.date)} ${escapeHtml(d.time)}</span></div><div class="roy-rich-body text-sm leading-relaxed text-white/80">${window.RoyRichComments?window.RoyRichComments.bodyHTML(d.message,{markdown:false}):escapeHtml(d.message)}</div>`;if(d.parent_reply_id){const recipient=document.createElement('p');recipient.className='text-xs text-white/50 mb-2';recipient.textContent='回复 @'+d.reply_to;div.insertBefore(recipient,div.children[1])}const replyButton=document.createElement('button');replyButton.type='button';replyButton.className='text-xs text-white/60 mt-2 underline underline-offset-4';replyButton.textContent='回复';replyButton.onclick=()=>{if(!photoSessionUser||!currentUser){closeMessageModal();openLoginModal();return}photoReplyTarget={id:d.id,name:d.name,messageId:msgId,private:d.private};updatePhotoReplyTarget();replyComposer?.focus()};div.append(replyButton);container.appendChild(div);} 
         decoratePhotoAvatars();
         if(!visible.length)container.innerHTML='<div class="text-center text-white/30 text-xs py-4">暂无回复，来说点什么吧</div>';
     }catch(error){container.innerHTML='<div class="text-center text-white/30 text-xs py-4">加载失败，请稍后重试</div>';}
@@ -218,8 +219,8 @@ async function submitModalReply(){
     const body=document.getElementById('modalReplyMsg');const text=body.value.trim();if((!text&&!replyComposer?.hasSticker)||replyComposer?.busy||text.length>6000)return;
     const button=document.querySelector('#modalReplyForm [data-submit-photo-reply]');if(button.disabled)return;button.disabled=true;
     const target=currentModalMsgId;
-    try{const api=await photoClient();const {error}=await api.from('roy_photo_replies').insert({message_id:target,user_id:photoSessionUser.id,message:replyComposer?replyComposer.value():text,private:!document.getElementById('modalReplyPublic').checked});if(error)throw error;
-    body.value='';replyComposer?.clear();document.getElementById('modalReplyPublic').checked=true;await loadMessagesFromDB();if(currentModalMsgId===target)await loadReplies(target);
+    try{const api=await photoClient();const {error}=await api.from('roy_photo_replies').insert({message_id:target,user_id:photoSessionUser.id,message:replyComposer?replyComposer.value():text,private:photoReplyTarget?.private||!document.getElementById('modalReplyPublic').checked,parent_reply_id:photoReplyTarget?.messageId===target?photoReplyTarget.id:null});if(error)throw error;
+    body.value='';replyComposer?.clear();photoReplyTarget=null;updatePhotoReplyTarget();document.getElementById('modalReplyPublic').checked=true;await loadMessagesFromDB();if(currentModalMsgId===target)await loadReplies(target);
     }catch(error){showToast(photoFailure(error));}finally{button.disabled=false;}
 }
 async function toggleAdmin(){
@@ -248,4 +249,11 @@ function decoratePhotoAvatars(){
 const originalPhotoRenderMessages=renderMessages;
 renderMessages=function(){originalPhotoRenderMessages();decoratePhotoAvatars();schedulePhotoDeveloping();};
 const originalPhotoOpenMessageModal=openMessageModal;
-openMessageModal=function(...args){originalPhotoOpenMessageModal(...args);decoratePhotoAvatars();};
+openMessageModal=function(...args){photoReplyTarget=null;originalPhotoOpenMessageModal(...args);updatePhotoReplyTarget();decoratePhotoAvatars();};
+
+function updatePhotoReplyTarget(){
+ let context=document.getElementById('photo-reply-context');
+ if(!context){context=document.createElement('div');context.id='photo-reply-context';context.className='text-xs text-white/70 mb-3 flex justify-between items-center gap-3';const label=document.createElement('span');label.dataset.photoReplyLabel='';const cancel=document.createElement('button');cancel.type='button';cancel.textContent='取消回复';cancel.className='underline underline-offset-4';cancel.onclick=()=>{photoReplyTarget=null;updatePhotoReplyTarget()};context.append(label,cancel);document.getElementById('modalReplyForm').prepend(context)}
+ context.hidden=!photoReplyTarget;context.style.display=photoReplyTarget?'flex':'none';context.querySelector('[data-photo-reply-label]').textContent=photoReplyTarget?'回复 @'+photoReplyTarget.name:'';
+ if(photoReplyTarget?.private)document.getElementById('modalReplyPublic').checked=false;
+}

@@ -3,3 +3,5 @@ roy-account-auth[data-variant=photo]{margin:0;color:white}roy-account-auth[data-
 @media(max-width:480px){.roy-auth-field{flex-basis:100%}.roy-auth-primary{margin-left:auto}}
 
 html[data-theme=dark] roy-account-auth[data-variant=photo] .roy-auth-primary{background:var(--dk-text);color:#171614}html[data-theme=dark] roy-account-auth[data-variant=photo] .roy-auth-primary:hover{background:#cdc7bc}
+
+roy-account-auth [data-blog-field]{flex-basis:100%}
