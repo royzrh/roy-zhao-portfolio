@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-24T08:07:21.494Z",
+  "sources": [
+    {
+      "id": "https://cyril-fan.top/",
+      "home": "https://cyril-fan.top/",
+      "name": "Cyril Fan's Blog",
+      "avatar": "https://royzhao.cn/avatar/cyril-fan.jpg",
+      "feed": "https://cyril-fan.top/rss.xml",
+      "status": "ok",
+      "checkedAt": "2026-10-24T08:07:21.494Z"
+    },
+    {
+      "id": "https://axi404.top/",
+      "home": "https://axi404.top/",
+      "name": "Axi's Blog",
+      "avatar": "https://axi404.top/avatar/avatar.png",
+      "feed": "https://axi404.top/rss.xml",
+      "status": "ok",
+      "checkedAt": "2026-10-24T08:07:21.494Z"
+    },
+    {
+      "id": "https://vys3n.github.io/",
+      "home": "https://vys3n.github.io/",
+      "name": "VYS3N‘s Blog",
+      "avatar": "https://royzhao.cn/avatar/vys3n.jpg",
+      "feed": "https://vys3n.github.io/rss.xml",
+      "status": "ok",
+      "checkedAt": "2026-10-24T08:07:21.494Z"
+    }
+  ],
+  "posts": [
+    {
+      "url": "https://vys3n.github.io/blog/sketch-1/",
+      "title": "龙风筝",
+      "publishedAt": "2026-10-24T00:00:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
+    },
+    {
+      "url": "https://axi404.top/blog/embodied-talk-5",
+      "title": "具身十日谈：飞越奇点，后 Astra 时代的具身智能",
+      "publishedAt": "2026-09-14T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/pi-agent",
+      "title": "Pi Agent 小记",
+      "publishedAt": "2026-08-30T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/vrchat",
+      "title": "VRChat 上手纪实",
+      "publishedAt": "2026-08-11T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/advise-epilogue-3",
+      "title": "致新生的你/后日谈：极简新生手册",
+      "publishedAt": "2026-08-05T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/uni-memoir4",
+      "title": "大四回忆录",
+      "publishedAt": "2026-07-27T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-end",
+      "title": "月记的结束",
+      "publishedAt": "2026-07-06T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/eai-papers",
+      "title": "Embodied AI Paper List",
+      "publishedAt": "2026-06-08T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2604",
+      "title": "月记·二零二六·四月",
+      "publishedAt": "2026-06-01T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/isaac-8",
+      "title": "Isaac Sim 一百讲（8）：Robot",
+      "publishedAt": "2026-05-31T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2603",
+      "title": "月记·二零二六·三月",
+      "publishedAt": "2026-05-02T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/starvla-v1",
+      "title": "再次来到 VLA 的巴别塔/StarVLA 初版技术报告",
+      "publishedAt": "2026-04-22T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2602",
+      "title": "月记·二零二六·二月",
+      "publishedAt": "2026-03-31T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/interndataengine",
+      "title": "新时代的具身仿真数据引擎",
+      "publishedAt": "2026-03-24T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/astrbot-xiyan",
+      "title": "Astrbot/ 夕颜是如何炼成的",
+      "publishedAt": "2026-02-27T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/about-starvla",
+      "title": "StarVLA 这段时间以来",
+      "publishedAt": "2026-02-24T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/wsl-coding",
+      "title": "在 Windows 上使用 WSL 进行 Vibe Coding",
+      "publishedAt": "2026-02-15T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2601",
+      "title": "月记·二零二六·一月",
+      "publishedAt": "2026-02-08T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai10",
+      "title": "Paper Reading: Embodied AI 10",
+      "publishedAt": "2026-02-05T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2512",
+      "title": "月记·二零二五·十二月",
+      "publishedAt": "2026-01-15T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/advise-epilogue-2",
+      "title": "致新生的你/后日谈：价值博弈",
+      "publishedAt": "2026-01-06T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/advise-epilogue-0",
+      "title": "致新生的你/后日谈：序",
+      "publishedAt": "2026-01-04T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/advise-epilogue-1",
+      "title": "致新生的你/后日谈：为什么 Vibe Coding 如此重要",
+      "publishedAt": "2026-01-04T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai9",
+      "title": "Paper Reading: Embodied AI 9",
+      "publishedAt": "2026-01-03T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/2025",
+      "title": "2025 年终总结",
+      "publishedAt": "2026-01-01T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/uni-memoir3",
+      "title": "大三回忆录",
+      "publishedAt": "2025-12-27T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2510",
+      "title": "月记·二零二五·十月",
+      "publishedAt": "2025-12-01T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2511",
+      "title": "月记·二零二五·十一月",
+      "publishedAt": "2025-12-01T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/journal-2509",
+      "title": "月记·二零二五·九月",
+      "publishedAt": "2025-11-30T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/embodied-talk-4",
+      "title": "具身十日谈：关于仿真以及 InternData A1",
+      "publishedAt": "2025-11-23T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai8",
+      "title": "Paper Reading: Embodied AI 8",
+      "publishedAt": "2025-11-23T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/embodied-talk-3",
+      "title": "具身十日谈：GEN-0 以及后续的 VLA 发展的看法",
+      "publishedAt": "2025-11-06T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai7",
+      "title": "Paper Reading: Embodied AI 7",
+      "publishedAt": "2025-11-03T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/lerobot",
+      "title": "创建 LeRobot 2.1 数据集",
+      "publishedAt": "2025-10-29T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/dark-side-of-ai",
+      "title": "The Dark Side of the AI",
+      "publishedAt": "2025-10-23T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/rclone",
+      "title": "Rclone 简易教程",
+      "publishedAt": "2025-10-20T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/ppt-sharing",
+      "title": "经验分享 PPT",
+      "publishedAt": "2025-10-14T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/cursor-feature",
+      "title": "如何在 Astro 中为你的鼠标添加指针动画",
+      "publishedAt": "2025-10-11T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai6",
+      "title": "Paper Reading: Embodied AI 6",
+      "publishedAt": "2025-10-09T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/admission",
+      "title": "乘凉，我的保研经验贴",
+      "publishedAt": "2025-10-03T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/speech-undergraduate",
+      "title": "本科生代表致新生发言",
+      "publishedAt": "2025-09-25T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/isaac-7",
+      "title": "Isaac Sim 一百讲（7）：Camera",
+      "publishedAt": "2025-09-07T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai5",
+      "title": "Paper Reading: Embodied AI 5",
+      "publishedAt": "2025-09-06T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/embodied-talk-2",
+      "title": "具身十日谈：VLA 为什么需要 VLM",
+      "publishedAt": "2025-08-22T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/sealos-rustdesk",
+      "title": "傻瓜也可以部署的 RustDesk 教程",
+      "publishedAt": "2025-08-20T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/isaac-6",
+      "title": "Isaac Sim 一百讲（6）：Collision 进阶",
+      "publishedAt": "2025-08-17T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/rm-tutorial-section-3",
+      "title": "RoboMaster 视觉组第三次培训",
+      "publishedAt": "2025-08-07T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/rm-list",
+      "title": "RM 教程列表",
+      "publishedAt": "2025-08-06T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/pm2",
+      "title": "使用 PM2 持久化你的 Node 服务",
+      "publishedAt": "2025-08-04T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai4",
+      "title": "Paper Reading: Embodied AI 4",
+      "publishedAt": "2025-07-28T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/folo",
+      "title": "Hello, Folo and RSSHub!",
+      "publishedAt": "2025-07-26T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/paper-reading-eai3",
+      "title": "Paper Reading: Embodied AI 3",
+      "publishedAt": "2025-07-22T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/claude-code",
+      "title": "Hello, Claude Code. Goodbye, Cursor",
+      "publishedAt": "2025-07-20T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/waline-install",
+      "title": "在 Astro 中使用 Waline",
+      "publishedAt": "2025-07-16T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/astro-multi-pages",
+      "title": "为 Astro 博客添加多部署站点",
+      "publishedAt": "2025-07-07T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/r2-image-host",
+      "title": "Cloudflare R2 图床搭建",
+      "publishedAt": "2025-07-05T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/docker-ssh",
+      "title": "Docker 设置 SSH",
+      "publishedAt": "2025-07-02T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/browser-issues",
+      "title": "网页浏览卡顿的解决方案",
+      "publishedAt": "2025-06-30T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/archbug1",
+      "title": "ArchLinux 日志之 linux-firmware-nvidia 文件冲突",
+      "publishedAt": "2025-06-26T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/advise",
+      "title": "致新生的你",
+      "publishedAt": "2025-06-16T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://axi404.top/blog/embodied-talk-1",
+      "title": "具身十日谈：数据与仿真器",
+      "publishedAt": "2025-06-04T00:00:00.000Z",
+      "sourceId": "https://axi404.top/"
+    }
+  ]
+}
