@@ -18,7 +18,7 @@
 .roy-rich-frame .roy-rich-preview{margin:0 14px 12px;padding:12px 14px;max-height:320px;overflow:auto;border:1px solid var(--rich-line);border-radius:8px;background:color-mix(in srgb,currentColor 2%,transparent);font-size:14px}
 .roy-rich-status{margin:0;padding:0 14px 10px;font-size:12px;line-height:1.6;overflow-wrap:anywhere}.roy-rich-status:empty{display:none}
 .roy-rich-frame [hidden],textarea[data-rich-source]{display:none!important}
-.roy-rich-editor .roy-comment-emoji,.roy-rich-body .roy-comment-emoji{display:inline-block!important;width:1em!important;height:1em!important;min-width:0;max-width:none;vertical-align:-.12em;object-fit:cover;border-radius:50%;margin:0 .06em!important;background:transparent}
+.roy-rich-editor .roy-comment-emoji,.roy-rich-body .roy-comment-emoji{display:inline-block!important;width:2em!important;height:2em!important;min-width:0;max-width:none;vertical-align:-.62em;object-fit:cover;border-radius:50%;margin:0 .06em!important;background:transparent}
 #modalReplyForm .roy-rich-frame{color:#f5f3ee}
 @media(max-width:480px){.roy-rich-frame .roy-rich-editor{font-size:16px;min-height:128px;padding:12px 13px!important}.roy-rich-footer{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:10px 12px 12px}.roy-rich-meta{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;width:100%}.roy-rich-count{margin-left:0}.roy-rich-actions{gap:8px}.roy-rich-frame .roy-rich-preview{margin:0 12px 10px}}
 @media(prefers-reduced-motion:reduce){.roy-rich-frame,.roy-rich-actions>button{transition:none}}
