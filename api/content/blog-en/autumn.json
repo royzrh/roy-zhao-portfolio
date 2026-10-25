@@ -7,8 +7,10 @@
   "title": "秋天",
   "description": "autumn",
   "publishDate": "2025-10-31T00:00:00.000Z",
-  "updatedDate": null,
-  "tags": [],
+  "updatedDate": "2026-10-22T00:00:00.000Z",
+  "tags": [
+    "短文"
+  ],
   "url": "https://royzhao.cn/en/blog/autumn",
   "path": "/en/blog/autumn",
   "heroImage": {
@@ -20,7 +22,10 @@
     "title": "秋天",
     "description": "autumn",
     "publishDate": "2025-10-31T00:00:00.000Z",
-    "tags": [],
+    "updatedDate": "2026-10-22T00:00:00.000Z",
+    "tags": [
+      "短文"
+    ],
     "draft": false,
     "comment": true,
     "language": "zh",
