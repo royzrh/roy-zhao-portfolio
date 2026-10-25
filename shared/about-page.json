@@ -1,1 +1,25 @@
-{"headline":"Hi，我是赵润涵。","about":"目前就读深圳大学，这里记录我的学习、项目与日常活动，也欢迎浏览我的相册主页呀！\n\n我的研究兴趣包括光学神经网络、非线性光学等，欢迎与我交流！","interests":"","cv":{"label":"","url":""},"publications":[],"projects":[],"links":[{"label":"GitHub · @royzrh","url":"https://github.com/royzrh"},{"label":"相册主页 · royzhao.cn/zz/","url":"/zz/"},{"label":"roy_zrh@foxmail.com","url":"mailto:roy_zrh@foxmail.com"}]}
+{
+  "headline": "Hi，我是赵润涵~",
+  "about": "也可以叫我Roy Zhao，\n我是一个光信系本科在读的SZUer，在这里分享一些小知识与我的日常活动；\n\n个人爱好是摄影🎞️、羽毛球🏸、徒步🏔️，保持世界探索中～\n观看更多我的作品，欢迎浏览我的相册主页！\n我的研究兴趣包括光学神经网络、非线性光学等，欢迎与我交流！",
+  "interests": "",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/royzrh"
+    },
+    {
+      "label": "相册主页",
+      "url": "/zz/"
+    },
+    {
+      "label": "E-mail",
+      "url": "mailto:roy_zrh@foxmail.com"
+    }
+  ],
+  "cv": {
+    "label": "",
+    "url": ""
+  },
+  "publications": [],
+  "projects": []
+}
