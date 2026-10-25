@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T14:18:28.401Z",
+  "checkedAt": "2026-10-25T14:24:59.250Z",
   "sources": [
     {
       "id": "https://cyril-fan.top/",
@@ -9,7 +9,7 @@
       "avatar": "https://royzhao.cn/avatar/cyril-fan.jpg",
       "feed": "https://cyril-fan.top/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-25T14:18:28.401Z"
+      "checkedAt": "2026-10-25T14:24:59.250Z"
     },
     {
       "id": "https://axi404.top/",
@@ -17,8 +17,8 @@
       "name": "Axi's Blog",
       "avatar": "https://axi404.top/avatar/avatar.png",
       "feed": "https://axi404.top/rss.xml",
-      "status": "cached",
-      "checkedAt": "2026-10-25T11:11:36.238Z"
+      "status": "ok",
+      "checkedAt": "2026-10-25T14:24:59.250Z"
     },
     {
       "id": "https://vys3n.github.io/",
@@ -27,7 +27,7 @@
       "avatar": "https://royzhao.cn/avatar/vys3n.jpg",
       "feed": "https://vys3n.github.io/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-25T14:18:28.401Z"
+      "checkedAt": "2026-10-25T14:24:59.250Z"
     }
   ],
   "posts": [
