@@ -26,8 +26,8 @@
       const status=comments.querySelector('[data-status]');
       if(status) status.textContent=comments.dataset.en==='true'?'Open the website address to use comments.':'请通过网站地址打开页面后使用评论。';
     }
-    for(const element of document.querySelectorAll('[href],[src],[poster],[srcset],[data-target-url]')){
-      for(const name of ['href','src','poster','data-target-url']){
+    for(const element of document.querySelectorAll('[href],[src],[poster],[srcset],[data-target-url],[data-zoom-src]')){
+      for(const name of ['href','src','poster','data-target-url','data-zoom-src']){
         const value=element.getAttribute(name);
         if(isLocal(value)) element.setAttribute(name,local(value));
       }
