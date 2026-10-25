@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T14:07:14.259Z",
+  "checkedAt": "2026-10-25T14:18:28.401Z",
   "sources": [
     {
       "id": "https://cyril-fan.top/",
@@ -8,8 +8,8 @@
       "name": "Cyril Fan's Blog",
       "avatar": "https://royzhao.cn/avatar/cyril-fan.jpg",
       "feed": "https://cyril-fan.top/rss.xml",
-      "status": "cached",
-      "checkedAt": "2026-10-25T11:11:36.238Z"
+      "status": "ok",
+      "checkedAt": "2026-10-25T14:18:28.401Z"
     },
     {
       "id": "https://axi404.top/",
@@ -26,11 +26,17 @@
       "name": "VYS3N‘s Blog",
       "avatar": "https://royzhao.cn/avatar/vys3n.jpg",
       "feed": "https://vys3n.github.io/rss.xml",
-      "status": "cached",
-      "checkedAt": "2026-10-25T11:11:36.238Z"
+      "status": "ok",
+      "checkedAt": "2026-10-25T14:18:28.401Z"
     }
   ],
   "posts": [
+    {
+      "url": "https://vys3n.github.io/blog/sketch-3/",
+      "title": "黄叶飘零",
+      "publishedAt": "2026-10-25T10:44:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
+    },
     {
       "url": "https://vys3n.github.io/blog/sketch-2/",
       "title": "墨西哥",
