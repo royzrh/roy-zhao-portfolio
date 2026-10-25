@@ -2,8 +2,30 @@
   "schemaVersion": 1,
   "type": "blog",
   "locale": "zh",
-  "total": 1,
+  "total": 2,
   "items": [
+    {
+      "id": "d2nn-1550nm-stage-report",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "1550nm波长下D²NN的结构设计探究",
+      "description": "主要围绕1550nm波长下衍射神经网络的结构设计、分类性能评估和传播距离优化开展研究。",
+      "publishDate": "2026-10-25T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "d²nn",
+        "onn",
+        "实验记录"
+      ],
+      "url": "https://royzhao.cn/blog/d2nn-1550nm-stage-report",
+      "path": "/blog/d2nn-1550nm-stage-report",
+      "heroImage": {
+        "src": "/assets/site-fig02_blender_d2nn-a1b7fe4b.DQxsSRYr.webp",
+        "alt": "fig02_blender_d2nn.png"
+      },
+      "category": "research"
+    },
     {
       "id": "autumn",
       "type": "blog",
