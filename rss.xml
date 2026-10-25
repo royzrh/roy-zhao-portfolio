@@ -26,7 +26,7 @@
 | 探测器数目 | 10 |
 | 探测器尺寸 | 0.6 × 0.6 mm² |&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;表 1　五层等间距网络的基准参数&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-five-layer-layout.D5h_oYEt_CTDbh.png&quot; alt=&quot;五层等间距网络结构示意图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/five-layer-layout.webp&quot; alt=&quot;五层等间距网络结构示意图&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 1　当前五层等间距配置示意图&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;3 不同层数的分类性能比较&lt;/h2&gt;
 &lt;p&gt;| 层数 | 最佳轮次 | 验证准确率 | 测试准确率 | 正确探测器效率 | 总捕获率 |
@@ -42,8 +42,8 @@
 &lt;h3&gt;3.1 双层网络的取舍&lt;/h3&gt;
 &lt;p&gt;与单层网络相比，双层网络增加了一块相位板和一段自由空间传播，使光场能够经历更多次相位调制与衍射演化，获得了明显更高的分类准确率，达到 78.18%。鉴于本次为小范围训练，完整数据集训练的结果可能还有一定提升。&lt;/p&gt;
 &lt;p&gt;同时，正确探测器效率从 2.203% 降为 1.303%，总捕获率从 12.317% 降为 4.035%。单层虽然收光更多，分到真实类别的相对份额却更低，许多类别难以区分。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-two-layer-phases.CwxNU4EH_Z2kbYvS.png&quot; alt=&quot;双层网络相位分布&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-two-layer-confusion.Cz_fGdZS_11Gzv3.png&quot; alt=&quot;双层网络测试混淆矩阵&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/two-layer-phases.webp&quot; alt=&quot;双层网络相位分布&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/two-layer-confusion.webp&quot; alt=&quot;双层网络测试混淆矩阵&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 2　双层网络15轮小范围训练结果&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;| 层数 | 系统长度 | 准确度 | 正确探测器效率 | 捕获效率 | 正确光强占比 |
 | :--- | ---: | ---: | ---: | ---: | ---: |
@@ -79,28 +79,28 @@ $$&lt;/p&gt;
 &lt;p&gt;也就是说，探测器只能收集有限区域内的光。&lt;/p&gt;
 &lt;h2&gt;4 五层网络全集结果&lt;/h2&gt;
 &lt;p&gt;为进一步评估模型的泛化能力，对此前训练得到的五层等间距网络，使用 MNIST 官方 10,000 张测试图像进行了独立评估，结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-uniform-five-layer-phases.BSQpCWOV_Zau2q7.png&quot; alt=&quot;五层等间距网络相位分布&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/uniform-five-layer-phases.webp&quot; alt=&quot;五层等间距网络相位分布&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 3　五层网络10轮全集训练相位图&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-uniform-training.B65W1MoW_Z2l26w7.png&quot; alt=&quot;五层等间距网络训练曲线&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-nonuniform-small-sample-training.DN3iy2Rs_Z1xGRpp.png&quot; alt=&quot;非均匀间距网络小范围训练曲线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/uniform-training.webp&quot; alt=&quot;五层等间距网络训练曲线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/nonuniform-small-sample-training.webp&quot; alt=&quot;非均匀间距网络小范围训练曲线&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 4　D²NN 的 10轮训练过程&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-uniform-confusion.Bdcg1RR3_Z2wlYRt.png&quot; alt=&quot;五层等间距网络混淆矩阵&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-uniform-validation.Ck0Wu96o_Z1eIabd.png&quot; alt=&quot;五层等间距网络验证曲线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/uniform-confusion.webp&quot; alt=&quot;五层等间距网络混淆矩阵&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/uniform-validation.webp&quot; alt=&quot;五层等间距网络验证曲线&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 5　D²NN 的 10轮训练过程及混淆矩阵&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;最终测试准确率达到 &lt;strong&gt;89.23%&lt;/strong&gt;，相较小范围训练提高 &lt;strong&gt;0.97 个百分点&lt;/strong&gt;。&lt;/p&gt;
 &lt;h2&gt;5 五层不等间距参数探寻&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-spacing-search.9OcqfINR_2jFwba.png&quot; alt=&quot;九组非均匀层间距候选搜索结果&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/spacing-search.webp&quot; alt=&quot;九组非均匀层间距候选搜索结果&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 6　不同的不等间距参数小范围训练结果&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;衍射网络可以通过调整层间距改善性能。这里列出 9 组参数，在层间总长度固定的条件下，由程序自动生成不同组合，分别训练并比较结果，以枚举法寻找较优的间距方案。&lt;/p&gt;
 &lt;p&gt;这种方案存在明显局限：计算成本较高，而且只能找到已搜索候选中的较优值，不能保证获得连续参数空间中的最优解。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-small-sample-comparison.DM4MUZYZ_eKvqz.png&quot; alt=&quot;小范围训练方案的准确率及探测效率对比&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/small-sample-comparison.webp&quot; alt=&quot;小范围训练方案的准确率及探测效率对比&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 7　三种准确率较高的方案的相关准确度、正确探测器效率与总光强效率&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;通过分类训练，我得到三组准确率较高的方案，并选取其中最高的一组继续训练。四段间距分别为 150 mm、125 mm、75 mm、25 mm，训练 15 轮，其他参数与五层等间距网络保持一致。相关结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-nonuniform-confusion.gmidAwpz_Z201Qfv.png&quot; alt=&quot;非均匀间距网络混淆矩阵&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-nonuniform-small-sample-training.DN3iy2Rs_Z1xGRpp.png&quot; alt=&quot;非均匀间距网络小范围训练曲线&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-nonuniform-training.KEhe1H4B_ZnPRxl.png&quot; alt=&quot;非均匀间距网络全集训练曲线&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-nonuniform-validation.AiVtJNZB_Z2h25Db.png&quot; alt=&quot;非均匀间距网络全集验证曲线&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-nonuniform-five-layer-phases.D899re58_OKXGY.png&quot; alt=&quot;非均匀间距网络五层相位分布&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/nonuniform-confusion.webp&quot; alt=&quot;非均匀间距网络混淆矩阵&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/nonuniform-small-sample-training.webp&quot; alt=&quot;非均匀间距网络小范围训练曲线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/nonuniform-training.webp&quot; alt=&quot;非均匀间距网络全集训练曲线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/nonuniform-validation.webp&quot; alt=&quot;非均匀间距网络全集验证曲线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/nonuniform-five-layer-phases.webp&quot; alt=&quot;非均匀间距网络五层相位分布&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 8　非均匀间隔网络10轮全集训练结果&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;网络测试准确率为 &lt;strong&gt;89.14%&lt;/strong&gt;，与等间距网络的性能对比如下：&lt;/p&gt;
 &lt;p&gt;| 指标 | 等间距 | 非均匀间距 | 对比结果 |
@@ -114,7 +114,7 @@ $$&lt;/p&gt;
 | FFT 窗口能量比例 | 38.40% | 43.62% | +5.22% |&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;表 4　均匀网络与非均匀网络的对比表&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;从对比中可以看到，使用非等间距后能有效提升网络的正确探测器效率与捕获效率，这意味着在当前仿真条件下，非均匀结构能让更多光能进入探测器区域。在相同输入光功率下，更高的探测器捕获效率有助于提高可获得的探测信号。不过当前正确探测器效率仅为约 0.18%，绝对数值依然很低。实际信噪比是否改善，还需要考虑探测器噪声、串扰及光学损耗。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://royzhao.cn/assets/site-uniform-nonuniform-training-comparison.BohjiSHm_Z1aWOxp.png&quot; alt=&quot;等间距与非均匀间距网络训练过程对比&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./images/uniform-nonuniform-training-comparison.webp&quot; alt=&quot;等间距与非均匀间距网络训练过程对比&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;图 9　均匀网络与非均匀网络训练过程&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;从训练过程来看，非均匀间距网络整体表现出一定优势。两种网络均在训练初期快速收敛，但非均匀间距网络在前期具有更高的分类准确率，且在大多数训练轮次中保持了略高的验证准确率，说明其能够较快建立有效的分类能力。第 7 轮时，非均匀间距网络的最佳验证准确率达到 88.14%，高于等间距网络的 87.98%。&lt;/p&gt;
 &lt;p&gt;更值得关注的是，非均匀间距网络在整个训练过程中始终保持了更高的探测器光能捕获效率，最终测试中正确探测器效率相对提高 4.34%，全部探测器捕获效率相对提高 8.37%，FFT 窗口能量比例相对提高 13.59%。&lt;/p&gt;

@@ -209,7 +209,7 @@
 
 <table><thead><tr><th align="left">类别</th><th align="right">已验证配置</th></tr></thead><tbody><tr><td align="left">每层神经元数量</td><td align="right">200 × 200</td></tr><tr><td align="left">神经元总量</td><td align="right">200,000</td></tr><tr><td align="left">神经元间距</td><td align="right">50 μm</td></tr><tr><td align="left">相位板尺寸</td><td align="right">10 × 10 mm²</td></tr><tr><td align="left">输入平面 → 第一层</td><td align="right">30 mm</td></tr><tr><td align="left">层级间隔</td><td align="right">100 mm</td></tr><tr><td align="left">第五层 → 探测器</td><td align="right">100 mm</td></tr><tr><td align="left">传播距离</td><td align="right">530 mm</td></tr><tr><td align="left">探测器数目</td><td align="right">10</td></tr><tr><td align="left">探测器尺寸</td><td align="right">0.6 × 0.6 mm²</td></tr></tbody></table>
 <p><em>表 1　五层等间距网络的基准参数</em></p>
-<p><img alt="五层等间距网络结构示意图" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1995" height="660" src="/assets/site-five-layer-layout.D5h_oYEt_CTDbh.png" ></p>
+<p><img alt="五层等间距网络结构示意图" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1995" height="660" src="/assets/site-five-layer-layout.BX15PCWK_13d1Jl.webp" ></p>
 <p><em>图 1　当前五层等间距配置示意图</em></p>
 <h2 id="3-不同层数的分类性能比较">3 不同层数的分类性能比较<a class="anchor" href="#3-不同层数的分类性能比较">#</a></h2>
 
@@ -265,8 +265,8 @@
 <h3 id="31-双层网络的取舍">3.1 双层网络的取舍<a class="anchor" href="#31-双层网络的取舍">#</a></h3>
 <p>与单层网络相比，双层网络增加了一块相位板和一段自由空间传播，使光场能够经历更多次相位调制与衍射演化，获得了明显更高的分类准确率，达到 78.18%。鉴于本次为小范围训练，完整数据集训练的结果可能还有一定提升。</p>
 <p>同时，正确探测器效率从 2.203% 降为 1.303%，总捕获率从 12.317% 降为 4.035%。单层虽然收光更多，分到真实类别的相对份额却更低，许多类别难以区分。</p>
-<p><img alt="双层网络相位分布" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1343" height="611" src="/assets/site-two-layer-phases.CwxNU4EH_Z2kbYvS.png" ></p>
-<p><img alt="双层网络测试混淆矩阵" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1600" height="1400" src="/assets/site-two-layer-confusion.Cz_fGdZS_11Gzv3.png" ></p>
+<p><img alt="双层网络相位分布" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1343" height="611" src="/assets/site-two-layer-phases.CljRVW_e_hnfOh.webp" ></p>
+<p><img alt="双层网络测试混淆矩阵" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1600" height="1400" src="/assets/site-two-layer-confusion.UVfET7z-_guzNL.webp" ></p>
 <p><em>图 2　双层网络15轮小范围训练结果</em></p>
 
 
@@ -334,28 +334,28 @@
 <p>也就是说，探测器只能收集有限区域内的光。</p>
 <h2 id="4-五层网络全集结果">4 五层网络全集结果<a class="anchor" href="#4-五层网络全集结果">#</a></h2>
 <p>为进一步评估模型的泛化能力，对此前训练得到的五层等间距网络，使用 MNIST 官方 10,000 张测试图像进行了独立评估，结果如下：</p>
-<p><img alt="五层等间距网络相位分布" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2880" height="640" src="/assets/site-uniform-five-layer-phases.BSQpCWOV_Zau2q7.png" ></p>
+<p><img alt="五层等间距网络相位分布" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2880" height="640" src="/assets/site-uniform-five-layer-phases.HshNwRiD_Z1S6vc9.webp" ></p>
 <p><em>图 3　五层网络10轮全集训练相位图</em></p>
-<p><img alt="五层等间距网络训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3416" height="2139" src="/assets/site-uniform-training.B65W1MoW_Z2l26w7.png" ></p>
-<p><img alt="非均匀间距网络小范围训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2717" height="1714" src="/assets/site-nonuniform-small-sample-training.DN3iy2Rs_Z1xGRpp.png" ></p>
+<p><img alt="五层等间距网络训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3416" height="2139" src="/assets/site-uniform-training.Bq8yO_MM_Z1ufjp6.webp" ></p>
+<p><img alt="非均匀间距网络小范围训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2717" height="1714" src="/assets/site-nonuniform-small-sample-training.BAKKwSos_Z6gPD.webp" ></p>
 <p><em>图 4　D²NN 的 10轮训练过程</em></p>
-<p><img alt="五层等间距网络混淆矩阵" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1260" height="1080" src="/assets/site-uniform-confusion.Bdcg1RR3_Z2wlYRt.png" ></p>
-<p><img alt="五层等间距网络验证曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3450" height="2139" src="/assets/site-uniform-validation.Ck0Wu96o_Z1eIabd.png" ></p>
+<p><img alt="五层等间距网络混淆矩阵" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1260" height="1080" src="/assets/site-uniform-confusion.BpqX8S-s_ZP8teL.webp" ></p>
+<p><img alt="五层等间距网络验证曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3450" height="2139" src="/assets/site-uniform-validation.B7XABwu9_Z1TVf6U.webp" ></p>
 <p><em>图 5　D²NN 的 10轮训练过程及混淆矩阵</em></p>
 <p>最终测试准确率达到 <strong>89.23%</strong>，相较小范围训练提高 <strong>0.97 个百分点</strong>。</p>
 <h2 id="5-五层不等间距参数探寻">5 五层不等间距参数探寻<a class="anchor" href="#5-五层不等间距参数探寻">#</a></h2>
-<p><img alt="九组非均匀层间距候选搜索结果" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2048" height="819" src="/assets/site-spacing-search.9OcqfINR_2jFwba.png" ></p>
+<p><img alt="九组非均匀层间距候选搜索结果" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2048" height="819" src="/assets/site-spacing-search.C1411Gsf_8hQI1.webp" ></p>
 <p><em>图 6　不同的不等间距参数小范围训练结果</em></p>
 <p>衍射网络可以通过调整层间距改善性能。这里列出 9 组参数，在层间总长度固定的条件下，由程序自动生成不同组合，分别训练并比较结果，以枚举法寻找较优的间距方案。</p>
 <p>这种方案存在明显局限：计算成本较高，而且只能找到已搜索候选中的较优值，不能保证获得连续参数空间中的最优解。</p>
-<p><img alt="小范围训练方案的准确率及探测效率对比" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2048" height="778" src="/assets/site-small-sample-comparison.DM4MUZYZ_eKvqz.png" ></p>
+<p><img alt="小范围训练方案的准确率及探测效率对比" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2048" height="778" src="/assets/site-small-sample-comparison.BUHtNwyw_2rxQlv.webp" ></p>
 <p><em>图 7　三种准确率较高的方案的相关准确度、正确探测器效率与总光强效率</em></p>
 <p>通过分类训练，我得到三组准确率较高的方案，并选取其中最高的一组继续训练。四段间距分别为 150 mm、125 mm、75 mm、25 mm，训练 15 轮，其他参数与五层等间距网络保持一致。相关结果如下：</p>
-<p><img alt="非均匀间距网络混淆矩阵" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1260" height="1080" src="/assets/site-nonuniform-confusion.gmidAwpz_Z201Qfv.png" ></p>
-<p><img alt="非均匀间距网络小范围训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2717" height="1714" src="/assets/site-nonuniform-small-sample-training.DN3iy2Rs_Z1xGRpp.png" ></p>
-<p><img alt="非均匀间距网络全集训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3409" height="2133" src="/assets/site-nonuniform-training.KEhe1H4B_ZnPRxl.png" ></p>
-<p><img alt="非均匀间距网络全集验证曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3443" height="2133" src="/assets/site-nonuniform-validation.AiVtJNZB_Z2h25Db.png" ></p>
-<p><img alt="非均匀间距网络五层相位分布" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2880" height="640" src="/assets/site-nonuniform-five-layer-phases.D899re58_OKXGY.png" ></p>
+<p><img alt="非均匀间距网络混淆矩阵" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="1260" height="1080" src="/assets/site-nonuniform-confusion.CWt3kUi6_oBhuq.webp" ></p>
+<p><img alt="非均匀间距网络小范围训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2717" height="1714" src="/assets/site-nonuniform-small-sample-training.BAKKwSos_Z6gPD.webp" ></p>
+<p><img alt="非均匀间距网络全集训练曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3409" height="2133" src="/assets/site-nonuniform-training.CYWYyGtH_kDVIt.webp" ></p>
+<p><img alt="非均匀间距网络全集验证曲线" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3443" height="2133" src="/assets/site-nonuniform-validation.f5n1JNhC_RrflX.webp" ></p>
+<p><img alt="非均匀间距网络五层相位分布" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="2880" height="640" src="/assets/site-nonuniform-five-layer-phases.ygdYiQz0_2jzb0P.webp" ></p>
 <p><em>图 8　非均匀间隔网络10轮全集训练结果</em></p>
 <p>网络测试准确率为 <strong>89.14%</strong>，与等间距网络的性能对比如下：</p>
 
@@ -414,7 +414,7 @@
 <table><thead><tr><th align="left">指标</th><th align="right">等间距</th><th align="right">非均匀间距</th><th align="right">对比结果</th></tr></thead><tbody><tr><td align="left">最佳 Epoch</td><td align="right">7</td><td align="right">7</td><td align="right">-</td></tr><tr><td align="left">最佳验证准确率</td><td align="right">87.98%</td><td align="right">88.14%</td><td align="right">+0.16%</td></tr><tr><td align="left">测试准确率</td><td align="right">89.23%</td><td align="right">89.14%</td><td align="right">-0.09%</td></tr><tr><td align="left">正确探测器效率</td><td align="right">0.1726%</td><td align="right">0.1801%</td><td align="right">+4.34%</td></tr><tr><td align="left">全部探测器捕获效率</td><td align="right">0.2809%</td><td align="right">0.3044%</td><td align="right">+8.37%</td></tr><tr><td align="left">正确探测器光强占比</td><td align="right">58.41%</td><td align="right">56.52%</td><td align="right">-1.90%</td></tr><tr><td align="left">FFT 窗口能量比例</td><td align="right">38.40%</td><td align="right">43.62%</td><td align="right">+5.22%</td></tr></tbody></table>
 <p><em>表 4　均匀网络与非均匀网络的对比表</em></p>
 <p>从对比中可以看到，使用非等间距后能有效提升网络的正确探测器效率与捕获效率，这意味着在当前仿真条件下，非均匀结构能让更多光能进入探测器区域。在相同输入光功率下，更高的探测器捕获效率有助于提高可获得的探测信号。不过当前正确探测器效率仅为约 0.18%，绝对数值依然很低。实际信噪比是否改善，还需要考虑探测器噪声、串扰及光学损耗。</p>
-<p><img alt="等间距与非均匀间距网络训练过程对比" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3400" height="2180" src="/assets/site-uniform-nonuniform-training-comparison.BohjiSHm_Z1aWOxp.png" ></p>
+<p><img alt="等间距与非均匀间距网络训练过程对比" class="zoomable" loading="lazy" decoding="async" fetchpriority="auto" width="3400" height="2180" src="/assets/site-uniform-nonuniform-training-comparison.LOTF3B0I_Z1F5d39.webp" ></p>
 <p><em>图 9　均匀网络与非均匀网络训练过程</em></p>
 <p>从训练过程来看，非均匀间距网络整体表现出一定优势。两种网络均在训练初期快速收敛，但非均匀间距网络在前期具有更高的分类准确率，且在大多数训练轮次中保持了略高的验证准确率，说明其能够较快建立有效的分类能力。第 7 轮时，非均匀间距网络的最佳验证准确率达到 88.14%，高于等间距网络的 87.98%。</p>
 <p>更值得关注的是，非均匀间距网络在整个训练过程中始终保持了更高的探测器光能捕获效率，最终测试中正确探测器效率相对提高 4.34%，全部探测器捕获效率相对提高 8.37%，FFT 窗口能量比例相对提高 13.59%。</p>
