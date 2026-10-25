@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "type": "blog",
   "locale": "en",
-  "total": 2,
+  "total": 3,
   "items": [
     {
       "id": "d2nn-1550nm-stage-report",
@@ -25,6 +25,27 @@
         "alt": "fig02_blender_d2nn.png"
       },
       "category": "research"
+    },
+    {
+      "id": "tree",
+      "type": "blog",
+      "locale": "en",
+      "contentLanguage": "zh",
+      "title": "石头",
+      "description": "核桃树、柚子树、竹林",
+      "publishDate": "2026-10-25T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "短文",
+        "childhod"
+      ],
+      "url": "https://royzhao.cn/en/blog/tree",
+      "path": "/en/blog/tree",
+      "heroImage": {
+        "src": "/assets/site-home-3e2c4be4.BELuaKDH.webp",
+        "alt": "home.png"
+      },
+      "category": "daily"
     },
     {
       "id": "autumn",

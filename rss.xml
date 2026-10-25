@@ -140,4 +140,18 @@ $$&lt;/p&gt;
 &lt;p&gt;程序基于 PyTorch 深度学习框架实现网络训练，并使用 Adam 优化算法更新相位参数。训练过程中，程序通过自动微分计算损失函数对各层相位参数的梯度，实现相位分布的迭代优化。同时使用验证集评估网络性能，并根据验证准确率及验证损失选择最佳模型。层间传播距离在训练前确定，不参与梯度更新。&lt;/p&gt;
 &lt;h3&gt;6.7 性能评估与结果输出模块&lt;/h3&gt;
 &lt;p&gt;训练完成后，程序对最佳模型进行性能评估，主要统计分类准确率、正确探测器效率、全部探测器捕获效率及光强占比等指标，并保存训练曲线、混淆矩阵和各层相位分布图。这些结果用于分析不同层间距结构对分类性能与光能利用率的影响，为后续网络结构优化提供依据。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/royzrh/simulation-d2nn&quot;&gt;code&lt;/a&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;&lt;a href=&quot;https://github.com/royzrh/simulation-d2nn&quot;&gt;code&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>石头</title><link>https://royzhao.cn/blog/tree</link><guid isPermaLink="true">https://royzhao.cn/blog/tree</guid><description>核桃树、柚子树、竹林</description><pubDate>Sun, 25 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;从这里开始写作。category 仅支持 daily（文字）、research（学术）、tech（技术）。&lt;/p&gt;
+&lt;h2&gt;图片、代码与公式&lt;/h2&gt;
+&lt;p&gt;将图片放到本文文件夹，再使用 &lt;code&gt;![图片说明](./figure.png)&lt;/code&gt; 引用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;print(&quot;Hello, world&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;行内公式：$E=mc^2$。&lt;/p&gt;
+&lt;p&gt;独立公式：&lt;/p&gt;
+&lt;p&gt;$$
+y = Wx
+$$&lt;/p&gt;
+&lt;h2&gt;参考资料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://example.com&quot;&gt;参考链接&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item></channel></rss>
