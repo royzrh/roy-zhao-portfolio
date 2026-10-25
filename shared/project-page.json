@@ -1,1 +1,49 @@
-{"about":"","interests":"","cv":{"label":"","url":""},"publications":[],"projects":[{"title":"相册主页","description":"收藏照片、目的地与旅途中的故事。","links":[{"label":"Roy Zhao / 赵润涵 · royzhao.cn/zz/","url":"/zz/"}]},{"title":"更多项目","description":"更多公开项目与代码，放在我的 GitHub 主页。","links":[{"label":"@royzrh","url":"https://github.com/royzrh?tab=repositories"}]}]}
+{
+  "headline": "",
+  "about": "",
+  "interests": "",
+  "links": [],
+  "cv": {
+    "label": "",
+    "url": ""
+  },
+  "publications": [],
+  "projects": [
+    {
+      "title": "相册主页",
+      "year": "",
+      "type": "",
+      "status": "",
+      "authors": "",
+      "contribution": "",
+      "venue": "",
+      "role": "",
+      "description": "收藏一些照片，分享目的地与旅途中的故事。",
+      "image": "",
+      "links": [
+        {
+          "label": "Roy Zhao / 赵润涵",
+          "url": "/zz/"
+        }
+      ]
+    },
+    {
+      "title": "更多项目",
+      "year": "",
+      "type": "",
+      "status": "",
+      "authors": "",
+      "contribution": "",
+      "venue": "",
+      "role": "",
+      "description": "更多公开项目与代码，放在我的 GitHub 主页。",
+      "image": "",
+      "links": [
+        {
+          "label": "@royzrh",
+          "url": "https://github.com/royzrh?tab=repositories"
+        }
+      ]
+    }
+  ]
+}
