@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T14:24:59.250Z",
+  "checkedAt": "2026-10-26T13:46:07.779Z",
   "sources": [
     {
       "id": "https://cyril-fan.top/",
@@ -21,32 +21,65 @@
       "checkedAt": "2026-10-25T14:24:59.250Z"
     },
     {
+      "id": "https://jy.xn--wut303ivvd.space/",
+      "home": "https://jy.xn--wut303ivvd.space/",
+      "name": "Elio",
+      "avatar": "https://jy.xn--wut303ivvd.space/favicon.svg",
+      "feed": "https://jy.xn--wut303ivvd.space/rss.xml",
+      "status": "ok",
+      "checkedAt": "2026-10-26T13:43:20.893Z"
+    },
+    {
       "id": "https://vys3n.github.io/",
       "home": "https://vys3n.github.io/",
-      "name": "VYS3N's Blog",
-      "avatar": "https://royzhao.cn/avatar/vys3n.jpg",
+      "name": "VYS3N",
+      "avatar": "https://vys3n.github.io/images/avatar.webp",
       "feed": "https://vys3n.github.io/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-25T14:24:59.250Z"
+      "checkedAt": "2026-10-26T13:46:07.779Z"
     }
   ],
   "posts": [
     {
-      "url": "https://vys3n.github.io/blog/sketch-3/",
-      "title": "黄叶飘零",
-      "publishedAt": "2026-10-25T10:44:00.000Z",
+      "url": "https://vys3n.github.io/blog/sketch-5/",
+      "title": "巴别塔",
+      "publishedAt": "2026-10-26T05:42:00.000Z",
       "sourceId": "https://vys3n.github.io/"
     },
     {
-      "url": "https://vys3n.github.io/blog/sketch-2/",
-      "title": "墨西哥",
-      "publishedAt": "2026-10-24T14:00:38.000Z",
-      "sourceId": "https://vys3n.github.io/"
+      "url": "https://jy.xn--wut303ivvd.space/posts/cc-switch-to-codex-official/",
+      "title": "从 CC-Switch 的 API 接入切换到 Codex 官方账号",
+      "publishedAt": "2026-10-26T00:00:00.000Z",
+      "sourceId": "https://jy.xn--wut303ivvd.space/"
     },
     {
-      "url": "https://vys3n.github.io/blog/sketch-1/",
+      "url": "https://jy.xn--wut303ivvd.space/posts/welcome/",
+      "title": "你好，世界。给文字一个自己的家",
+      "publishedAt": "2026-10-25T00:00:00.000Z",
+      "sourceId": "https://jy.xn--wut303ivvd.space/"
+    },
+    {
+      "url": "https://vys3n.github.io/blog/sketch-4/",
       "title": "龙风筝",
       "publishedAt": "2026-10-24T06:45:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
+    },
+    {
+      "url": "https://jy.xn--wut303ivvd.space/posts/github-pages-guide/",
+      "title": "从零开始，把博客发布到 GitHub Pages",
+      "publishedAt": "2026-10-24T00:00:00.000Z",
+      "sourceId": "https://jy.xn--wut303ivvd.space/"
+    },
+    {
+      "url": "https://jy.xn--wut303ivvd.space/posts/rss-reading/",
+      "title": "让更新来找你：RSS 的简单用法",
+      "publishedAt": "2026-10-21T00:00:00.000Z",
+      "sourceId": "https://jy.xn--wut303ivvd.space/"
+    },
+    {
+      "url": "https://vys3n.github.io/blog/sketch-3/",
+      "title": "墨西哥",
+      "publishedAt": "2026-09-21T14:00:00.000Z",
       "sourceId": "https://vys3n.github.io/"
     },
     {
@@ -54,6 +87,12 @@
       "title": "具身十日谈：飞越奇点，后 Astra 时代的具身智能",
       "publishedAt": "2026-09-14T00:00:00.000Z",
       "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://vys3n.github.io/blog/sketch-2/",
+      "title": "黄叶飘零",
+      "publishedAt": "2026-09-02T10:44:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
     },
     {
       "url": "https://axi404.top/blog/pi-agent",
@@ -108,6 +147,12 @@
       "title": "月记·二零二六·三月",
       "publishedAt": "2026-05-02T00:00:00.000Z",
       "sourceId": "https://axi404.top/"
+    },
+    {
+      "url": "https://vys3n.github.io/blog/sketch-1/",
+      "title": "享福",
+      "publishedAt": "2026-04-23T09:42:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
     },
     {
       "url": "https://axi404.top/blog/starvla-v1",

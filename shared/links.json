@@ -23,10 +23,18 @@
           "intro": "一只可爱小猫"
         },
         {
-          "name": "VYS3N's Blog",
-          "link": "https://vys3n.github.io/",
-          "avatar": "/avatar/vys3n.jpg",
-          "intro": "VYS3N 的个人博客"
+          "name": "VYS3N",
+          "link": "https://VYS3N.github.io/",
+          "avatar": "https://VYS3N.github.io/images/avatar.webp",
+          "intro": "Sliver Bullet",
+          "rss": "https://VYS3N.github.io/rss.xml"
+        },
+        {
+          "name": "Elio",
+          "link": "https://jy.xn--wut303ivvd.space/",
+          "avatar": "https://jy.xn--wut303ivvd.space/favicon.svg",
+          "intro": "thank me",
+          "rss": "https://jy.xn--wut303ivvd.space/rss.xml"
         }
       ]
     }
