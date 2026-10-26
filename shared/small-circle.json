@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T13:46:07.779Z",
+  "checkedAt": "2026-10-26T13:56:38.782Z",
   "sources": [
     {
       "id": "https://cyril-fan.top/",
@@ -37,6 +37,15 @@
       "feed": "https://vys3n.github.io/rss.xml",
       "status": "ok",
       "checkedAt": "2026-10-26T13:46:07.779Z"
+    },
+    {
+      "id": "https://leonwater1.github.io/",
+      "home": "https://leonwater1.github.io/",
+      "name": "Liang Jo-shui",
+      "avatar": "https://leonwater1.github.io/avatar/tonight.jpg",
+      "feed": "https://leonwater1.github.io/rss.xml",
+      "status": "ok",
+      "checkedAt": "2026-10-26T13:56:38.782Z"
     }
   ],
   "posts": [

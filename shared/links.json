@@ -2,19 +2,13 @@
   "friends": [
     {
       "id_name": "friends",
-      "desc": "朋友与我的相册主页",
+      "desc": "朋友们",
       "link_list": [
         {
           "name": "Cyril Fan's Blog",
           "link": "https://cyril-fan.top/",
           "avatar": "/avatar/cyril-fan.jpg",
           "intro": "Cosmic style"
-        },
-        {
-          "name": "Roy Zhao / 赵润涵",
-          "link": "/zz/",
-          "avatar": "/avatar/avatar.png",
-          "intro": "我的相册主页"
         },
         {
           "name": "Axi's Blog",
@@ -35,6 +29,13 @@
           "avatar": "https://jy.xn--wut303ivvd.space/favicon.svg",
           "intro": "thank me",
           "rss": "https://jy.xn--wut303ivvd.space/rss.xml"
+        },
+        {
+          "name": "Liang Jo-shui",
+          "intro": "Software Engineering undergraduate · Large Language Models",
+          "link": "https://leonwater1.github.io/",
+          "avatar": "https://leonwater1.github.io/avatar/tonight.jpg",
+          "rss": "https://leonwater1.github.io/rss.xml"
         }
       ]
     }
