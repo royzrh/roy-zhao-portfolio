@@ -1,12 +1,22 @@
 {
   "headline": "",
-  "about": "Hi,I am an undergraduate student from SZU,\nMajoring in Optoelectronic Information Science and Engineering.",
-  "interests": "Optical Neural Networks,Nonlinear Optics,Metasurface.",
-  "links": [],
+  "portrait": "",
+  "about": "",
+  "interests": "光学神经网络、非线性光学、超表面。",
+  "links": [
+    {
+      "label": "@royzrh",
+      "url": "https://github.com/royzrh?tab=repositories"
+    }
+  ],
   "cv": {
     "label": "",
     "url": ""
   },
   "publications": [],
-  "projects": []
+  "projects": [],
+  "projectNote": "更多公开项目与代码，放在我的 GitHub 主页。",
+  "aboutEn": "",
+  "interestsEn": "Optical Neural Networks,Nonlinear Optics,Metasurface.",
+  "projectNoteEn": "More public projects and code are available on my GitHub profile."
 }
