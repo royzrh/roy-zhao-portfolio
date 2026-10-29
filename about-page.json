@@ -3,6 +3,10 @@
   "portrait": "/content-assets/editable-pages/fa397e108bf13d13b1ed.webp",
   "about": "You can also call me Roy Zhao,\n我是一个光信系本科在读的SZUer，在这里分享一些小知识和我的日常；\n\n个人爱好是摄影🎞️、羽毛球🏸、徒步🏔️、音乐剧🎫等等～\n保持探索中，梦想环游世界🌍；\n最喜吃折耳根香菜火锅牛肉🐮、辣子鸡🐔和三文鱼🍣！\n\n想观看更多我的拍摄作品，欢迎浏览我的相册主页！\n我的研究兴趣主要包括光学神经网络、非线性光学、叠层成像等，欢迎同我交流！",
   "interests": "",
+  "projectNote": "",
+  "aboutEn": "",
+  "interestsEn": "",
+  "projectNoteEn": "",
   "links": [
     {
       "label": "GitHub",
@@ -14,7 +18,11 @@
     },
     {
       "label": "E-mail",
-      "url": "mailto:roy_zrh@foxmail.com"
+      "url": "mailto:royzhao.zrh@gmail.com"
+    },
+    {
+      "label": "Linkedin",
+      "url": "https://www.linkedin.com/in/zhaorunhan"
     }
   ],
   "cv": {

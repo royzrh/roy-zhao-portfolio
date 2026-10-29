@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T13:56:38.782Z",
+  "checkedAt": "2026-10-29T04:03:06.161Z",
   "sources": [
     {
       "id": "https://cyril-fan.top/",
@@ -9,7 +9,7 @@
       "avatar": "https://royzhao.cn/avatar/cyril-fan.jpg",
       "feed": "https://cyril-fan.top/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-25T14:24:59.250Z"
+      "checkedAt": "2026-10-29T04:03:06.161Z"
     },
     {
       "id": "https://axi404.top/",
@@ -18,16 +18,7 @@
       "avatar": "https://axi404.top/avatar/avatar.png",
       "feed": "https://axi404.top/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-25T14:24:59.250Z"
-    },
-    {
-      "id": "https://jy.xn--wut303ivvd.space/",
-      "home": "https://jy.xn--wut303ivvd.space/",
-      "name": "Elio",
-      "avatar": "https://jy.xn--wut303ivvd.space/favicon.svg",
-      "feed": "https://jy.xn--wut303ivvd.space/rss.xml",
-      "status": "ok",
-      "checkedAt": "2026-10-26T13:43:20.893Z"
+      "checkedAt": "2026-10-29T04:03:06.161Z"
     },
     {
       "id": "https://vys3n.github.io/",
@@ -36,7 +27,16 @@
       "avatar": "https://vys3n.github.io/images/avatar.webp",
       "feed": "https://vys3n.github.io/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-26T13:46:07.779Z"
+      "checkedAt": "2026-10-29T04:03:06.161Z"
+    },
+    {
+      "id": "https://jy.xn--wut303ivvd.space/",
+      "home": "https://jy.xn--wut303ivvd.space/",
+      "name": "Elio",
+      "avatar": "https://jy.xn--wut303ivvd.space/favicon.svg",
+      "feed": "https://jy.xn--wut303ivvd.space/rss.xml",
+      "status": "ok",
+      "checkedAt": "2026-10-29T04:03:06.161Z"
     },
     {
       "id": "https://leonwater1.github.io/",
@@ -45,10 +45,22 @@
       "avatar": "https://leonwater1.github.io/avatar/tonight.jpg",
       "feed": "https://leonwater1.github.io/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-26T13:56:38.782Z"
+      "checkedAt": "2026-10-29T04:03:06.161Z"
     }
   ],
   "posts": [
+    {
+      "url": "https://vys3n.github.io/blog/paper-0/",
+      "title": "赛制约束与观察窗口：CS 职业比赛中极端负向竞技表现的基准建立与条件化复现研究",
+      "publishedAt": "2026-10-28T11:57:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
+    },
+    {
+      "url": "https://vys3n.github.io/blog/sketch-6/",
+      "title": "花儿与少年",
+      "publishedAt": "2026-10-27T09:56:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
+    },
     {
       "url": "https://vys3n.github.io/blog/sketch-5/",
       "title": "巴别塔",
