@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-29T04:11:44.180Z",
+  "checkedAt": "2026-10-30T06:08:42.504Z",
   "sources": [
     {
       "id": "https://cyril-fan.top/",
@@ -9,7 +9,7 @@
       "avatar": "https://royzhao.cn/avatar/cyril-fan.jpg",
       "feed": "https://cyril-fan.top/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-29T04:11:44.180Z"
+      "checkedAt": "2026-10-30T06:08:42.504Z"
     },
     {
       "id": "https://axi404.top/",
@@ -18,7 +18,7 @@
       "avatar": "https://axi404.top/avatar/avatar.png",
       "feed": "https://axi404.top/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-29T04:11:44.180Z"
+      "checkedAt": "2026-10-30T06:08:42.504Z"
     },
     {
       "id": "https://vys3n.github.io/",
@@ -27,7 +27,7 @@
       "avatar": "https://vys3n.github.io/images/avatar.webp",
       "feed": "https://vys3n.github.io/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-29T04:11:44.180Z"
+      "checkedAt": "2026-10-30T06:08:42.504Z"
     },
     {
       "id": "https://jy.xn--wut303ivvd.space/",
@@ -36,7 +36,7 @@
       "avatar": "https://jy.xn--wut303ivvd.space/favicon.svg",
       "feed": "https://jy.xn--wut303ivvd.space/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-29T04:11:44.180Z"
+      "checkedAt": "2026-10-30T06:08:42.504Z"
     },
     {
       "id": "https://leonwater1.github.io/",
@@ -45,10 +45,16 @@
       "avatar": "https://leonwater1.github.io/avatar/tonight.jpg",
       "feed": "https://leonwater1.github.io/rss.xml",
       "status": "ok",
-      "checkedAt": "2026-10-29T04:11:44.180Z"
+      "checkedAt": "2026-10-30T06:08:42.504Z"
     }
   ],
   "posts": [
+    {
+      "url": "https://vys3n.github.io/blog/sketch-7/",
+      "title": "木剑",
+      "publishedAt": "2026-10-29T07:45:00.000Z",
+      "sourceId": "https://vys3n.github.io/"
+    },
     {
       "url": "https://vys3n.github.io/blog/paper-0/",
       "title": "赛制约束与观察窗口：CS 职业比赛中极端负向竞技表现的基准建立与条件化复现研究",
