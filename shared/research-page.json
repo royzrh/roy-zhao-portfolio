@@ -1,8 +1,12 @@
 {
   "headline": "",
   "portrait": "",
-  "about": "",
+  "about": "Hi，我是深圳大学光信系本科生。",
   "interests": "光学神经网络、非线性光学、超表面。",
+  "projectNote": "更多公开项目与代码，放在我的 GitHub 主页。",
+  "aboutEn": "",
+  "interestsEn": "Optical Neural Networks,Nonlinear Optics,Metasurface.",
+  "projectNoteEn": "More public projects and code are available on my GitHub profile.",
   "links": [
     {
       "label": "@royzrh",
@@ -11,12 +15,8 @@
   ],
   "cv": {
     "label": "",
-    "url": ""
+    "url": "/content-assets/editable-pages/8c9c9064d3d6d8d41333.pdf"
   },
   "publications": [],
-  "projects": [],
-  "projectNote": "更多公开项目与代码，放在我的 GitHub 主页。",
-  "aboutEn": "",
-  "interestsEn": "Optical Neural Networks,Nonlinear Optics,Metasurface.",
-  "projectNoteEn": "More public projects and code are available on my GitHub profile."
+  "projects": []
 }
