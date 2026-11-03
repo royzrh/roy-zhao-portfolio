@@ -23,7 +23,100 @@
 @media(max-width:480px){.roy-rich-frame .roy-rich-editor{font-size:16px;min-height:128px;padding:12px 13px!important}.roy-rich-footer{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:10px 12px 12px}.roy-rich-meta{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;width:100%}.roy-rich-count{margin-left:0}.roy-rich-actions{gap:8px}.roy-rich-frame .roy-rich-preview{margin:0 12px 10px}}
 @media(prefers-reduced-motion:reduce){.roy-rich-frame,.roy-rich-actions>button{transition:none}}
 
-.roy-rich-body{white-space:normal!important;overflow-wrap:anywhere;min-width:0;line-height:1.8}.roy-rich-body>:first-child{margin-top:0}.roy-rich-body>:last-child{margin-bottom:0}.roy-rich-body p{margin:.6em 0;white-space:pre-wrap}.roy-rich-body h1,.roy-rich-body h2,.roy-rich-body h3,.roy-rich-body h4,.roy-rich-body h5,.roy-rich-body h6{font-weight:600;font-size:1.05em;line-height:1.5;font-family:inherit;letter-spacing:normal;margin:1em 0 .4em}.roy-rich-body strong{font-weight:700}.roy-rich-body em{font-style:italic}.roy-rich-body ul,.roy-rich-body ol{padding-left:1.5em;margin:.6em 0}.roy-rich-body ul{list-style:disc}.roy-rich-body ol{list-style:decimal}.roy-rich-body blockquote{border-left:2px solid currentColor;padding-left:12px;margin:.7em 0;opacity:.8}.roy-rich-body pre{max-width:100%;overflow:auto;background:color-mix(in srgb,currentColor 7%,transparent);padding:12px;border-radius:6px;white-space:pre;font-size:.85em}.roy-rich-body code{font-family:ui-monospace,monospace;font-size:.9em}.roy-rich-body a{color:inherit;text-decoration:underline;text-underline-offset:3px}.roy-rich-body img{max-width:100%;height:auto}.roy-rich-body table{display:block;width:max-content;max-width:100%;overflow:auto;border-collapse:collapse;font-size:.9em}.roy-rich-body th,.roy-rich-body td{border:1px solid currentColor;padding:4px 8px}.roy-rich-body input[type=checkbox]{pointer-events:none}
+/* Shared typography for published comments and their preview. */
+.roy-rich-body {
+  --md-line: color-mix(in srgb, currentColor 17%, transparent);
+  --md-tint: color-mix(in srgb, currentColor 5%, transparent);
+  --md-link: hsl(var(--primary, 158 37% 25%));
+  white-space: normal!important;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  line-height: 1.85;
+  text-align: start;
+}
+.dark .roy-rich-body { --md-link: hsl(var(--primary, 147 31% 72%)); }
+.roy-rich-body :where(p,ul,ol,blockquote,pre,table,hr) { margin: .85em 0; }
+.roy-rich-body > :first-child { margin-top: 0; }
+.roy-rich-body > :last-child { margin-bottom: 0; }
+.roy-rich-body p { white-space: pre-wrap; }
+.roy-rich-body :is(h1,h2,h3,h4,h5,h6) {
+  margin: 1.25em 0 .5em;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font-family: inherit;
+  font-weight: 650;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+.roy-rich-body h1 { font-size: 1.25em; }
+.roy-rich-body h2 { font-size: 1.15em; }
+.roy-rich-body :is(h3,h4,h5,h6) { font-size: 1.05em; }
+.roy-rich-body strong { color: inherit; font-weight: 700; }
+.roy-rich-body em { font-style: italic; }
+.roy-rich-body :is(ul,ol) { padding-inline-start: 1.6em; }
+.roy-rich-body ul { list-style: disc outside; }
+.roy-rich-body ol { list-style: decimal outside; }
+.roy-rich-body ul ul { list-style-type: circle; }
+.roy-rich-body ul ul ul { list-style-type: square; }
+.roy-rich-body li { padding-inline-start: .2em; margin: .25em 0; }
+.roy-rich-body li::marker { color: inherit; }
+.roy-rich-body li > :is(ul,ol) { margin-block: .3em; }
+.roy-rich-body li > p { margin-block: .35em; }
+.roy-rich-body li:has(>input[type=checkbox]) { list-style: none; }
+.roy-rich-body input[type=checkbox] { width: 1em; height: 1em; margin: 0 .45em 0 -1.4em; vertical-align: -.08em; accent-color: var(--md-link); pointer-events: none; }
+.roy-rich-body blockquote {
+  margin-inline: 0;
+  padding: .6em 1em;
+  border-inline-start: 3px solid var(--md-link);
+  border-radius: 0 8px 8px 0;
+  background: var(--md-tint);
+  color: inherit;
+  opacity: 1;
+  font-style: normal;
+}
+.roy-rich-body blockquote > :first-child { margin-top: 0; }
+.roy-rich-body blockquote > :last-child { margin-bottom: 0; }
+.roy-rich-body blockquote p::before,.roy-rich-body blockquote p::after { content: none; }
+.roy-rich-body code { font-family: ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace; font-size: .88em; }
+.roy-rich-body :not(pre) > code {
+  padding: .15em .4em;
+  border: 1px solid var(--md-line);
+  border-radius: 5px;
+  background: var(--md-tint);
+  color: inherit;
+  white-space: break-spaces;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.roy-rich-body code::before,.roy-rich-body code::after { content: none; }
+.roy-rich-body pre {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--md-line);
+  border-radius: 9px;
+  background: var(--md-tint);
+  color: inherit;
+  font-size: .95em;
+  line-height: 1.7;
+  white-space: pre;
+  overflow-wrap: normal;
+  tab-size: 2;
+  overscroll-behavior-inline: contain;
+}
+.roy-rich-body pre code { display: block; padding: 0; border: 0; background: transparent; color: inherit; white-space: inherit; }
+.roy-rich-body a { color: var(--md-link); text-decoration: underline; text-decoration-color: color-mix(in srgb,var(--md-link) 45%,transparent); text-underline-offset: .2em; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
+.roy-rich-body a:hover { text-decoration-color: currentColor; }
+.roy-rich-body img:not(.roy-comment-emoji) { display: block; max-width: 100%; max-height: 360px; width: auto; height: auto; margin-block: .75em; border-radius: 8px; object-fit: contain; }
+.roy-rich-body table { display: block; width: max-content; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: .9em; line-height: 1.65; overscroll-behavior-inline: contain; }
+.roy-rich-body :is(th,td) { padding: .55em .8em; border: 1px solid var(--md-line); vertical-align: top; }
+.roy-rich-body th { background: var(--md-tint); font-weight: 650; }
+.roy-rich-body tr:nth-child(even) td { background: color-mix(in srgb,currentColor 2%,transparent); }
+.roy-rich-body hr { height: 0; border: 0; border-top: 1px solid var(--md-line); }
+@media(max-width:480px) { .roy-rich-body pre { padding: 12px; } .roy-rich-body :is(th,td) { padding: .5em .65em; } }
 .roy-rich-frame .roy-rich-actions>.roy-rich-preview-toggle{border-color:color-mix(in srgb,currentColor 20%,transparent)}
 
 .roy-rich-plain .roy-rich-count{margin-left:0}.notes .roy-rich-frame .roy-rich-actions>button[type=submit]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
