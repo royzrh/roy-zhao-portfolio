@@ -120,3 +120,9 @@
 .roy-rich-frame .roy-rich-actions>.roy-rich-preview-toggle{border-color:color-mix(in srgb,currentColor 20%,transparent)}
 
 .roy-rich-plain .roy-rich-count{margin-left:0}.notes .roy-rich-frame .roy-rich-actions>button[type=submit]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+roy-comments [data-post].is-inline-reply { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid hsl(var(--border)); }
+roy-comments [data-post].is-inline-reply fieldset > label:first-child { display: none; }
+roy-comments [data-post].is-inline-reply [data-reply-context] { background: transparent; border: 0; padding: 0; margin-bottom: .75rem; }
+roy-comments [data-post].is-inline-reply .roy-rich-frame { scroll-margin-block: 6rem 2rem; }
+roy-comments [data-reply-slot]:empty { display: none; }
