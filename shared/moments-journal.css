@@ -19,7 +19,7 @@ roy-moments .moment-text-cover{background:var(--journal-field)}
 roy-moments .moment-text-excerpt{display:block;min-height:160px;padding:28px 18px 12px;font-family:inherit;font-size:18px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
 roy-moments .moment-photo-unavailable{display:grid;place-items:center;min-height:180px;font-size:12px;color:var(--journal-muted)}
 roy-moments [data-empty]{border:0;border-radius:0;background:none;padding:100px 24px;font-family:inherit;font-size:14px;font-weight:400;letter-spacing:normal;color:var(--journal-muted)}
-roy-moments .moment-fab{border-radius:1rem;box-shadow:0 8px 24px #0002;min-height:48px;font-weight:400}
+roy-moments .moment-fab{border-radius:9999px;box-shadow:0 8px 24px #0002;min-height:48px;font-weight:400}
 roy-moments .moment-fab span{font-weight:600;letter-spacing:normal}
 roy-moments .moment-journal-detail{width:min(1120px,calc(100vw - 48px));max-height:calc(100dvh - 48px);border:1px solid var(--journal-line);border-radius:1.25rem;background:var(--journal-paper);color:var(--journal-ink)}
 roy-moments .moment-journal-detail::backdrop{background:#1d2021b3;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
