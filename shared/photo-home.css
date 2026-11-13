@@ -1,5 +1,5 @@
 /* Full-bleed album cover. Content markers remain owned by the album editor. */
-#photo-site-header{position:absolute;inset:0 0 auto;z-index:40;background:transparent!important;backdrop-filter:none;border:0;padding:28px clamp(24px,4.5vw,88px);color:white}
+#photo-site-header{position:absolute;inset:0 0 auto;z-index:40;background:transparent!important;backdrop-filter:none;border:0;padding:28px clamp(24px,4.5vw,88px);color:white;transition:padding .3s}
 #photo-site-header>div{max-width:none;flex-direction:row;gap:20px}
 #photo-site-header nav{gap:32px}
 #photo-site-header nav>*{margin:0;font-size:14px;letter-spacing:.12em;padding-block:10px;text-shadow:0 1px 12px #0005}
@@ -40,10 +40,10 @@ body.photo-birthday-cover #photo-site-header{position:sticky;background:#101112!
 .photo-menu-stroke{stroke:currentColor;stroke-width:1.6;stroke-linecap:round;transition:transform 120ms cubic-bezier(.4,0,.6,1)}
 .photo-menu-shift{transition:transform 120ms cubic-bezier(.4,0,.6,1) 120ms}
 .photo-menu-stroke-top{transform-origin:10px 7px}.photo-menu-stroke-bottom{transform-origin:10px 13px}
-.is-menu-open .photo-menu-shift-top{transform:translateY(3px)}.is-menu-open .photo-menu-shift-bottom{transform:translateY(-3px)}
-.is-menu-open .photo-menu-shift{transition-delay:0s}.is-menu-open .photo-menu-stroke{transition-delay:120ms}
-.is-menu-open .photo-menu-stroke-top{transform:rotate(45deg)}.is-menu-open .photo-menu-stroke-bottom{transform:rotate(-45deg)}
-#photo-site-header.is-menu-open{position:fixed;background:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none}
+.photo-menu.is-menu-open .photo-menu-shift-top{transform:translateY(3px)}.photo-menu.is-menu-open .photo-menu-shift-bottom{transform:translateY(-3px)}
+.photo-menu.is-menu-open .photo-menu-shift{transition-delay:0s}.photo-menu.is-menu-open .photo-menu-stroke{transition-delay:120ms}
+.photo-menu.is-menu-open .photo-menu-stroke-top{transform:rotate(45deg)}.photo-menu.is-menu-open .photo-menu-stroke-bottom{transform:rotate(-45deg)}
+#photo-site-header.is-menu-open{position:fixed;background:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none;transition:none}
 #photo-site-header .photo-menu nav{position:absolute;top:100%;left:clamp(24px,4.5vw,88px);right:clamp(24px,4.5vw,88px);width:auto;max-width:none;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:12px 0;background:transparent;border:0;border-radius:0;box-shadow:none;visibility:hidden;pointer-events:none;transition:visibility 0s linear 540ms}
 #photo-site-header .photo-menu.is-menu-open nav{visibility:visible;pointer-events:auto;transition:visibility 0s}
 #photo-site-header .photo-menu:not([open]) nav{display:none}
@@ -51,7 +51,7 @@ body.photo-birthday-cover #photo-site-header{position:sticky;background:#101112!
 #photo-site-header .photo-menu.is-menu-open nav>button{opacity:1;transform:translateY(0);transition-duration:240ms;transition-delay:calc(420ms + var(--menu-order,0)*20ms)}
 #photo-site-header .photo-menu nav>button:nth-child(2){--menu-order:1}#photo-site-header .photo-menu nav>button:nth-child(3){--menu-order:2}#photo-site-header .photo-menu nav>button:nth-child(4){--menu-order:3}
 #photo-site-header .photo-menu nav>button:hover{color:#fff}
-.photo-nav-surface{position:fixed;inset:0 0 auto;height:0;z-index:39;box-sizing:border-box;visibility:hidden;overflow:hidden;pointer-events:none;background:rgba(22,22,23,.86);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid transparent;transition:height 420ms cubic-bezier(.4,0,.6,1) 120ms,border-color 120ms linear 420ms,visibility 0s linear 540ms}
+.photo-nav-surface{position:fixed;inset:0 0 auto;height:var(--photo-menu-start,0px);z-index:39;box-sizing:border-box;visibility:hidden;overflow:hidden;pointer-events:none;background:rgba(22,22,23,.86);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid transparent;transition:height 420ms cubic-bezier(.4,0,.6,1) 120ms,border-color 120ms linear 420ms,visibility 0s linear 540ms}
 .photo-nav-open .photo-nav-surface{visibility:visible;height:var(--photo-menu-height);border-bottom-color:#ffffff18;transition-delay:0s}
 .photo-nav-curtain{position:fixed;inset:0;z-index:38;background:#0000000f;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 320ms cubic-bezier(.4,0,.6,1) 80ms,visibility 0s linear 540ms}
 .photo-nav-open .photo-nav-curtain{opacity:1;visibility:visible;pointer-events:auto;transition-delay:80ms,0s}
@@ -74,3 +74,11 @@ body.photo-birthday-cover #photo-site-header{position:sticky;background:#101112!
 #guestbookForm .roy-rich-count{white-space:nowrap;flex:none;margin-left:0;font-variant-numeric:tabular-nums}
 #guestbookForm .roy-rich-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;width:100%;min-width:0;margin:0}
 #guestbookForm .roy-rich-hint{min-width:0;font-size:11px}
+
+/* Album composers keep the count and their actual post/reply actions only. */
+#guestbookForm .roy-rich-preview-toggle,#modalReplyForm .roy-rich-preview-toggle{display:none!important}
+#guestbookForm .roy-rich-actions>button[type=submit]:not(:has([data-i18n="guestbook.submit"])){display:none!important}
+#guestbookForm .roy-rich-actions:not(:has([data-i18n="guestbook.submit"])){display:none!important}
+
+/* The bar and panel share one continuous glass surface while expanding and closing. */
+#photo-site-header.is-past-cover.is-menu-open{background:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom-color:transparent}
