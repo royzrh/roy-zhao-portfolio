@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -874,7 +874,9 @@ html[data-theme] #destDetail,#destDetail{background:#7c7c7c!important;opacity:1!
 html.album-destination-leaving #destDetail{pointer-events:none}html.album-destination-leaving #destDetail .album-destination-dialog,html.album-destination-leaving #destDetail .album-destination-close{filter:blur(12px);opacity:.55;transition:filter 320ms ease,opacity 320ms ease}
 @media(max-width:767px){#destDetail .album-destination-dialog{padding:64px 0 max(24px,env(safe-area-inset-bottom));gap:22px}#destCollage{gap:20px}#destCollage figure{padding:8px}#destCollage img{max-width:calc(100vw - 50px);max-height:calc(var(--destination-image-space,60dvh) - 18px)}#destDetail .album-destination-prev{left:16px}#destDetail .album-destination-next{right:16px}#destDetail .album-destination-close{top:max(14px,env(safe-area-inset-top));right:16px}#destContent h2{font-size:22px}}
 @media(prefers-reduced-motion:reduce){#destDetail .album-destination-dialog,#destContent,#destDetail .album-destination-control{transition:opacity 120ms linear!important;filter:none!important;transform:none!important}html.album-destination-leaving #destDetail .album-destination-dialog,html.album-destination-leaving #destDetail .album-destination-close{transition:opacity 120ms linear!important;filter:none!important;opacity:.55}}
-</style></head>
+</style><link rel="stylesheet" href="/shared/photo-home.css?v=20261113-menu">
+<script src="/shared/photo-home.js?v=20261113-menu" defer></script>
+<link rel="stylesheet" href="/shared/photo-typography.css?v=20261113"></head>
 <body class="relative min-h-screen selection:bg-[#2c2a27] selection:text-[#f7f4eb]">
 
     <div class="vignette"></div>
@@ -923,7 +925,7 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
       <div class="album-destination-dialog"><div class="album-destination-viewer"><button class="album-destination-control album-destination-prev" aria-label="上一张照片" onclick="albumDestinationStep(-1)"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button><div id="destCollage" tabindex="0" aria-label="目的地照片，左右滑动浏览"></div><button class="album-destination-control album-destination-next" aria-label="下一张照片" onclick="albumDestinationStep(1)"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button></div><div id="destContent"></div></div>
     </div>
 
-    <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-white/10 px-6 py-4 md:px-12 md:py-6 vintage-transition">
+    <header id="photo-site-header" class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-white/10 px-6 py-4 md:px-12 md:py-6 vintage-transition">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="photo-brand-account">
             <!-- Brand Logo / Login -->
@@ -934,44 +936,34 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
             <div id="photoHeaderIdentity" class="hidden photo-header-identity"><span id="photoHeaderAvatar"></span><span id="loginIndicator"></span></div>
 
             </div>
-            <!-- Menu Navigation -->
-            <nav class="flex items-center space-x-7 text-base tracking-[0.05em]">
+            <!-- Click-to-expand navigation; native disclosure also works without JavaScript. -->
+            <details class="photo-menu" id="photo-menu">
+            <summary aria-label="打开导航" aria-controls="photo-menu-links"><svg class="photo-menu-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g class="photo-menu-shift photo-menu-shift-top"><path class="photo-menu-stroke photo-menu-stroke-top" d="M3 7h14"/></g><g class="photo-menu-shift photo-menu-shift-bottom"><path class="photo-menu-stroke photo-menu-stroke-bottom" d="M3 13h14"/></g></svg></summary>
+            <nav id="photo-menu-links" aria-label="相册导航" class="flex items-center space-x-7 text-base tracking-[0.05em]">
                 <button onclick="scrollToSection('gallery-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.gallery">底片册</button>
                 <button onclick="scrollToSection('destinations-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.destinations">目的地</button>
                 <button onclick="scrollToSection('guestbook-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.guestbook">留言</button>
                 <button onclick="scrollToSection('about-section')" class="hover:text-gray-300 text-white transition-colors border-b border-transparent hover:border-white pb-1" data-i18n="nav.about">关于</button>
             </nav>
+            </details>
         </div>
     </header>
+    <div class="photo-nav-curtain" aria-hidden="true"></div>
+    <div class="photo-nav-surface" aria-hidden="true"></div>
 
-    <!-- 正常 Hero -->
+    <!-- 正常 Hero：全屏摄影封面，保留相册编辑器内容定位点 -->
     <div id="normalHero">
-    <section class="max-w-7xl mx-auto px-6 pt-12 pb-20 md:px-12 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-        <div class="md:col-span-5 flex flex-col justify-center space-y-6 md:pr-8">
-            <span class="text-xs uppercase tracking-[0.4em] text-[#5c554a]/80" data-i18n="hero.tag">西藏 · 日喀则</span>
-            <h2 class="text-3xl md:text-4xl font-light leading-snug tracking-wide text-[#2c2a27]" data-i18n="hero.heading">
-                20岁西藏之旅
-            </h2>
-            <div class="w-12 h-[1px] bg-[#2c2a27]/50"></div>
-            <p class="text-[#3d3326] text-sm md:text-base leading-relaxed tracking-wider font-light" data-i18n="hero.quote">
-                在20岁生日，开始这次奇妙旅途，来到雪域高原。从此我也能讲述一段来自西藏的故事。
-            </p>
+    <section class="photo-cover" aria-labelledby="photo-cover-title">
+        <img src="images/SZX_7779.jpg" alt="西藏 · 日喀则" data-admin="hero-img" class="photo-cover-image" width="1920" height="1280" fetchpriority="high" loading="eager" decoding="async">
+        <div class="photo-cover-shade" aria-hidden="true"></div>
+        <div class="photo-cover-copy">
+            <span class="photo-cover-tag" data-i18n="hero.tag">西藏 · 日喀则</span>
+            <h1 id="photo-cover-title" data-i18n="hero.heading">20岁西藏之旅</h1>
+            <p class="photo-cover-quote" data-i18n="hero.quote">在20岁生日，开始这次奇妙旅途，来到雪域高原。从此我也能讲述一段来自西藏的故事。</p>
         </div>
-        <div class="md:col-span-7 relative group">
-            <!-- Polaroid-styled Hero Cover (Contrasts sharply with 18% gray background) -->
-            <div class="bg-white p-4 pb-6 shadow-2xl rounded-sm transform rotate-1 hover:rotate-0 transition-transform duration-500 border border-[#e2dcd0]">
-                <div class="aspect-w-16 aspect-h-10 overflow-hidden bg-zinc-200">
-                    <img src="images/SZX_7779.jpg"
-                         alt="西藏 · 日喀则"
-                         data-admin="hero-img"
-                         class="object-cover w-full h-[350px] md:h-[420px]"
-                         onerror="this.src='https://placehold.co/1200x800/d6cfc2/2c2a27?text=Analog+Vibe'">
-                </div>
-                <div class="mt-6 flex justify-between items-center px-2">
-                    <span class="text-xs text-[#5c554a] tracking-[0.1em]" data-admin="hero-location">#01 西藏 · 日喀则</span>
-                    <span class="text-xs text-[#8c8273] font-mono" data-admin="hero-gear">Nikon Z7Ⅱ 24-200mm F4-6.3</span>
-                </div>
-            </div>
+        <div class="photo-cover-footer">
+            <div class="photo-cover-caption"><span data-admin="hero-location">#01 西藏 · 日喀则</span><span data-admin="hero-gear">Nikon Z7Ⅱ 24-200mm F4-6.3</span></div>
+            <button class="photo-cover-explore" onclick="scrollToSection('gallery-section')"><span data-cover-explore>向下探索</span><span aria-hidden="true">↓</span></button>
         </div>
     </section>
     </div>
@@ -1168,13 +1160,8 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                 </p>
             </div>
 
-            <!-- Social links -->
-            <div class="photo-social-links grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <a href="https://xhslink.com/m/31Yz5FdEYJM" target="_blank" rel="noopener noreferrer" data-admin="about-xhs" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 8v8M11 8v8M14 8h3v3h-3v5h3"/></svg><span>小红书</span></a>
-                <a href="https://m.weibo.cn/u/6174044607?uid=6174044607&t=userinfo" target="_blank" rel="noopener noreferrer" data-admin="about-weibo" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10c2 1 3 2 3 4 0 3-4 6-9 6s-9-2-9-5c0-2 2-5 4-7s4-2 4 0l-1 2c3-2 6-2 6 0"/><ellipse cx="11" cy="15" rx="4" ry="2.5"/><path d="M17 3c3 0 5 2 5 5M17 6c1 0 2 1 2 2"/></svg><span>微博</span></a>
-                <a href="https://www.instagram.com/runhan__" target="_blank" rel="noopener noreferrer" data-admin="about-instagram" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
-                <a href="https://pin.it/5aTP8g5V0" target="_blank" rel="noopener noreferrer" data-admin="about-pinterest" class="photo-social-link flex items-center justify-center gap-2 px-5 py-3 border border-[#c5beb4] hover:border-[#2c2a27] hover:bg-[#f5f4f0] text-xs tracking-widest transition-all rounded-sm text-[#2c2a27]"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg><span>Pinterest</span></a>
-            </div>
+            <!-- Contact details live on the main site's about page. -->
+            <a href="/about" class="photo-find-me"><span>找到我</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a>
         </div>
     </section>
 
@@ -1244,8 +1231,8 @@ html.album-destination-leaving #destDetail{pointer-events:none}html.album-destin
                     royzhao.top
                 </a>
 
-                <a href="https://pan.baidu.com/s/5ZoW1Y9CIVdlBE6AAzT1RXw" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">下载原图</a>
                 <a href="/" target="_blank" rel="noopener" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">ROYZHAO</a>
+                <a href="https://pan.baidu.com/s/5ZoW1Y9CIVdlBE6AAzT1RXw" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-sm text-[10px] tracking-wider text-white/50 hover:text-white/80 hover:border-white/40 transition-colors">下载原图</a>
             </div>
         </div>
     </footer>
