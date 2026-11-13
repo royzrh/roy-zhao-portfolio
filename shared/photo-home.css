@@ -3,7 +3,7 @@
 #photo-site-header>div{max-width:none;flex-direction:row;gap:20px}
 #photo-site-header nav{gap:32px}
 #photo-site-header nav>*{margin:0;font-size:14px;letter-spacing:.12em;padding-block:10px;text-shadow:0 1px 12px #0005}
-#photo-site-header.is-past-cover{position:fixed;background:rgba(22,22,23,.72)!important;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);padding-block:12px;border-bottom:1px solid rgba(255,255,255,.09);box-shadow:none}
+#photo-site-header.is-past-cover{position:fixed;background:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none;padding-block:12px;border-bottom:1px solid transparent;box-shadow:none}
 #normalHero .photo-cover{position:relative;isolation:isolate;height:100vh;height:100svh;min-height:620px;width:100%;overflow:hidden;background:#363c40;color:#fff}
 #normalHero .photo-cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%;z-index:-2}
 #normalHero .photo-cover-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#080e182e 0%,transparent 30%,#080e1810 43%,#060c145c 72%,#060b13ba 100%),linear-gradient(90deg,#050b132e,transparent 70%)}
@@ -51,8 +51,10 @@ body.photo-birthday-cover #photo-site-header{position:sticky;background:#101112!
 #photo-site-header .photo-menu.is-menu-open nav>button{opacity:1;transform:translateY(0);transition-duration:240ms;transition-delay:calc(420ms + var(--menu-order,0)*20ms)}
 #photo-site-header .photo-menu nav>button:nth-child(2){--menu-order:1}#photo-site-header .photo-menu nav>button:nth-child(3){--menu-order:2}#photo-site-header .photo-menu nav>button:nth-child(4){--menu-order:3}
 #photo-site-header .photo-menu nav>button:hover{color:#fff}
-.photo-nav-surface{position:fixed;inset:0 0 auto;height:var(--photo-menu-start,0px);z-index:39;box-sizing:border-box;visibility:hidden;overflow:hidden;pointer-events:none;background:rgba(22,22,23,.86);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid transparent;transition:height 420ms cubic-bezier(.4,0,.6,1) 120ms,border-color 120ms linear 420ms,visibility 0s linear 540ms}
-.photo-nav-open .photo-nav-surface{visibility:visible;height:var(--photo-menu-height);border-bottom-color:#ffffff18;transition-delay:0s}
+.photo-nav-surface{position:fixed;inset:0 0 auto;height:var(--photo-menu-start,0px);z-index:39;box-sizing:border-box;visibility:hidden;overflow:hidden;pointer-events:none;background:rgba(22,22,23,.86);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid transparent;transition:height 420ms cubic-bezier(.4,0,.6,1) 120ms,background-color 280ms ease,border-color 120ms linear 420ms,visibility 0s linear 540ms}
+/* Keep the same backdrop layer alive as the collapsed glass bar: no material swap. */
+.photo-glass-bar .photo-nav-surface{visibility:visible;background:rgba(22,22,23,.72);border-bottom-color:#ffffff17;transition-delay:120ms,0s,420ms,0s}
+.photo-nav-open .photo-nav-surface{visibility:visible;height:var(--photo-menu-height);background:rgba(22,22,23,.86);border-bottom-color:#ffffff18;transition-delay:0s}
 .photo-nav-curtain{position:fixed;inset:0;z-index:38;background:#0000000f;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 320ms cubic-bezier(.4,0,.6,1) 80ms,visibility 0s linear 540ms}
 .photo-nav-open .photo-nav-curtain{opacity:1;visibility:visible;pointer-events:auto;transition-delay:80ms,0s}
 @media(max-width:767px){#photo-site-header .photo-menu nav{left:22px;right:22px}#photo-site-header .photo-menu nav>button{font-size:22px;min-height:54px}}
@@ -82,3 +84,6 @@ body.photo-birthday-cover #photo-site-header{position:sticky;background:#101112!
 
 /* The bar and panel share one continuous glass surface while expanding and closing. */
 #photo-site-header.is-past-cover.is-menu-open{background:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom-color:transparent}
+
+/* Outside an active collapse, track the sticky bar without animating its height. */
+.photo-glass-bar:not(.photo-nav-open):not(.photo-nav-closing) .photo-nav-surface{transition-property:background-color,border-color,visibility;transition-duration:280ms,120ms,0s;transition-delay:0s}

@@ -5,7 +5,9 @@
   const update = () => {
     const birthday = cover.style.display === 'none';
     document.body.classList.toggle('photo-birthday-cover', birthday);
-    header.classList.toggle('is-past-cover', !birthday && cover.getBoundingClientRect().bottom <= 160);
+    const glassBar = !birthday && cover.getBoundingClientRect().bottom <= 160;
+    header.classList.toggle('is-past-cover', glassBar);
+    document.body.classList.toggle('photo-glass-bar', glassBar);
   };
   new IntersectionObserver(update, {threshold: [0, 1]}).observe(cover);
   window.addEventListener('scroll', update, {passive: true});
@@ -25,10 +27,9 @@
     const curtain = document.querySelector('.photo-nav-curtain');
     let targetOpen = menu.open, leaveTimer, closeTimer, hoverAfter = 0;
     function syncSurface() {
-      if (!menu.open) return;
       const start = header.classList.contains('is-past-cover') ? header.getBoundingClientRect().bottom : 0;
       surface.style.setProperty('--photo-menu-start', start + 'px');
-      surface.style.setProperty('--photo-menu-height', Math.max(0, Math.ceil(panel.getBoundingClientRect().bottom + 16)) + 'px');
+      if (menu.open) surface.style.setProperty('--photo-menu-height', Math.max(0, Math.ceil(panel.getBoundingClientRect().bottom + 16)) + 'px');
     }
     const menuSizeObserver = new ResizeObserver(syncSurface);
     menuSizeObserver.observe(panel);
@@ -41,10 +42,13 @@
       clearTimeout(closeTimer);
       targetOpen = open;
       if (open) {
+        const fromHeight = document.body.classList.contains('photo-nav-closing') ? surface.getBoundingClientRect().height : null;
+        document.body.classList.remove('photo-nav-closing');
         menu.open = true;
         // Seed the single glass surface at the existing bar's height before extending it.
         surface.style.transition = 'none';
         syncSurface();
+        if (fromHeight !== null) surface.style.height = fromHeight + 'px';
         surface.getBoundingClientRect();
         surface.style.transition = '';
         panel.getBoundingClientRect();
@@ -52,12 +56,13 @@
       menu.classList.toggle('is-menu-open', open);
       if (open) header.classList.add('is-menu-open');
       document.body.classList.toggle('photo-nav-open', open);
+      document.body.classList.toggle('photo-nav-closing', !open);
       trigger.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
       panel.inert = !open;
-      if (open) syncSurface();
-      else if (reduced.matches) { menu.open = false; header.classList.remove('is-menu-open'); }
+      if (open) { surface.style.height = ''; syncSurface(); }
+      else if (reduced.matches) { menu.open = false; header.classList.remove('is-menu-open'); document.body.classList.remove('photo-nav-closing'); }
       else closeTimer = setTimeout(() => {
-        if (!targetOpen) { menu.open = false; header.classList.remove('is-menu-open'); }
+        if (!targetOpen) { menu.open = false; header.classList.remove('is-menu-open'); document.body.classList.remove('photo-nav-closing'); }
       }, 540);
     }
     curtain.addEventListener('click', () => setMenu(false));
@@ -77,7 +82,7 @@
     });
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && targetOpen) {
-        event.preventDefault(); setMenu(false); trigger.focus({preventScroll: true});
+        event.preventDefault(); hoverAfter = performance.now() + 1200; setMenu(false); trigger.focus({preventScroll: true});
       }
     });
     document.addEventListener('focusin', event => {
