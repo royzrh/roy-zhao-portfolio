@@ -1,10 +1,10 @@
 /* A quiet photographic journal: natural image proportions, small paper captions. */
 roy-moments{--journal-paper:hsl(var(--card));--journal-ink:hsl(var(--foreground));--journal-line:hsl(var(--border));--journal-muted:hsl(var(--muted-foreground));--journal-field:hsl(var(--muted)/.35)}
 roy-moments .moments-layout{display:block;padding-bottom:80px}
-roy-moments .moment-grid{display:block;columns:3;column-gap:8px;list-style:none;padding:0;margin:0}
-roy-moments .moment-grid>li{display:block;width:100%;break-inside:avoid;margin:0 0 8px;padding:0}
-roy-moments .moment-grid .moment-photo-card{position:relative;display:block;height:auto;min-height:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;transition:transform .22s;overflow:hidden}
-roy-moments .moment-photo-card:hover{transform:translateY(-3px);box-shadow:none}
+roy-moments .moment-grid{display:block;columns:3;column-gap:8px;list-style:none;padding:0;margin:0;font-size:0;line-height:0}
+roy-moments .moment-grid>li{display:inline-block;vertical-align:top;width:100%;-webkit-column-break-inside:avoid;break-inside:avoid;margin:0 0 8px;padding:0;font-size:1rem;line-height:1.6}
+roy-moments .moment-grid .moment-photo-card{position:relative;display:block;height:auto;min-height:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden}
+roy-moments .moment-photo-card:hover{transform:none;box-shadow:none}
 roy-moments .moment-cover{display:block;width:100%;text-align:left;color:var(--journal-ink);background:transparent;border:0;border-radius:0;margin:0;padding:0;cursor:pointer}
 roy-moments .moment-cover:focus-visible{outline:2px solid currentColor;outline-offset:-2px}
 roy-moments .moment-cover-image{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;background:var(--journal-field)}
@@ -46,8 +46,8 @@ roy-moments .moment-photo-draft figcaption{display:flex;align-items:center;justi
 roy-moments .moment-photo-draft button{font-size:12px;text-decoration:underline;text-underline-offset:4px;min-height:32px}
 roy-moments .moment-photo-status{margin-top:10px;font-size:12px;line-height:1.8;color:var(--journal-muted)}
 @media(min-width:900px){roy-moments .moment-journal-detail.has-photo .has-moment-photo{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);column-gap:32px;align-items:start}roy-moments .has-moment-photo>.moment-detail-photo{grid-column:1;grid-row:1/span 4;position:sticky;top:0;margin:0}roy-moments .has-moment-photo>:not(.moment-detail-photo){grid-column:2}roy-moments .has-moment-photo>.moment-body{margin-top:24px}}
-/* Keep mobile column items atomic so WebKit cannot carry a block margin into the next column. */
-@media(max-width:1023px){roy-moments .moment-grid{columns:2;column-gap:8px}roy-moments .moment-grid>li{display:inline-block;vertical-align:top;-webkit-column-break-inside:avoid;break-inside:avoid;margin-bottom:8px}}
+/* Atomic items keep WebKit from carrying a preceding margin to a new column, at every width. */
+@media(max-width:1023px){roy-moments .moment-grid{columns:2;column-gap:8px}roy-moments .moment-grid>li{margin-bottom:8px}}
 @media(max-width:599px){roy-moments .moment-grid{columns:2;column-gap:8px}roy-moments .moment-grid>li{margin-bottom:8px}roy-moments .moment-cover-caption{padding:10px 0 0}roy-moments .moment-cover-title{font-size:12px;line-height:1.55;margin-bottom:6px;letter-spacing:0}roy-moments .moment-cover-date{font-size:10px;letter-spacing:0}roy-moments .moment-cover-arrow{font-size:16px}roy-moments .moment-journal-detail{width:calc(100vw - 20px);max-height:calc(100dvh - 20px)}roy-moments .moment-journal-detail .moment-detail-scroll{padding:18px}roy-moments .moment-detail-photo img{max-height:58vh}roy-moments [data-empty]{font-size:14px;padding:76px 12px}}
 @media(prefers-reduced-motion:reduce){roy-moments .moment-photo-card,roy-moments .moment-cover-arrow{transition:none}roy-moments .moment-photo-card:hover{transform:none}}
 
@@ -125,3 +125,11 @@ roy-moments .moment-publish .roy-rich-actions>button{min-height:36px;padding:7px
 }
 
 @media(max-width:899px){roy-moments .moment-detail-copy>.moment-actions{margin-top:30px;padding-top:10px}}
+
+/* Animate inside the fixed photo tile, never across a multicolumn boundary. */
+@media(hover:hover) and (pointer:fine){
+ roy-moments .moment-cover-image{transition:transform 380ms cubic-bezier(.2,.65,.3,1);transform:scale(1);transform-origin:center}
+ roy-moments .moment-cover:hover .moment-cover-image{transform:scale(1.015)}
+}
+roy-moments .moment-journal-detail::backdrop{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+@media(prefers-reduced-motion:reduce){roy-moments .moment-cover-image{transition:none!important;transform:none!important}}

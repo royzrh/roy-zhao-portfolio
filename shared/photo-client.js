@@ -4578,19 +4578,22 @@ class bu extends HTMLElement {
     return this.el(".moment-publish");
   }
   animateOpen(e) {
-    matchMedia("(prefers-reduced-motion: reduce)").matches || e.animate([{ opacity: 0, transform: "translateY(12px) scale(.975)" }, { opacity: 1, transform: "translateY(0) scale(1)" }], { duration: 260, easing: "cubic-bezier(.2,.8,.2,1)" });
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    e.style.willChange = "opacity, transform", e.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 240, easing: "cubic-bezier(.2,.65,.3,1)" }).finished.catch(() => {
+    }).then(() => e.style.removeProperty("will-change"));
   }
   async animateClose(e) {
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      e.classList.add("is-closing");
-      const r = e.animate([{ opacity: 1, transform: "translateY(0) scale(1)" }, { opacity: 0, transform: "translateY(8px) scale(.98)" }], { duration: 180, easing: "ease-in", fill: "forwards" });
-      await new Promise((i) => {
-        const s = setTimeout(i, 240);
-        r.finished.catch(() => {
+      const r = getComputedStyle(e), i = { opacity: r.opacity, transform: r.transform };
+      e.getAnimations().filter((a) => a.effect instanceof KeyframeEffect && a.effect.target === e).forEach((a) => a.cancel()), e.classList.add("is-closing"), e.style.willChange = "opacity, transform";
+      const s = e.animate([i, { opacity: 0, transform: "translateY(6px)" }], { duration: 180, easing: "cubic-bezier(.4,0,.7,.3)", fill: "forwards" });
+      await new Promise((a) => {
+        const o = setTimeout(a, 240);
+        s.finished.catch(() => {
         }).then(() => {
-          clearTimeout(s), i();
+          clearTimeout(o), a();
         });
-      });
+      }), e.style.removeProperty("will-change");
     }
   }
   resetPublish() {
@@ -4689,14 +4692,16 @@ class bu extends HTMLElement {
     const e = this.version, r = this.detailId;
     if (this.detailClosing = !0, this.captureDrafts(), await this.animateClose(this.detail), !this.detail.open || this.version !== e || this.detailId !== r) return;
     const i = this.detailId;
-    this.resetDetail(), this.renderFeed(), (s = this.querySelector(`[data-id="${i}"] .moment-cover`)) == null || s.focus();
+    this.resetDetail(), (s = this.querySelector(`[data-id="${i}"] .moment-cover`)) == null || s.focus({ preventScroll: !0 });
   }
   showDetail(e, r) {
-    var a;
+    var l;
     if (this.detailClosing) return;
     this.detailId = e.id, this.detailOpener = r, this.detail.classList.toggle("has-photo", !!this.photoSource(e)), this.el("#moment-detail-title").textContent = this.t(`“${e.author_name}”的这一刻`, `${e.author_name}’s moment`);
     const i = this.card(e, e, !1, !0), s = U("section", "moment-thread");
-    s.dataset.thread = e.id, s.hidden = !((a = this.threads.get(e.id)) != null && a.open), (i.querySelector(".moment-detail-copy") || i).append(s), this.el("[data-detail-content]").replaceChildren(i), s.hidden || this.renderThread(e), this.detail.open || (this.detailOverflow = document.documentElement.style.overflow, document.documentElement.style.overflow = "hidden", this.detail.showModal(), this.el("[data-detail-content]").scrollTop = 0, this.animateOpen(this.detail));
+    s.dataset.thread = e.id, s.hidden = !((l = this.threads.get(e.id)) != null && l.open), (i.querySelector(".moment-detail-copy") || i).append(s), this.el("[data-detail-content]").replaceChildren(i), s.hidden || this.renderThread(e);
+    const a = r == null ? void 0 : r.querySelector("img"), o = i.querySelector(".moment-detail-photo img");
+    a != null && a.naturalWidth && a.naturalHeight && o && (o.width = a.naturalWidth, o.height = a.naturalHeight, i.style.setProperty("--moment-image-ratio", String(a.naturalWidth / a.naturalHeight))), this.detail.open || (this.detailOverflow = document.documentElement.style.overflow, document.documentElement.style.overflow = "hidden", this.detail.showModal(), this.el("[data-detail-content]").scrollTop = 0, this.animateOpen(this.detail));
   }
   bind() {
     var s;
