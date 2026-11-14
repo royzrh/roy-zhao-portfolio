@@ -49,7 +49,7 @@ body.photo-birthday-cover #photo-site-header{position:sticky;background:#101112!
 #photo-site-header .photo-menu:not([open]) nav{display:none}
 #photo-site-header .photo-menu nav>button{width:100%;min-height:56px;margin:0;padding:12px;text-align:right;font-size:clamp(22px,1.6vw,28px);font-weight:500;letter-spacing:.06em;border:0;color:#ffffffd9;text-shadow:none;opacity:0;transform:translateY(-4px);transition:opacity 200ms cubic-bezier(.4,0,.6,1),transform 240ms cubic-bezier(.4,0,.6,1)}
 #photo-site-header .photo-menu.is-menu-open nav>button{opacity:1;transform:translateY(0);transition-duration:240ms;transition-delay:calc(420ms + var(--menu-order,0)*20ms)}
-#photo-site-header .photo-menu nav>button:nth-child(2){--menu-order:1}#photo-site-header .photo-menu nav>button:nth-child(3){--menu-order:2}#photo-site-header .photo-menu nav>button:nth-child(4){--menu-order:3}
+#photo-site-header .photo-menu nav>button:nth-child(2){--menu-order:1}#photo-site-header .photo-menu nav>button:nth-child(3){--menu-order:2}#photo-site-header .photo-menu nav>button:nth-child(4){--menu-order:3}#photo-site-header .photo-menu nav>button:nth-child(5){--menu-order:4}
 #photo-site-header .photo-menu nav>button:hover{color:#fff}
 .photo-nav-surface{position:fixed;inset:0 0 auto;height:var(--photo-menu-start,0px);z-index:39;box-sizing:border-box;visibility:hidden;overflow:hidden;pointer-events:none;background:rgba(22,22,23,.86);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid transparent;transition:height 420ms cubic-bezier(.4,0,.6,1) 120ms,background-color 280ms ease,border-color 120ms linear 420ms,visibility 0s linear 540ms}
 /* Keep the same backdrop layer alive as the collapsed glass bar: no material swap. */
