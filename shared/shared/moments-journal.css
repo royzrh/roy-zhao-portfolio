@@ -1,0 +1,127 @@
+/* A quiet photographic journal: natural image proportions, small paper captions. */
+roy-moments{--journal-paper:hsl(var(--card));--journal-ink:hsl(var(--foreground));--journal-line:hsl(var(--border));--journal-muted:hsl(var(--muted-foreground));--journal-field:hsl(var(--muted)/.35)}
+roy-moments .moments-layout{display:block;padding-bottom:80px}
+roy-moments .moment-grid{display:block;columns:3;column-gap:8px;list-style:none;padding:0;margin:0}
+roy-moments .moment-grid>li{display:block;width:100%;break-inside:avoid;margin:0 0 8px;padding:0}
+roy-moments .moment-grid .moment-photo-card{position:relative;display:block;height:auto;min-height:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;transition:transform .22s;overflow:hidden}
+roy-moments .moment-photo-card:hover{transform:translateY(-3px);box-shadow:none}
+roy-moments .moment-cover{display:block;width:100%;text-align:left;color:var(--journal-ink);background:transparent;border:0;border-radius:0;margin:0;padding:0;cursor:pointer}
+roy-moments .moment-cover:focus-visible{outline:2px solid currentColor;outline-offset:-2px}
+roy-moments .moment-cover-image{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;background:var(--journal-field)}
+roy-moments .moment-cover-caption{padding:12px 0 0;font-family:inherit}
+roy-moments .moment-cover-title{font-size:14px;font-weight:400;line-height:1.75;letter-spacing:.04em;overflow-wrap:anywhere;margin:0 0 10px}
+roy-moments .moment-cover-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--journal-muted)}
+roy-moments .moment-cover-date{font-size:10px;letter-spacing:.1em}
+roy-moments .moment-cover-arrow{font-size:18px;line-height:1;transition:transform .2s}
+roy-moments .moment-cover:hover .moment-cover-arrow{transform:translate(2px,-2px)}
+roy-moments .moment-photo-pin{position:absolute;top:18px;left:18px;padding:4px 8px;background:#111a;color:#fff;font-size:10px;letter-spacing:.1em;pointer-events:none}
+roy-moments .moment-text-cover{background:var(--journal-field)}
+roy-moments .moment-text-excerpt{display:block;min-height:160px;padding:28px 18px 12px;font-family:inherit;font-size:18px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+roy-moments .moment-photo-unavailable{display:grid;place-items:center;min-height:180px;font-size:12px;color:var(--journal-muted)}
+roy-moments [data-empty]{border:0;border-radius:0;background:none;padding:100px 24px;font-family:inherit;font-size:14px;font-weight:400;letter-spacing:normal;color:var(--journal-muted)}
+roy-moments .moment-fab{border-radius:9999px;box-shadow:0 8px 24px #0002;min-height:48px;font-weight:400}
+roy-moments .moment-fab span{font-weight:600;letter-spacing:normal}
+roy-moments .moment-journal-detail{width:min(1120px,calc(100vw - 48px));max-height:calc(100dvh - 48px);border:1px solid var(--journal-line);border-radius:1.25rem;background:var(--journal-paper);color:var(--journal-ink)}
+roy-moments .moment-journal-detail::backdrop{background:#1d2021b3;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+roy-moments .moment-detail-header{border-bottom-color:var(--journal-line)}
+roy-moments .moment-detail-header button{border-radius:.625rem}
+roy-moments .moment-journal-detail .moment-detail-scroll{padding:28px}
+roy-moments .moment-detail .moment-card{background:transparent;color:var(--journal-ink)}
+roy-moments .moment-detail-photo{margin:0 0 28px;background:var(--journal-field);min-width:0}
+roy-moments .moment-detail-photo img{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+roy-moments .moment-journal-detail .moment-body{font-size:15px;line-height:1.8;letter-spacing:normal;margin-top:24px}
+roy-moments .moment-journal-detail .moment-actions{border-top:1px solid var(--journal-line);padding-top:16px;margin-top:24px}
+roy-moments .moment-journal-detail .moment-reply .moment-actions{border:0;margin-top:4px;padding:0}
+roy-moments .moment-publish,roy-moments .moment-login{border-radius:1.25rem;background:var(--journal-paper)}
+roy-moments .moment-publish .moment-input,roy-moments .moment-button,roy-moments .roy-rich-frame,roy-moments .roy-rich-actions>button,roy-moments .moment-reply-form,roy-moments .moment-picker-toggle{border-radius:.75rem!important}
+roy-moments .moment-options{grid-template-columns:minmax(0,1fr)}
+roy-moments [data-color-toggle]{display:none}
+roy-moments .moment-photo-picker{margin-bottom:22px}
+roy-moments .moment-photo-add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;min-height:140px;padding:24px 16px;border:1px dashed var(--journal-line);border-radius:.875rem;background:var(--journal-field);color:var(--journal-muted);text-align:center}
+roy-moments .moment-photo-add strong{font-size:14px;font-weight:600;color:var(--journal-ink);letter-spacing:normal}
+roy-moments .moment-photo-add span{font-size:12px;line-height:1.8}
+roy-moments .moment-photo-draft{margin:0;border:1px solid var(--journal-line);border-radius:.875rem;overflow:hidden;background:var(--journal-field)}
+roy-moments .moment-photo-draft img{display:block;width:100%;height:auto;max-height:280px;object-fit:contain}
+roy-moments .moment-photo-draft figcaption{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px;font-size:12px;color:var(--journal-muted)}
+roy-moments .moment-photo-draft button{font-size:12px;text-decoration:underline;text-underline-offset:4px;min-height:32px}
+roy-moments .moment-photo-status{margin-top:10px;font-size:12px;line-height:1.8;color:var(--journal-muted)}
+@media(min-width:900px){roy-moments .moment-journal-detail.has-photo .has-moment-photo{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);column-gap:32px;align-items:start}roy-moments .has-moment-photo>.moment-detail-photo{grid-column:1;grid-row:1/span 4;position:sticky;top:0;margin:0}roy-moments .has-moment-photo>:not(.moment-detail-photo){grid-column:2}roy-moments .has-moment-photo>.moment-body{margin-top:24px}}
+/* Keep mobile column items atomic so WebKit cannot carry a block margin into the next column. */
+@media(max-width:1023px){roy-moments .moment-grid{columns:2;column-gap:8px}roy-moments .moment-grid>li{display:inline-block;vertical-align:top;-webkit-column-break-inside:avoid;break-inside:avoid;margin-bottom:8px}}
+@media(max-width:599px){roy-moments .moment-grid{columns:2;column-gap:8px}roy-moments .moment-grid>li{margin-bottom:8px}roy-moments .moment-cover-caption{padding:10px 0 0}roy-moments .moment-cover-title{font-size:12px;line-height:1.55;margin-bottom:6px;letter-spacing:0}roy-moments .moment-cover-date{font-size:10px;letter-spacing:0}roy-moments .moment-cover-arrow{font-size:16px}roy-moments .moment-journal-detail{width:calc(100vw - 20px);max-height:calc(100dvh - 20px)}roy-moments .moment-journal-detail .moment-detail-scroll{padding:18px}roy-moments .moment-detail-photo img{max-height:58vh}roy-moments [data-empty]{font-size:14px;padding:76px 12px}}
+@media(prefers-reduced-motion:reduce){roy-moments .moment-photo-card,roy-moments .moment-cover-arrow{transition:none}roy-moments .moment-photo-card:hover{transform:none}}
+
+/* The feed shows photographs only; text and dates belong to the opened entry. */
+roy-moments .moment-cover-caption{display:none}
+
+/* Dialog controls share the main site's theme tokens and component proportions. */
+roy-moments .moment-detail-header{padding:12px 20px;background:hsl(var(--card))}
+roy-moments .moment-detail-header h2{font-size:15px;font-weight:600;color:hsl(var(--foreground))}
+roy-moments .moment-detail-scroll{padding:24px}
+roy-moments .moment-publish{width:min(36rem,calc(100vw - 32px))}
+roy-moments .moment-publisher-meta{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;min-width:0}
+roy-moments .moment-publisher-meta [data-identity]{margin:0;font-size:14px;font-weight:600;color:hsl(var(--foreground))}
+roy-moments .moment-publisher-meta .moment-composer-website{margin:0;font-size:12px;color:hsl(var(--muted-foreground))}
+roy-moments .moment-publish [data-logout]{font-size:12px}
+roy-moments .moment-publish .roy-rich-editor{min-height:8rem}
+roy-moments .moment-publish .roy-rich-frame{background:hsl(var(--background)/.5);border-color:hsl(var(--border))}
+roy-moments .moment-button{min-height:40px;padding:9px 16px;font-size:14px;font-weight:500;letter-spacing:normal}
+roy-moments .moment-picker-toggle{min-height:40px;padding:9px 12px;font-size:13px;background:hsl(var(--muted)/.3)}
+roy-moments .moment-photo-add{transition:background .2s,border-color .2s}
+roy-moments .moment-photo-add:hover{background:hsl(var(--primary)/.05);border-color:hsl(var(--primary)/.5)}
+roy-moments .moment-photo-add:focus-visible{outline:2px solid hsl(var(--primary));outline-offset:3px}
+roy-moments .moment-photo-picker{margin-bottom:18px}
+roy-moments .moment-account-settings{margin-top:24px;padding-top:16px;border-top:1px solid hsl(var(--border));font-size:12px;color:hsl(var(--muted-foreground))}
+roy-moments .moment-account-settings summary{cursor:pointer;width:fit-content}
+roy-moments .moment-account-settings[open] summary{margin-bottom:16px}
+roy-moments .moment-login .moment-auth>h2{display:none}
+roy-moments .moment-login .moment-auth>p{margin-top:0;margin-bottom:20px}
+@media(max-width:599px){roy-moments .moment-detail-scroll{padding:20px}roy-moments .moment-detail-header{padding:10px 16px}roy-moments .moment-publish{width:calc(100vw - 20px);border-radius:1rem}roy-moments .moment-photo-add{min-height:128px}}
+
+/* A single photo tool belongs to the editor toolbar, without an upload tile. */
+roy-moments .moment-photo-tool{display:flex;align-items:center;flex:none}
+roy-moments .moment-photo-add{display:inline-flex;flex-direction:row;width:36px;height:36px;min-height:36px;padding:7px;gap:0;border:0;border-radius:.5rem;background:transparent;color:hsl(var(--muted-foreground))}
+roy-moments .moment-photo-add svg{width:21px;height:21px}
+roy-moments .moment-photo-add:hover{background:hsl(var(--muted));color:hsl(var(--foreground))}
+roy-moments .moment-photo-picker{margin:0;padding:0 16px 16px}
+roy-moments .moment-publish .roy-rich-footer{gap:10px;flex-wrap:wrap}
+roy-moments .moment-publish .roy-rich-meta{flex:1;min-width:0}
+roy-moments .moment-detail-photo{background:transparent;border:0;padding:0}
+roy-moments .moment-detail-copy{min-width:0}
+@media(min-width:900px){
+ roy-moments .moment-journal-detail.has-photo{width:fit-content;max-width:calc(100vw - 48px)}
+ roy-moments .moment-journal-detail.has-photo .moment-detail-scroll{padding:24px}
+ roy-moments .moment-journal-detail.has-photo .has-moment-photo{--detail-media-height:min(560px,calc(100dvh - 180px),calc((100vw - 480px)/var(--moment-image-ratio,1)));display:flex;align-items:stretch;gap:28px}
+ roy-moments .moment-journal-detail.has-photo .moment-detail-photo{position:static;flex:none;width:max-content;margin:0;background:transparent}
+ roy-moments .moment-journal-detail.has-photo .moment-detail-photo img{display:block;width:auto;height:var(--detail-media-height);max-width:none;max-height:none;object-fit:contain}
+ roy-moments .moment-journal-detail.has-photo .moment-detail-copy{display:flex;flex-direction:column;flex:none;width:340px;height:var(--detail-media-height);overflow-y:auto;overscroll-behavior:contain}
+ roy-moments .moment-detail-copy>.moment-actions{margin-top:auto;padding-top:14px}
+ roy-moments .moment-detail-copy>.moment-body{margin-bottom:24px}
+}
+@media(max-width:899px){
+ roy-moments .moment-journal-detail.has-photo{width:calc(100vw - 20px)}
+ roy-moments .moment-journal-detail.has-photo .moment-detail-photo{width:100%;margin:0 0 24px;background:transparent}
+ roy-moments .moment-journal-detail.has-photo .moment-detail-photo img{width:100%;height:auto;max-width:100%;max-height:none;object-fit:initial}
+ roy-moments .moment-detail-copy{width:100%;height:auto;overflow:visible}
+}
+
+roy-moments .moment-photo-tool{gap:4px}
+roy-moments .moment-weather-tool{display:inline-flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;min-height:36px;padding:7px;border:0;background:transparent;border-radius:.5rem!important;color:hsl(var(--muted-foreground))}
+roy-moments .moment-weather-tool:hover,roy-moments .moment-weather-tool[aria-expanded=true],roy-moments .moment-weather-tool.has-weather{background:hsl(var(--muted));color:hsl(var(--foreground))}
+roy-moments .moment-publish .moment-options:not(:has(.moment-option-group:not([hidden]))){display:none}
+roy-moments .moment-publish .moment-options{margin:0;padding:12px;border-top:1px solid hsl(var(--border))}
+roy-moments .moment-publish .roy-rich-footer{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 12px}
+roy-moments .moment-publish .roy-rich-meta{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:10px;min-width:0;margin:0}
+roy-moments .moment-publish .roy-rich-hint>span{display:none}
+roy-moments .moment-publish .roy-rich-count{font-size:11px;white-space:nowrap}
+roy-moments .moment-publish .roy-rich-actions{display:flex;align-items:center;gap:8px;margin:0}
+roy-moments .moment-publish .roy-rich-actions>button{min-height:36px;padding:7px 14px;line-height:20px}
+@media(max-width:420px){
+ roy-moments .moment-publish .roy-rich-footer{grid-template-columns:minmax(0,1fr) auto;gap:8px 12px}
+ roy-moments .moment-publish .moment-photo-tool{grid-column:1;grid-row:1}
+ roy-moments .moment-publish .roy-rich-actions{grid-column:2;grid-row:1}
+ roy-moments .moment-publish .roy-rich-meta{grid-column:1/-1;grid-row:2;justify-content:space-between;padding:0 4px}
+ roy-moments .moment-publish .roy-rich-hint>span{display:inline;font-size:10px}
+}
+
+@media(max-width:899px){roy-moments .moment-detail-copy>.moment-actions{margin-top:30px;padding-top:10px}}

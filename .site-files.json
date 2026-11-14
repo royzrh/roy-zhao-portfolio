@@ -1,8 +1,10 @@
 [
+  ".site-files.json",
   "404.html",
   "about",
   "about-page.json",
   "academic",
+  "admin",
   "api",
   "archives",
   "assets",

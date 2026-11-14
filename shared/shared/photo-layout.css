@@ -6,3 +6,6 @@
 .gallery-pagination{display:flex;align-items:center;justify-content:center;gap:22px;padding:12px 0 2px;margin-top:0;border:0}.gallery-pagination button{width:32px;height:32px;display:grid;place-items:center;font-size:22px;line-height:1;color:inherit;border:1px solid #c5beb4;border-radius:2px;transition:opacity .2s,background .2s}.gallery-pagination button:disabled{opacity:.25;cursor:default}.gallery-pagination button:not(:disabled):hover{background:#8c82731a}.gallery-page-indicator{display:inline-flex;gap:10px;align-items:baseline;font-size:11px;letter-spacing:.12em;font-variant-numeric:tabular-nums}.gallery-page-indicator strong{font-size:13px;font-weight:500}.gallery-page-indicator>span{opacity:.5}@media(max-width:767px){#gallery-section{padding-top:16px;padding-bottom:16px}#filterBar{margin-bottom:16px}#photoGrid .gallery-card img{height:clamp(110px,calc((100svh - 540px)/2),240px)}.message-card{scroll-margin-top:145px}}
 /* Gallery thumbnails keep a consistent 4:3 frame on every screen. */
 #photoGrid .gallery-card img{aspect-ratio:4/3;height:auto!important;object-fit:cover}
+
+/* Flat album cards avoid shadows being clipped into dark bands at carousel edges. */
+#photoGrid .gallery-card,#photoGrid .gallery-card:hover{box-shadow:none!important}
