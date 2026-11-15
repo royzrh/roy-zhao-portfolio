@@ -8,3 +8,5 @@
 body,body :is(button,input,textarea,select,.font-mono,.font-serif,.roy-rich-count,.roy-rich-body code,.holiday-poster .poster-title,.photo-cover-caption [data-admin=hero-gear]){font-family:var(--photo-text-font)!important}
 /* Preserve the photographic wordmark as a mark, independently of body typography. */
 #loginBtn>span,.identity .logo{font-family:'Times New Roman',serif!important}
+/* The header name uses sans-serif in both Chinese and Latin. */
+.identity span{font-family:'Century Gothic','Satoshi',system-ui,sans-serif!important}
