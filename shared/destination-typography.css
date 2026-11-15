@@ -1,0 +1,11 @@
+@import url('./article-fonts.css');
+
+/* Only the travel journal body shares the blog's reading fonts. */
+.prose {
+  font-family: 'Blog Charter', 'Blog Han Serif', serif;
+  font-weight: 400;
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--photo-text-font);
+}
