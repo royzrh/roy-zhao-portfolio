@@ -100,7 +100,7 @@ function Ae(n) {
   return n.replace(/[\t\n\r ]+/g, " ").replace(/^ | $/g, "").toLowerCase().toUpperCase();
 }
 const he = ze(/[A-Za-z]/), ue = ze(/[\dA-Za-z]/), la = ze(/[#-'*+\--9=?A-Z^-~]/);
-function Mt(n) {
+function qt(n) {
   return (
     // Special whitespace codes (which have negative values), C0 and Control
     // character DEL
@@ -171,7 +171,7 @@ function fa(n) {
         codeText: Ks,
         content: Ds,
         definition: $e,
-        definitionDestinationString: ln,
+        definitionDestinationString: un,
         definitionLabelString: y,
         definitionTitleString: y,
         emphasis: Hs,
@@ -431,7 +431,7 @@ function fa(n) {
   function Ne(E) {
     w(), s[s.length - 1].labelId = this.sliceSerialize(E);
   }
-  function ln() {
+  function un() {
     y(), p("ignoreEncode", !0);
   }
   function Rs() {
@@ -700,13 +700,13 @@ function ba(n) {
 function ya(n, t, e) {
   return W(n, n.attempt(this.parser.constructs.document, t, e), "linePrefix", this.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4);
 }
-function qt(n) {
+function Wt(n) {
   if (n === null || K(n) || ut(n))
     return 1;
   if (Vn(n))
     return 2;
 }
-function tn(n, t, e) {
+function nn(n, t, e) {
   const r = [];
   let i = -1;
   for (; ++i < n.length; ) {
@@ -767,7 +767,7 @@ function wa(n, t) {
             ...a.start
           }, n[e][1].start = {
             ...o.end
-          }, u = [], n[r][1].end.offset - n[r][1].start.offset && (u = le(u, [["enter", n[r][1], t], ["exit", n[r][1], t]])), u = le(u, [["enter", i, t], ["enter", a, t], ["exit", a, t], ["enter", s, t]]), u = le(u, tn(t.parser.constructs.insideSpan.null, n.slice(r + 1, e), t)), u = le(u, [["exit", s, t], ["enter", o, t], ["exit", o, t], ["exit", i, t]]), n[e][1].end.offset - n[e][1].start.offset ? (h = 2, u = le(u, [["enter", n[e][1], t], ["exit", n[e][1], t]])) : h = 0, ye(n, r - 1, e - r + 3, u), e = r + u.length - h - 2;
+          }, u = [], n[r][1].end.offset - n[r][1].start.offset && (u = le(u, [["enter", n[r][1], t], ["exit", n[r][1], t]])), u = le(u, [["enter", i, t], ["enter", a, t], ["exit", a, t], ["enter", s, t]]), u = le(u, nn(t.parser.constructs.insideSpan.null, n.slice(r + 1, e), t)), u = le(u, [["exit", s, t], ["enter", o, t], ["exit", o, t], ["exit", i, t]]), n[e][1].end.offset - n[e][1].start.offset ? (h = 2, u = le(u, [["enter", n[e][1], t], ["exit", n[e][1], t]])) : h = 0, ye(n, r - 1, e - r + 3, u), e = r + u.length - h - 2;
           break;
         }
     }
@@ -776,7 +776,7 @@ function wa(n, t) {
   return n;
 }
 function va(n, t) {
-  const e = this.parser.constructs.attentionMarkers.null, r = this.previous, i = qt(r);
+  const e = this.parser.constructs.attentionMarkers.null, r = this.previous, i = Wt(r);
   let s;
   return a;
   function a(l) {
@@ -785,7 +785,7 @@ function va(n, t) {
   function o(l) {
     if (l === s)
       return n.consume(l), o;
-    const u = n.exit("attentionSequence"), h = qt(l), c = !h || h === 2 && i || e.includes(l), f = !i || i === 2 && h || e.includes(r);
+    const u = n.exit("attentionSequence"), h = Wt(l), c = !h || h === 2 && i || e.includes(l), f = !i || i === 2 && h || e.includes(r);
     return u._open = !!(s === 42 ? c : c && (i || !f)), u._close = !!(s === 42 ? f : f && (h || !c)), t(l);
   }
 }
@@ -812,7 +812,7 @@ function ka(n, t, e) {
     return d === 58 ? (n.consume(d), r = 0, l) : (d === 43 || d === 45 || d === 46 || ue(d)) && r++ < 32 ? (n.consume(d), o) : (r = 0, u(d));
   }
   function l(d) {
-    return d === 62 ? (n.exit("autolinkProtocol"), n.enter("autolinkMarker"), n.consume(d), n.exit("autolinkMarker"), n.exit("autolink"), t) : d === null || d === 32 || d === 60 || Mt(d) ? e(d) : (n.consume(d), l);
+    return d === 62 ? (n.exit("autolinkProtocol"), n.enter("autolinkMarker"), n.consume(d), n.exit("autolinkMarker"), n.exit("autolink"), t) : d === null || d === 32 || d === 60 || qt(d) ? e(d) : (n.consume(d), l);
   }
   function u(d) {
     return d === 64 ? (n.consume(d), h) : la(d) ? (n.consume(d), u) : e(d);
@@ -1008,7 +1008,7 @@ function Pa(n, t, e) {
     return r.parser.lazy[r.now().line] ? e(a) : t(a);
   }
 }
-const un = {
+const hn = {
   name: "codeIndented",
   tokenize: Ra
 }, Ia = {
@@ -1357,7 +1357,7 @@ function si(n, t, e, r, i, s, a, o, l) {
   let h = 0;
   return c;
   function c(w) {
-    return w === 60 ? (n.enter(r), n.enter(i), n.enter(s), n.consume(w), n.exit(s), f) : w === null || w === 32 || w === 41 || Mt(w) ? e(w) : (n.enter(r), n.enter(a), n.enter(o), n.enter("chunkString", {
+    return w === 60 ? (n.enter(r), n.enter(i), n.enter(s), n.consume(w), n.exit(s), f) : w === null || w === 32 || w === 41 || qt(w) ? e(w) : (n.enter(r), n.enter(a), n.enter(o), n.enter("chunkString", {
       contentType: "string"
     }), b(w));
   }
@@ -1373,7 +1373,7 @@ function si(n, t, e, r, i, s, a, o, l) {
     return w === 60 || w === 62 || w === 92 ? (n.consume(w), d) : d(w);
   }
   function b(w) {
-    return !h && (w === null || w === 41 || K(w)) ? (n.exit("chunkString"), n.exit(o), n.exit(a), n.exit(r), t(w)) : h < u && w === 40 ? (n.consume(w), h++, b) : w === 41 ? (n.consume(w), h--, b) : w === null || w === 32 || w === 40 || Mt(w) ? e(w) : (n.consume(w), w === 92 ? y : b);
+    return !h && (w === null || w === 41 || K(w)) ? (n.exit("chunkString"), n.exit(o), n.exit(a), n.exit(r), t(w)) : h < u && w === 40 ? (n.consume(w), h++, b) : w === 41 ? (n.consume(w), h--, b) : w === null || w === 32 || w === 40 || qt(w) ? e(w) : (n.consume(w), w === 92 ? y : b);
   }
   function y(w) {
     return w === 40 || w === 41 || w === 92 ? (n.consume(w), b) : b(w);
@@ -1914,7 +1914,7 @@ function go(n, t) {
       ...n[a - 2][1].start
     }
   };
-  return o = [["enter", l, t], ["enter", u, t]], o = le(o, n.slice(s + 1, s + r + 3)), o = le(o, [["enter", h, t]]), o = le(o, tn(t.parser.constructs.insideSpan.null, n.slice(s + r + 4, a - 3), t)), o = le(o, [["exit", h, t], n[a - 2], n[a - 1], ["exit", u, t]]), o = le(o, n.slice(a + 1)), o = le(o, [["exit", l, t]]), ye(n, s, n.length, o), n;
+  return o = [["enter", l, t], ["enter", u, t]], o = le(o, n.slice(s + 1, s + r + 3)), o = le(o, [["enter", h, t]]), o = le(o, nn(t.parser.constructs.insideSpan.null, n.slice(s + r + 4, a - 3), t)), o = le(o, [["exit", h, t], n[a - 2], n[a - 1], ["exit", u, t]]), o = le(o, n.slice(a + 1)), o = le(o, [["exit", l, t]]), ye(n, s, n.length, o), n;
 }
 function mo(n, t, e) {
   const r = this;
@@ -2026,7 +2026,7 @@ function So(n, t, e) {
     return a === 94 && "_hiddenFootnoteSupport" in r.parser.constructs ? e(a) : t(a);
   }
 }
-const hn = {
+const cn = {
   name: "lineEnding",
   tokenize: Eo
 };
@@ -2326,9 +2326,9 @@ const zo = {
 }, Mo = {
   91: Ha
 }, qo = {
-  [-2]: un,
-  [-1]: un,
-  32: un
+  [-2]: hn,
+  [-1]: hn,
+  32: hn
 }, Wo = {
   35: Qa,
   42: Ut,
@@ -2342,9 +2342,9 @@ const zo = {
   38: ri,
   92: ni
 }, Vo = {
-  [-5]: hn,
-  [-4]: hn,
-  [-3]: hn,
+  [-5]: cn,
+  [-4]: cn,
+  [-3]: cn,
   33: vo,
   38: ri,
   42: xn,
@@ -2406,7 +2406,7 @@ function Qo(n, t, e) {
   let h = t.tokenize.call(u, l);
   return t.resolveAll && s.push(t), u;
   function c(I) {
-    return a = le(a, I), y(), a[a.length - 1] !== null ? [] : (z(t, 0), u.events = tn(s, u.events, u), u.events);
+    return a = le(a, I), y(), a[a.length - 1] !== null ? [] : (z(t, 0), u.events = nn(s, u.events, u), u.events);
   }
   function f(I, A) {
     return Zo(d(I), A);
@@ -2750,7 +2750,7 @@ function ul(n, t, e) {
     return c === 47 ? (n.consume(c), s ? u : (s = !0, l)) : e(c);
   }
   function u(c) {
-    return c === null || Mt(c) || K(c) || ut(c) || Vn(c) ? e(c) : n.attempt(hi, n.attempt(ci, h), e)(c);
+    return c === null || qt(c) || K(c) || ut(c) || Vn(c) ? e(c) : n.attempt(hi, n.attempt(ci, h), e)(c);
   }
   function h(c) {
     return n.exit("literalAutolinkHttp"), n.exit("literalAutolink"), t(c);
@@ -3159,7 +3159,7 @@ function jl(n) {
               start: Object.assign({}, a[u][1].end),
               end: Object.assign({}, a[l][1].start)
             }, f = [["enter", h, o], ["enter", a[u][1], o], ["exit", a[u][1], o], ["enter", c, o]], d = o.parser.constructs.insideSpan.null;
-            d && ye(f, f.length, 0, tn(d, a.slice(u + 1, l), o)), ye(f, f.length, 0, [["exit", c, o], ["enter", a[l][1], o], ["exit", a[l][1], o], ["exit", h, o]]), ye(a, u - 1, l - u + 3, f), l = u + f.length - 2;
+            d && ye(f, f.length, 0, nn(d, a.slice(u + 1, l), o)), ye(f, f.length, 0, [["exit", c, o], ["enter", a[l][1], o], ["exit", a[l][1], o], ["exit", h, o]]), ye(a, u - 1, l - u + 3, f), l = u + f.length - 2;
             break;
           }
       }
@@ -3175,16 +3175,16 @@ function jl(n) {
       return u === 126 && h[h.length - 1][1].type !== "characterEscape" ? l(p) : (a.enter("strikethroughSequenceTemporary"), d(p));
     }
     function d(p) {
-      const b = qt(u);
+      const b = Wt(u);
       if (p === 126)
         return c > 1 ? l(p) : (a.consume(p), c++, d);
       if (c < 2 && !e) return l(p);
-      const y = a.exit("strikethroughSequenceTemporary"), w = qt(p);
+      const y = a.exit("strikethroughSequenceTemporary"), w = Wt(p);
       return y._open = !w || w === 2 && !!b, y._close = !b || b === 2 && !!w, o(p);
     }
   }
 }
-const cn = {
+const dn = {
   none: "",
   left: ' align="left"',
   right: ' align="right"',
@@ -3201,14 +3201,14 @@ function Ll() {
         this.tag("<tbody>");
       },
       tableData() {
-        const n = this.getData("tableAlign"), t = this.getData("tableColumn"), e = cn[n[t]];
+        const n = this.getData("tableAlign"), t = this.getData("tableColumn"), e = dn[n[t]];
         e === void 0 ? this.buffer() : (this.lineEndingIfNeeded(), this.tag("<td" + e + ">"));
       },
       tableHead() {
         this.lineEndingIfNeeded(), this.tag("<thead>");
       },
       tableHeader() {
-        const n = this.getData("tableAlign"), t = this.getData("tableColumn"), e = cn[n[t]];
+        const n = this.getData("tableAlign"), t = this.getData("tableColumn"), e = dn[n[t]];
         this.lineEndingIfNeeded(), this.tag("<th" + e + ">");
       },
       tableRow() {
@@ -3243,7 +3243,7 @@ function Ll() {
         const n = this.getData("tableAlign");
         let t = this.getData("tableColumn");
         for (; t < n.length; )
-          this.lineEndingIfNeeded(), this.tag("<td" + cn[n[t]] + "></td>"), t++;
+          this.lineEndingIfNeeded(), this.tag("<td" + dn[n[t]] + "></td>"), t++;
         this.setData("tableColumn", t), this.lineEndingIfNeeded(), this.tag("</tr>");
       }
     }
@@ -3571,7 +3571,7 @@ function Yl(n) {
     Wl()
   ]);
 }
-const Yn = 1048576, Qn = 262144, St = 12, Ql = /(?:^|\n)\[roy-sticker:(data:image\/(?:webp|png);base64,[A-Za-z0-9+/]+={0,2})\]$/, Wt = /\[roy-emoji:(data:image\/(?:webp|png);base64,[A-Za-z0-9+/]+={0,2})\]/g;
+const Yn = 1048576, Qn = 262144, St = 12, Ql = /(?:^|\n)\[roy-sticker:(data:image\/(?:webp|png);base64,[A-Za-z0-9+/]+={0,2})\]$/, Ht = /\[roy-emoji:(data:image\/(?:webp|png);base64,[A-Za-z0-9+/]+={0,2})\]/g;
 function je(n) {
   if (typeof n != "string" || n.length > Qn || !/^data:image\/(?:webp|png);base64,[A-Za-z0-9+/]+={0,2}$/.test(n)) return !1;
   try {
@@ -3597,22 +3597,22 @@ function wi(n, t = 2e3) {
   const e = String(n).trim();
   if (e.includes("￼")) throw Error("浏览器未提供表情图片，请使用 Safari 或复制后粘贴重试。");
   let r = 0, i = 0;
-  const s = e.replace(Wt, (a, o) => {
+  const s = e.replace(Ht, (a, o) => {
     if (!je(o)) throw Error("表情格式无效");
     return r++, i += o.length, "￼";
   });
   if (!s || s.length > t || r > St || i > Yn || s.includes("[roy-emoji:") || s.includes("[roy-sticker:")) throw Error("内容过长或表情过多，请减少后再发送。");
   return e;
 }
-function Ht(n, { markdown: t = !0 } = {}) {
+function Vt(n, { markdown: t = !0 } = {}) {
   const e = (o) => '<img class="roy-comment-emoji" src="' + o + '" alt="拟我表情" width="16" height="16" decoding="async">';
   let { text: r, sticker: i } = Xn(n);
   const s = [];
   if (!t) {
     let o = 0;
-    return "<p>" + Cr(r).replace(Wt, (l, u) => je(u) && o++ < St ? e(u) : l).replace(/\n/g, "<br>") + "</p>" + (i ? e(i) : "");
+    return "<p>" + Cr(r).replace(Ht, (l, u) => je(u) && o++ < St ? e(u) : l).replace(/\n/g, "<br>") + "</p>" + (i ? e(i) : "");
   }
-  r = r.replace(Wt, (o, l) => {
+  r = r.replace(Ht, (o, l) => {
     if (!je(l) || s.length >= St) return o;
     const u = s.push(l) - 1;
     return `![roy-inline-emoji-${u}](https://roy-emoji.invalid/${u})`;
@@ -3623,11 +3623,11 @@ function Ht(n, { markdown: t = !0 } = {}) {
   }), a + (i ? e(i) : "");
 }
 function vi(n, t, e = {}) {
-  nn(), n.classList.add("roy-rich-body"), n.innerHTML = Ht(t, e);
+  rn(), n.classList.add("roy-rich-body"), n.innerHTML = Vt(t, e);
   for (const r of n.querySelectorAll("a"))
     r.rel = "nofollow ugc noopener noreferrer", r.target = "_blank";
 }
-function nn() {
+function rn() {
   if (typeof document > "u" || document.querySelector("[data-roy-rich-style]")) return;
   const n = document.createElement("link");
   n.rel = "stylesheet", n.href = "/shared/comment-rich.css?v=20261103-inline-reply-3", n.dataset.royRichStyle = "", document.head.append(n);
@@ -3675,7 +3675,7 @@ async function _i(n) {
 }
 function Cn(n, { en: t = !1, limit: e = 2e3, stickers: r = !0, markdown: i = !0 } = {}) {
   var Pe;
-  nn();
+  rn();
   let s = 0, a = 0, o = !1;
   const l = n.required, u = n.hidden, h = document.createElement("div");
   h.className = n.className + " roy-rich-editor", h.setAttribute("role", "textbox"), h.setAttribute("aria-multiline", "true"), h.setAttribute("aria-label", n.getAttribute("aria-label") || (t ? "Message" : "留言内容")), h.dataset.placeholder = n.placeholder || (t ? "Write a message…" : "写下留言…"), h.textContent = n.value, h.spellcheck = !0, n.hidden = !0, n.dataset.richSource = "", n.required = !1, n.insertAdjacentElement("afterend", h);
@@ -3711,7 +3711,7 @@ function Cn(n, { en: t = !1, limit: e = 2e3, stickers: r = !0, markdown: i = !0 
       return;
     }
     let G = 0;
-    for (const ee of B.matchAll(Wt)) {
+    for (const ee of B.matchAll(Ht)) {
       if (!je(ee[1])) continue;
       h.append(document.createTextNode(B.slice(G, ee.index)));
       const ne = new Image();
@@ -3758,7 +3758,7 @@ function Cn(n, { en: t = !1, limit: e = 2e3, stickers: r = !0, markdown: i = !0 
       const ee = await _i(T);
       if (o || B !== a || !h.contains(G)) return;
       const ne = [...h.querySelectorAll("img[data-roy-emoji]")];
-      if (ne.length >= St || ne.reduce((Ne, ln) => Ne + ln.src.length, 0) + ee.length > Yn) throw Error("表情过多，请减少后再发送。");
+      if (ne.length >= St || ne.reduce((Ne, un) => Ne + un.src.length, 0) + ee.length > Yn) throw Error("表情过多，请减少后再发送。");
       const se = new Image();
       se.src = ee, se.alt = t ? "Memoji" : "拟我表情", se.className = "roy-comment-emoji", se.dataset.royEmoji = "", se.contentEditable = "false", se.width = se.height = 16;
       const J = getSelection(), $e = (J == null ? void 0 : J.rangeCount) && J.isCollapsed && J.anchorNode === G.parentNode && J.anchorOffset === [...G.parentNode.childNodes].indexOf(G) + 1;
@@ -3872,11 +3872,11 @@ const Zl = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   EMOJI_COUNT_LIMIT: St,
   EMOJI_IMAGE_LIMIT: Qn,
   STICKER_LIMIT: Yn,
-  bodyHTML: Ht,
+  bodyHTML: Vt,
   compressSticker: _i,
   createComposer: Cn,
   inlineBody: wi,
-  installStyles: nn,
+  installStyles: rn,
   packBody: Xl,
   renderBody: vi,
   splitBody: Xn,
@@ -4138,7 +4138,7 @@ class su extends HTMLElement {
   }
 }
 customElements.get("roy-account-auth") || customElements.define("roy-account-auth", su);
-const dn = [
+const Ft = [
   { value: "sunny", zh: "晴天", en: "Sunny", path: "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" },
   { value: "cloudy", zh: "多云", en: "Cloudy", path: "M7 18h10a4 4 0 1 0-.5-8 6 6 0 0 0-11.4 1.5A3.3 3.3 0 0 0 7 18Z" },
   { value: "rainy", zh: "下雨", en: "Rainy", path: "M7 14h10a3.5 3.5 0 1 0-.5-7 5 5 0 0 0-9.5 1A3 3 0 0 0 7 14Zm1 3-1 3m6-3-1 3m6-3-1 3" },
@@ -4358,7 +4358,7 @@ function er(n, t, e = "") {
 function Ci() {
   document.querySelectorAll("[data-avatar-user]").forEach(Ti);
 }
-async function Vt(n, t) {
+async function Kt(n, t) {
   const e = [...new Set(t.filter((r) => !!r))];
   for (let r = 0; r < e.length; r += 50) {
     const i = e.slice(r, r + 50);
@@ -4455,7 +4455,7 @@ class mu extends HTMLElement {
     const r = ++this.version;
     if (this.user = e, this.hidden = !e, this.status(""), !e) return;
     const { data: i } = await this.api.from("roy_top_profiles").select("nickname").eq("user_id", e.id).maybeSingle();
-    await Vt(this.api, [e.id]), r === this.version && (this.el("[data-avatar-preview]").replaceChildren(er(e.id, (i == null ? void 0 : i.nickname) || "R")), this.updateButtons());
+    await Kt(this.api, [e.id]), r === this.version && (this.el("[data-avatar-preview]").replaceChildren(er(e.id, (i == null ? void 0 : i.nickname) || "R")), this.updateButtons());
   }
   updateButtons() {
     var r;
@@ -4772,7 +4772,7 @@ class bu extends HTMLElement {
   }
   syncStyleChoices() {
     var a;
-    const e = dn.find((o) => {
+    const e = Ft.find((o) => {
       var l;
       return o.value === ((l = this.querySelector("[name=moment-weather]:checked")) == null ? void 0 : l.value);
     }), r = fn.find((o) => {
@@ -4781,7 +4781,7 @@ class bu extends HTMLElement {
     }) || fn[0];
     this.el("[data-weather-selected]").textContent = e ? this.en ? e.en : e.zh : this.t("不标注", "None");
     const i = this.el("[data-weather-toggle]"), s = this.t("天气", "Weather") + " · " + this.el("[data-weather-selected]").textContent;
-    i.title = s, i.setAttribute("aria-label", s), i.classList.toggle("has-weather", !!e), (a = i.querySelector("path")) == null || a.setAttribute("d", (e || dn.find((o) => o.value === "cloudy")).path), this.el("[data-color-selected]").textContent = this.en ? r.en : r.zh, this.el("[data-color-selected-dot]").style.setProperty("--swatch", r.swatch);
+    i.title = s, i.setAttribute("aria-label", s), i.classList.toggle("has-weather", !!e), (a = i.querySelector("path")) == null || a.setAttribute("d", (e || Ft.find((o) => o.value === "cloudy")).path), this.el("[data-color-selected]").textContent = this.en ? r.en : r.zh, this.el("[data-color-selected-dot]").style.setProperty("--swatch", r.swatch);
   }
   resetStyleChoices() {
     this.el('[name=moment-weather][value=""]').checked = !0, this.el("[name=moment-color][value=paper]").checked = !0, this.syncStyleChoices();
@@ -4913,7 +4913,7 @@ class bu extends HTMLElement {
     const i = this.button("", () => this.showDetail(e, i), "moment-cover");
     i.setAttribute("aria-haspopup", "dialog"), i.setAttribute("aria-label", this.t("展开这条图文记录", "Open this journal entry"));
     const s = this.photoSource(e), a = U("div");
-    a.innerHTML = Ht(e.body);
+    a.innerHTML = Vt(e.body);
     const o = (a.textContent || "").trim(), l = o.split(/\n/).find((u) => u.trim()) || this.t("这一刻", "A moment");
     if (s) {
       const u = U("img", "moment-cover-image");
@@ -4945,7 +4945,7 @@ class bu extends HTMLElement {
       const s = await this.rpc("roy_moments_feed", { page_size: 20, page_offset: e ? 0 : this.posts.length });
       if (i !== this.version) return;
       if (!Array.isArray(s)) throw new Error("Invalid feed");
-      if (this.captureDrafts(), this.posts = e ? s : [...this.posts, ...s.filter((a) => !this.posts.some((o) => o.id === a.id))], this.more = s.length === 20, await Promise.all([Vt(this.api, this.posts.map((a) => a.user_id)), An(this.api, this.posts.map((a) => a.user_id))]), i !== this.version) return;
+      if (this.captureDrafts(), this.posts = e ? s : [...this.posts, ...s.filter((a) => !this.posts.some((o) => o.id === a.id))], this.more = s.length === 20, await Promise.all([Kt(this.api, this.posts.map((a) => a.user_id)), An(this.api, this.posts.map((a) => a.user_id))]), i !== this.version) return;
       this.renderFeed(), r || this.status();
     } catch (s) {
       i === this.version && !r && this.status(!this.user && (s == null ? void 0 : s.code) === "42501" ? this.t("游客浏览尚未启用，Moments数据服务需要更新。", "Guest browsing is not enabled yet. The Moments data service needs an update.") : this.failure(s), !0);
@@ -4958,7 +4958,7 @@ class bu extends HTMLElement {
     a.dateTime = e.created_at, a.textContent = new Date(e.created_at).toLocaleString(this.en ? "en-GB" : "zh-CN", { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
     const o = U("h3", "moment-author roy-blog-name", e.author_name);
     o.append(cu(e.user_id, this.en)), s.append(o, a);
-    const l = dn.find((h) => h.value === e.weather);
+    const l = Ft.find((h) => h.value === e.weather);
     if (l) {
       const h = U("span", "moment-weather-badge"), c = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       for (const [d, p] of Object.entries({ width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true" })) c.setAttribute(d, p);
@@ -4989,7 +4989,7 @@ class bu extends HTMLElement {
     const l = !i && o ? U("div", "moment-detail-copy") : a;
     l !== a && a.append(l), l.append(this.metadata(e)), i && e.parent_id !== e.root_id && l.append(U("p", "moment-reply-label", this.t(`回复 @${e.reply_to_name ?? ""}`, `Reply to @${e.reply_to_name ?? ""}`)));
     const u = U("div", "moment-body roy-rich-body");
-    u.innerHTML = Ht(e.body), nn(), l.append(u);
+    u.innerHTML = Vt(e.body), rn(), l.append(u);
     const h = U("div", "moment-actions"), c = this.button("", async () => {
       if (!this.user) {
         this.requestLogin();
@@ -5126,7 +5126,7 @@ class bu extends HTMLElement {
     try {
       const a = await this.rpc("roy_moments_replies", { post_id: e.id, page_size: 50, page_offset: r ? 0 : i.rows.length });
       if (s !== this.version) return;
-      i.rows = r ? a : [...i.rows, ...a.filter((o) => !i.rows.some((l) => l.id === o.id))], i.more = a.length === 50, await Promise.all([Vt(this.api, a.map((o) => o.user_id)), An(this.api, a.map((o) => o.user_id))]);
+      i.rows = r ? a : [...i.rows, ...a.filter((o) => !i.rows.some((l) => l.id === o.id))], i.more = a.length === 50, await Promise.all([Kt(this.api, a.map((o) => o.user_id)), An(this.api, a.map((o) => o.user_id))]);
     } catch (a) {
       s === this.version && this.status(this.failure(a), !0);
     } finally {
@@ -5136,7 +5136,7 @@ class bu extends HTMLElement {
 }
 customElements.get("roy-moments") || customElements.define("roy-moments", bu);
 xt.configured && Ot().then((n) => {
-  Object.assign(window, { RoyPhotoClient: n, RoyRichComments: Zl, RoyPhotoAvatars: { create: er, load: (t) => Vt(n, t) } }), window.dispatchEvent(new Event("roy-photo-ready"));
+  Object.assign(window, { RoyPhotoClient: n, RoyPhotoWeathers: Ft, RoyRichComments: Zl, RoyPhotoAvatars: { create: er, load: (t) => Kt(n, t) } }), window.dispatchEvent(new Event("roy-photo-ready"));
 });
 var On = function(n, t) {
   return On = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(e, r) {
@@ -5154,14 +5154,14 @@ function Ai(n, t) {
   }
   n.prototype = t === null ? Object.create(t) : (e.prototype = t.prototype, new e());
 }
-var Kt = function() {
-  return Kt = Object.assign || function(t) {
+var Gt = function() {
+  return Gt = Object.assign || function(t) {
     for (var e, r = 1, i = arguments.length; r < i; r++) {
       e = arguments[r];
       for (var s in e) Object.prototype.hasOwnProperty.call(e, s) && (t[s] = e[s]);
     }
     return t;
-  }, Kt.apply(this, arguments);
+  }, Gt.apply(this, arguments);
 };
 function pt(n, t) {
   var e = {};
@@ -5305,7 +5305,7 @@ function $i(n, t) {
     return { value: u[0] ? u[1] : void 0, done: !0 };
   }
 }
-var rn = Object.create ? (function(n, t, e, r) {
+var sn = Object.create ? (function(n, t, e, r) {
   r === void 0 && (r = e);
   var i = Object.getOwnPropertyDescriptor(t, e);
   (!i || ("get" in i ? !t.__esModule : i.writable || i.configurable)) && (i = { enumerable: !0, get: function() {
@@ -5315,9 +5315,9 @@ var rn = Object.create ? (function(n, t, e, r) {
   r === void 0 && (r = e), n[r] = t[e];
 });
 function Ni(n, t) {
-  for (var e in n) e !== "default" && !Object.prototype.hasOwnProperty.call(t, e) && rn(t, n, e);
+  for (var e in n) e !== "default" && !Object.prototype.hasOwnProperty.call(t, e) && sn(t, n, e);
 }
-function Gt(n) {
+function Jt(n) {
   var t = typeof Symbol == "function" && Symbol.iterator, e = t && n[t], r = 0;
   if (e) return e.call(n);
   if (n && typeof n.length == "number") return {
@@ -5418,7 +5418,7 @@ function Mi(n) {
 function qi(n) {
   if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
   var t = n[Symbol.asyncIterator], e;
-  return t ? t.call(n) : (n = typeof Gt == "function" ? Gt(n) : n[Symbol.iterator](), e = {}, r("next"), r("throw"), r("return"), e[Symbol.asyncIterator] = function() {
+  return t ? t.call(n) : (n = typeof Jt == "function" ? Jt(n) : n[Symbol.iterator](), e = {}, r("next"), r("throw"), r("return"), e[Symbol.asyncIterator] = function() {
     return this;
   }, e);
   function r(s) {
@@ -5451,7 +5451,7 @@ var yu = Object.create ? (function(n, t) {
 function Hi(n) {
   if (n && n.__esModule) return n;
   var t = {};
-  if (n != null) for (var e = Pn(n), r = 0; r < e.length; r++) e[r] !== "default" && rn(t, n, e[r]);
+  if (n != null) for (var e = Pn(n), r = 0; r < e.length; r++) e[r] !== "default" && sn(t, n, e[r]);
   return yu(t, n), t;
 }
 function Vi(n) {
@@ -5529,7 +5529,7 @@ function Xi(n, t) {
 }
 const vu = {
   __extends: Ai,
-  __assign: Kt,
+  __assign: Gt,
   __rest: pt,
   __decorate: Oi,
   __param: Pi,
@@ -5540,9 +5540,9 @@ const vu = {
   __metadata: Di,
   __awaiter: O,
   __generator: $i,
-  __createBinding: rn,
+  __createBinding: sn,
   __exportStar: Ni,
-  __values: Gt,
+  __values: Jt,
   __read: tr,
   __spread: Bi,
   __spreadArrays: Ui,
@@ -5564,7 +5564,7 @@ const vu = {
   __proto__: null,
   __addDisposableResource: Yi,
   get __assign() {
-    return Kt;
+    return Gt;
   },
   __asyncDelegator: Mi,
   __asyncGenerator: zi,
@@ -5574,7 +5574,7 @@ const vu = {
   __classPrivateFieldGet: Ki,
   __classPrivateFieldIn: Ji,
   __classPrivateFieldSet: Gi,
-  __createBinding: rn,
+  __createBinding: sn,
   __decorate: Oi,
   __disposeResources: Qi,
   __esDecorate: Ii,
@@ -5595,38 +5595,38 @@ const vu = {
   __spread: Bi,
   __spreadArray: Fi,
   __spreadArrays: Ui,
-  __values: Gt,
+  __values: Jt,
   default: vu
 }, Symbol.toStringTag, { value: "Module" })), ku = (n) => {
   let t;
   return n ? t = n : typeof fetch > "u" ? t = (...e) => Promise.resolve().then(() => Qe).then(({ default: r }) => r(...e)) : t = fetch, (...e) => t(...e);
 };
-class sn extends Error {
+class an extends Error {
   constructor(t, e = "FunctionsError", r) {
     super(t), this.name = e, this.context = r;
   }
 }
-class In extends sn {
+class In extends an {
   constructor(t) {
     super("Failed to send a request to the Edge Function", "FunctionsFetchError", t);
   }
 }
-class Rn extends sn {
+class Rn extends an {
   constructor(t) {
     super("Relay Error invoking the Edge Function", "FunctionsRelayError", t);
   }
 }
-class jn extends sn {
+class jn extends an {
   constructor(t) {
     super("Edge Function returned a non-2xx status code", "FunctionsHttpError", t);
   }
 }
-var Jt;
+var Yt;
 (function(n) {
   n.Any = "any", n.ApNortheast1 = "ap-northeast-1", n.ApNortheast2 = "ap-northeast-2", n.ApSouth1 = "ap-south-1", n.ApSoutheast1 = "ap-southeast-1", n.ApSoutheast2 = "ap-southeast-2", n.CaCentral1 = "ca-central-1", n.EuCentral1 = "eu-central-1", n.EuWest1 = "eu-west-1", n.EuWest2 = "eu-west-2", n.EuWest3 = "eu-west-3", n.SaEast1 = "sa-east-1", n.UsEast1 = "us-east-1", n.UsWest1 = "us-west-1", n.UsWest2 = "us-west-2";
-})(Jt || (Jt = {}));
+})(Yt || (Yt = {}));
 class Su {
-  constructor(t, { headers: e = {}, customFetch: r, region: i = Jt.Any } = {}) {
+  constructor(t, { headers: e = {}, customFetch: r, region: i = Yt.Any } = {}) {
     this.url = t, this.headers = e, this.region = i, this.fetch = ku(r);
   }
   /**
@@ -7127,7 +7127,7 @@ var Te;
 (function(n) {
   n.SUBSCRIBED = "SUBSCRIBED", n.TIMED_OUT = "TIMED_OUT", n.CLOSED = "CLOSED", n.CHANNEL_ERROR = "CHANNEL_ERROR";
 })(Te || (Te = {}));
-class an {
+class on {
   constructor(t, e = { config: {} }, r) {
     var i, s;
     if (this.topic = t, this.params = e, this.socket = r, this.bindings = {}, this.state = re.closed, this.joinedOnce = !1, this.pushBuffer = [], this.subTopic = t.replace(/^realtime:/i, ""), this.params.config = Object.assign({
@@ -7444,7 +7444,7 @@ class an {
     const r = t.toLocaleLowerCase();
     return this.bindings[r] && (this.bindings[r] = this.bindings[r].filter((i) => {
       var s;
-      return !(((s = i.type) === null || s === void 0 ? void 0 : s.toLocaleLowerCase()) === r && an.isEqual(i.filter, e));
+      return !(((s = i.type) === null || s === void 0 ? void 0 : s.toLocaleLowerCase()) === r && on.isEqual(i.filter, e));
     })), this;
   }
   /** @internal */
@@ -7667,7 +7667,7 @@ Option 2: Install and provide the "ws" package:
     if (i)
       return i;
     {
-      const s = new an(`realtime:${t}`, e, this);
+      const s = new on(`realtime:${t}`, e, this);
       return this.channels.push(s), s;
     }
   }
@@ -10006,12 +10006,12 @@ class Wn extends De {
     };
   }
 }
-class Yt extends De {
+class Qt extends De {
   constructor(t, e) {
     super(t, "AuthRetryableFetchError", e, void 0);
   }
 }
-function Ft(n) {
+function zt(n) {
   return j(n) && n.name === "AuthRetryableFetchError";
 }
 class Hn extends De {
@@ -10019,32 +10019,32 @@ class Hn extends De {
     super(t, "AuthWeakPasswordError", e, "weak_password"), this.reasons = r;
   }
 }
-class Qt extends De {
+class Xt extends De {
   constructor(t) {
     super(t, "AuthInvalidJwtError", 400, "invalid_jwt");
   }
 }
-const Xt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_".split(""), zr = `
+const Zt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_".split(""), zr = `
 \r=`.split(""), Bh = (() => {
   const n = new Array(128);
   for (let t = 0; t < n.length; t += 1)
     n[t] = -1;
   for (let t = 0; t < zr.length; t += 1)
     n[zr[t].charCodeAt(0)] = -2;
-  for (let t = 0; t < Xt.length; t += 1)
-    n[Xt[t].charCodeAt(0)] = t;
+  for (let t = 0; t < Zt.length; t += 1)
+    n[Zt[t].charCodeAt(0)] = t;
   return n;
 })();
 function Mr(n, t, e) {
   if (n !== null)
     for (t.queue = t.queue << 8 | n, t.queuedBits += 8; t.queuedBits >= 6; ) {
       const r = t.queue >> t.queuedBits - 6 & 63;
-      e(Xt[r]), t.queuedBits -= 6;
+      e(Zt[r]), t.queuedBits -= 6;
     }
   else if (t.queuedBits > 0)
     for (t.queue = t.queue << 6 - t.queuedBits, t.queuedBits = 6; t.queuedBits >= 6; ) {
       const r = t.queue >> t.queuedBits - 6 & 63;
-      e(Xt[r]), t.queuedBits -= 6;
+      e(Zt[r]), t.queuedBits -= 6;
     }
 }
 function _s(n, t, e) {
@@ -10202,21 +10202,21 @@ const Ss = (n) => {
 }, Be = async (n, t) => {
   await n.removeItem(t);
 };
-class on {
+class ln {
   constructor() {
-    this.promise = new on.promiseConstructor((t, e) => {
+    this.promise = new ln.promiseConstructor((t, e) => {
       this.resolve = t, this.reject = e;
     });
   }
 }
-on.promiseConstructor = Promise;
+ln.promiseConstructor = Promise;
 function _n(n) {
   const t = n.split(".");
   if (t.length !== 3)
-    throw new Qt("Invalid JWT structure");
+    throw new Xt("Invalid JWT structure");
   for (let r = 0; r < t.length; r++)
     if (!$h.test(t[r]))
-      throw new Qt("JWT not in base64url format");
+      throw new Xt("JWT not in base64url format");
   return {
     // using base64url lib
     header: JSON.parse(qr(t[0])),
@@ -10351,9 +10351,9 @@ const Ve = (n) => n.msg || n.message || n.error_description || n.error || JSON.s
 async function Hr(n) {
   var t;
   if (!Vh(n))
-    throw new Yt(Ve(n), 0);
+    throw new Qt(Ve(n), 0);
   if (ic.includes(n.status))
-    throw new Yt(Ve(n), n.status);
+    throw new Qt(Ve(n), n.status);
   let e;
   try {
     e = await n.json();
@@ -10393,7 +10393,7 @@ async function ac(n, t, e, r, i, s) {
   try {
     o = await n(e, Object.assign({}, a));
   } catch (l) {
-    throw console.error(l), new Yt(Ve(l), 0);
+    throw console.error(l), new Qt(Ve(l), 0);
   }
   if (o.ok || await Hr(o), r != null && r.noResolveJson)
     return o;
@@ -10443,7 +10443,7 @@ function Kr(n) {
 function uc(n) {
   return n.access_token && n.refresh_token && n.expires_in;
 }
-const zt = ["global", "local", "others"];
+const Mt = ["global", "local", "others"];
 class Es {
   constructor({ url: t = "", headers: e = {}, fetch: r }) {
     this.url = t, this.headers = e, this.fetch = Ss(r), this.mfa = {
@@ -10462,9 +10462,9 @@ class Es {
    * @param jwt A valid, logged-in JWT.
    * @param scope The logout sope.
    */
-  async signOut(t, e = zt[0]) {
-    if (zt.indexOf(e) < 0)
-      throw new Error(`@supabase/auth-js: Parameter scope must be one of ${zt.join(", ")}`);
+  async signOut(t, e = Mt[0]) {
+    if (Mt.indexOf(e) < 0)
+      throw new Error(`@supabase/auth-js: Parameter scope must be one of ${Mt.join(", ")}`);
     try {
       return await $(this.fetch, "POST", `${this.url}/logout?scope=${e}`, {
         headers: this.headers,
@@ -10903,7 +10903,7 @@ class te extends Error {
     super(t, { cause: r }), this.__isWebAuthnError = !0, this.name = (s = i ?? (r instanceof Error ? r.name : void 0)) !== null && s !== void 0 ? s : "Unknown Error", this.code = e;
   }
 }
-class Zt extends te {
+class en extends te {
   constructor(t, e) {
     super({
       code: "ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY",
@@ -11187,10 +11187,10 @@ async function kc(n) {
     );
     return t ? t instanceof PublicKeyCredential ? { data: t, error: null } : {
       data: null,
-      error: new Zt("Browser returned unexpected credential type", t)
+      error: new en("Browser returned unexpected credential type", t)
     } : {
       data: null,
-      error: new Zt("Empty credential response", t)
+      error: new en("Empty credential response", t)
     };
   } catch (t) {
     return {
@@ -11210,10 +11210,10 @@ async function Sc(n) {
     );
     return t ? t instanceof PublicKeyCredential ? { data: t, error: null } : {
       data: null,
-      error: new Zt("Browser returned unexpected credential type", t)
+      error: new en("Browser returned unexpected credential type", t)
     } : {
       data: null,
-      error: new Zt("Empty credential response", t)
+      error: new en("Empty credential response", t)
     };
   } catch (t) {
     return {
@@ -11240,7 +11240,7 @@ const Ec = {
   userVerification: "preferred",
   hints: ["security-key"]
 };
-function en(...n) {
+function tn(...n) {
   const t = (i) => i !== null && typeof i == "object" && !Array.isArray(i), e = (i) => i instanceof ArrayBuffer || ArrayBuffer.isView(i), r = {};
   for (const i of n)
     if (i)
@@ -11253,17 +11253,17 @@ function en(...n) {
             r[s] = a;
           else if (t(a)) {
             const o = r[s];
-            t(o) ? r[s] = en(o, a) : r[s] = en(a);
+            t(o) ? r[s] = tn(o, a) : r[s] = tn(a);
           } else
             r[s] = a;
       }
   return r;
 }
 function Tc(n, t) {
-  return en(Ec, n, t || {});
+  return tn(Ec, n, t || {});
 }
 function Cc(n, t) {
-  return en(xc, n, t || {});
+  return tn(xc, n, t || {});
 }
 class Ac {
   constructor(t) {
@@ -12659,7 +12659,7 @@ class ft {
         xform: _e
       })), (i, s) => {
         const a = 200 * Math.pow(2, i);
-        return s && Ft(s) && // retryable only if the request can be sent before the backoff overflows the tick duration
+        return s && zt(s) && // retryable only if the request can be sent before the backoff overflows the tick duration
         Date.now() + a - r < nt;
       });
     } catch (r) {
@@ -12706,7 +12706,7 @@ class ft {
       if (this._debug(r, `session has${s ? "" : " not"} expired with margin of ${vn}s`), s) {
         if (this.autoRefreshToken && i.refresh_token) {
           const { error: a } = await this._callRefreshToken(i.refresh_token);
-          a && (console.error(a), Ft(a) || (this._debug(r, "refresh failed with a non-retryable error, removing the session", a), await this._removeSession()));
+          a && (console.error(a), zt(a) || (this._debug(r, "refresh failed with a non-retryable error, removing the session", a), await this._removeSession()));
         }
       } else if (i.user && i.user.__isUserNotAvailableProxy === !0)
         try {
@@ -12733,7 +12733,7 @@ class ft {
     const i = `#_callRefreshToken(${t.substring(0, 5)}...)`;
     this._debug(i, "begin");
     try {
-      this.refreshingDeferred = new on();
+      this.refreshingDeferred = new ln();
       const { data: s, error: a } = await this._refreshAccessToken(t);
       if (a)
         throw a;
@@ -12745,7 +12745,7 @@ class ft {
     } catch (s) {
       if (this._debug(i, "error", s), j(s)) {
         const a = { data: null, error: s };
-        return Ft(s) || await this._removeSession(), (e = this.refreshingDeferred) === null || e === void 0 || e.resolve(a), a;
+        return zt(s) || await this._removeSession(), (e = this.refreshingDeferred) === null || e === void 0 || e.resolve(a), a;
       }
       throw (r = this.refreshingDeferred) === null || r === void 0 || r.reject(s), s;
     } finally {
@@ -13163,7 +13163,7 @@ class ft {
         "verify"
       ]);
       if (!await crypto.subtle.verify(h, c, a, Mh(`${o}.${l}`)))
-        throw new Qt("Invalid JWT signature");
+        throw new Xt("Invalid JWT signature");
       return {
         data: {
           claims: s,
@@ -13373,18 +13373,18 @@ const jc = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   AuthError: dt,
   AuthImplicitGrantRedirectError: vt,
   AuthInvalidCredentialsError: wt,
-  AuthInvalidJwtError: Qt,
+  AuthInvalidJwtError: Xt,
   AuthInvalidTokenResponseError: He,
   AuthPKCEGrantCodeExchangeError: Wn,
-  AuthRetryableFetchError: Yt,
+  AuthRetryableFetchError: Qt,
   AuthSessionMissingError: Re,
   AuthUnknownError: Ue,
   AuthWeakPasswordError: Hn,
   CustomAuthError: De,
   get FunctionRegion() {
-    return Jt;
+    return Yt;
   },
-  FunctionsError: sn,
+  FunctionsError: an,
   FunctionsFetchError: In,
   FunctionsHttpError: jn,
   FunctionsRelayError: Rn,
@@ -13404,17 +13404,17 @@ const jc = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   get REALTIME_SUBSCRIBE_STATES() {
     return Te;
   },
-  RealtimeChannel: an,
+  RealtimeChannel: on,
   RealtimeClient: hs,
   RealtimePresence: at,
-  SIGN_OUT_SCOPES: zt,
+  SIGN_OUT_SCOPES: Mt,
   SupabaseClient: Is,
   WebSocketFactory: as,
   createClient: Ic,
   isAuthApiError: ys,
   isAuthError: j,
   isAuthImplicitGrantRedirectError: vs,
-  isAuthRetryableFetchError: Ft,
+  isAuthRetryableFetchError: zt,
   isAuthSessionMissingError: ws,
   lockInternals: Ke,
   navigatorLock: Cs

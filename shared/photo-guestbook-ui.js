@@ -243,13 +243,77 @@ function decoratePhotoAvatars(){
  document.querySelectorAll('[data-photo-avatar]').forEach(node=>{
   if(node.firstChild)return;
   const avatar=window.RoyPhotoAvatars.create(node.dataset.photoAvatar,node.dataset.avatarName||'R','roy-photo-avatar');
-  avatar.addEventListener('click',event=>event.stopPropagation());node.append(avatar);
+  if(!node.closest('.photo-message-author'))avatar.addEventListener('click',event=>event.stopPropagation());node.append(avatar);
  });
 }
-const originalPhotoRenderMessages=renderMessages;
-renderMessages=function(){originalPhotoRenderMessages();decoratePhotoAvatars();schedulePhotoDeveloping();};
+function photoMessageWeather(weather){
+ if(!weather)return null;
+ const value=/[🌧🌦⛈]/u.test(weather)?'rainy':/[❄🌨]/u.test(weather)?'snowy':/[🌬💨]/u.test(weather)?'windy':/[☀]/u.test(weather)?'sunny':'cloudy';
+ const style=window.RoyPhotoWeathers?.find(item=>item.value===value);
+ if(!style)return null;
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ for(const [key,value]of Object.entries({width:'14',height:'14',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':'1.5','stroke-linecap':'round','stroke-linejoin':'round',role:'img','aria-label':style.zh}))svg.setAttribute(key,value);
+ const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',style.path);svg.append(path);return svg;
+}
+renderMessages=function(){
+ const container=document.getElementById('messageBoard');
+ container.replaceChildren();
+ container.parentElement.querySelector('.pagination-row')?.remove();
+ const visible=isAdminMode?messages:getFilteredMessages();
+ const total=Math.max(1,Math.ceil(visible.length/messagePageSize()));
+ currentPage=Math.min(Math.max(1,currentPage),total);
+ for(const msg of visible.slice((currentPage-1)*messagePageSize(),currentPage*messagePageSize())){
+  const card=document.createElement('article');
+  card.className='message-card photo-message-card';
+  card.dataset.paper=['vintage','cyanotype'].includes(msg.theme)?msg.theme:'classic';
+  const liked=isLiked(msg.id);
+  card.innerHTML=`<header class="photo-message-heading">
+   <button type="button" class="photo-message-author" aria-label="查看${escapeHtml(msg.name)}的留言">
+    <span data-photo-avatar="${escapeHtml(msg.userId||'')}" data-avatar-name="${escapeHtml(msg.name)}"></span>
+    <span class="photo-message-name">${escapeHtml(msg.name)}</span>
+   </button>
+   <div class="photo-message-date">${msg.pinned?'<i class="fa-solid fa-thumbtack" title="置顶" aria-label="置顶"></i>':''}<span>${msg.date}</span>${msg.time?`<span class="photo-message-time">${msg.time}</span>`:''}</div>
+  </header>
+  <div class="roy-rich-body photo-message-body">${window.RoyRichComments?window.RoyRichComments.bodyHTML(msg.message,{markdown:false}):escapeHtml(msg.message)}</div>
+  <footer class="photo-message-footer">
+   <div class="photo-message-actions">
+    <button type="button" data-message-like aria-label="${liked?'已赞':'赞这条留言'}" aria-pressed="${liked}" ${liked?'class="is-liked"':''}><i class="${liked?'fa-solid':'fa-regular'} fa-heart" aria-hidden="true"></i><span>${msg.likes||0}</span></button>
+    <button type="button" data-message-replies aria-label="查看留言与${msg.replyCount||0}条回复"><i class="fa-regular fa-comment-dots" aria-hidden="true"></i><span>${msg.replyCount||0}</span></button>
+   </div>
+   <span class="photo-message-place"></span>
+  </footer>`;
+  const open=()=>openMessageModal(msg.id);
+  card.querySelector('.photo-message-author').addEventListener('click',open);
+  card.querySelector('.photo-message-body').addEventListener('click',event=>{if(!event.target.closest('a,button'))open()});
+  card.querySelector('[data-message-replies]').addEventListener('click',open);
+  card.querySelector('[data-message-like]').addEventListener('click',()=>toggleLike(msg.id));
+  const place=card.querySelector('.photo-message-place');
+  const weather=photoMessageWeather(msg.weather);if(weather)place.append(weather);
+  const metadata=document.createElement('span');metadata.textContent=[msg.temp!=null?`${msg.temp}°C`:'',msg.city].filter(Boolean).join(' ')+(msg.private?' 🔒':'');place.append(metadata);
+  if(msg.developing){card.classList.add('developing-card');const status=document.createElement('div');status.className='photo-message-developing';status.textContent='显影成像中…';status.setAttribute('role','status');card.append(status)}
+  container.append(card);
+ }
+ if(total>1){
+  const bar=document.createElement('div');bar.className='pagination-row gallery-pagination';
+  bar.innerHTML=`<button type="button" aria-label="上一页留言" ${currentPage<=1?'disabled':''}>‹</button><span class="gallery-page-indicator" aria-live="polite"><strong>${String(currentPage).padStart(2,'0')}</strong><span>/</span><span>${String(total).padStart(2,'0')}</span></span><button type="button" aria-label="下一页留言" ${currentPage>=total?'disabled':''}>›</button>`;
+  bar.querySelector('button').addEventListener('click',()=>goToPage(currentPage-1));
+  bar.querySelector('button:last-child').addEventListener('click',()=>goToPage(currentPage+1));
+  container.parentElement.append(bar);
+ }
+ decoratePhotoAvatars();schedulePhotoDeveloping();
+};
 const originalPhotoOpenMessageModal=openMessageModal;
-openMessageModal=function(...args){photoReplyTarget=null;originalPhotoOpenMessageModal(...args);updatePhotoReplyTarget();decoratePhotoAvatars();};
+openMessageModal=function(...args){
+ photoReplyTarget=null;originalPhotoOpenMessageModal(...args);updatePhotoReplyTarget();decoratePhotoAvatars();
+ const msg=messages.find(message=>message.id===args[0]);
+ const stamp=document.querySelector('#modalMainCard .font-mono');
+ if(msg&&stamp){
+  stamp.classList.add('photo-message-metadata');stamp.replaceChildren();
+  const date=document.createElement('span');date.textContent=[msg.date,msg.time].filter(Boolean).join(' ');stamp.append(date);
+  const weather=photoMessageWeather(msg.weather);if(weather)stamp.append(weather);
+  const place=document.createElement('span');place.textContent=[msg.temp!=null?`${msg.temp}°C`:'',msg.city].filter(Boolean).join(' ');stamp.append(place);
+ }
+};
 
 function updatePhotoReplyTarget(){
  let context=document.getElementById('photo-reply-context');

@@ -9,3 +9,36 @@
 
 /* Flat album cards avoid shadows being clipped into dark bands at carousel edges. */
 #photoGrid .gallery-card,#photoGrid .gallery-card:hover{box-shadow:none!important}
+
+/* Guestbook: compact paper notes, with a single quiet divider for the actions. */
+#messageBoard{gap:16px;padding-top:16px;align-items:stretch}
+#messageBoard .photo-message-card{--note-paper:#fffdf9;--note-ink:#2c2a27;--note-muted:#8c8273;--note-line:#e2dcd0;display:flex;flex-direction:column;min-width:0;padding:20px;background:var(--note-paper);color:var(--note-ink);border:1px solid var(--note-line);border-radius:4px;box-shadow:none;position:relative;transition:border-color .2s}
+#messageBoard .photo-message-card[data-paper=vintage]{--note-paper:#faf0dc;--note-ink:#3d3326;--note-muted:#8b7558;--note-line:#d8cbb5}
+#messageBoard .photo-message-card[data-paper=cyanotype]{--note-paper:#e8edf2;--note-ink:#1c2e42;--note-muted:#4b6a8a;--note-line:#c5d0db}
+#messageBoard .photo-message-card:hover{border-color:color-mix(in srgb,var(--note-muted) 65%,var(--note-line));transform:none;box-shadow:none}
+#messageBoard .photo-message-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;min-width:0}
+#messageBoard .photo-message-author{display:flex;align-items:center;gap:9px;min-width:0;padding:0;border:0;background:none;color:inherit;text-align:left;cursor:pointer}
+#messageBoard .photo-message-name{font-size:14px;font-weight:600;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.01em}
+#messageBoard [data-photo-avatar]{display:flex;flex:none}
+#messageBoard .roy-photo-avatar{width:30px;height:30px;font-size:12px;margin:0;--roy-avatar-bg:color-mix(in srgb,var(--note-muted) 9%,transparent);--roy-avatar-fg:var(--note-muted)}
+#messageBoard .photo-message-date{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;flex:none;max-width:50%;font-size:11px;line-height:1.5;color:var(--note-muted);font-variant-numeric:tabular-nums;letter-spacing:0}
+#messageBoard .photo-message-date i{font-size:10px}
+#messageBoard .photo-message-time{opacity:.8}
+#messageBoard .photo-message-body{font-size:15px;line-height:1.8;font-weight:400;letter-spacing:.01em;overflow-wrap:anywhere;white-space:pre-wrap;margin:16px 0 18px;min-height:0;max-height:220px;overflow:hidden;cursor:pointer}
+#messageBoard .photo-message-body>:first-child{margin-top:0}
+#messageBoard .photo-message-body>:last-child{margin-bottom:0}
+#messageBoard .photo-message-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;margin-top:auto;padding-top:10px;border-top:1px solid color-mix(in srgb,var(--note-muted) 14%,transparent);color:var(--note-muted);font-size:11px;line-height:1.5;letter-spacing:0}
+#messageBoard .photo-message-actions{display:flex;align-items:center;gap:8px;flex:none}
+#messageBoard .photo-message-actions button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:32px;min-height:32px;padding:4px;border:0;border-radius:3px;background:none;color:inherit;font-size:11px;line-height:1;cursor:pointer;font-variant-numeric:tabular-nums}
+#messageBoard .photo-message-actions i{font-size:13px}
+#messageBoard .photo-message-actions button:hover{background:color-mix(in srgb,var(--note-muted) 8%,transparent);color:var(--note-ink)}
+#messageBoard .photo-message-actions .is-liked{color:#a64b47}
+#messageBoard .photo-message-place{display:flex;align-items:center;justify-content:flex-end;gap:5px;min-width:0;text-align:right;overflow-wrap:anywhere;flex:1}
+#messageBoard .photo-message-place svg{flex:none}
+#modalMainCard>div:first-child{gap:16px;flex-wrap:wrap}
+#modalMainCard .photo-message-metadata{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:5px;font-size:11px;line-height:1.7}
+#modalMainCard .photo-message-metadata svg{flex:none}
+#messageBoard button:focus-visible{outline:2px solid var(--note-muted);outline-offset:4px}
+#messageBoard .photo-message-developing{position:absolute;inset:0;display:grid;place-items:center;background:color-mix(in srgb,var(--note-paper) 90%,transparent);border-radius:inherit;font-size:12px;color:var(--note-muted);backdrop-filter:blur(4px)}
+@media(max-width:767px){#messageBoard{gap:12px;padding-top:12px}#messageBoard .photo-message-card{padding:16px}#messageBoard .photo-message-body{margin:14px 0 16px;font-size:15px}#messageBoard .photo-message-date{max-width:45%;gap:3px 6px}#messageBoard .photo-message-actions button{min-width:36px;min-height:36px}#messageBoard .photo-message-place{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#messageBoard .photo-message-card{animation:none!important;transition:none}}
