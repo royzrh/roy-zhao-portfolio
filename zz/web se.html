@@ -2174,7 +2174,7 @@ html[data-theme] #destDetail,#destDetail{background:#7c7c7c!important;color:whit
             document.getElementById('lightboxImg').src = photo.src;document.querySelector('.album-lightbox-info').scrollTop=0;document.getElementById('lightbox').scrollTop=0;
             document.getElementById('lightboxTitle').innerText = photo.title;
             document.getElementById('lightboxFilm').innerText = photo.film;
-            document.getElementById('lightboxLocation').innerHTML = `<i class="fa-solid fa-location-dot mr-1 text-[#8c8273]"></i> ${albumContentEscape(formatPhotoLocation(photo.location))}${photo.date ? ' · ' + albumContentEscape(formatPhotoDate(photo.date)) : ''}`;
+            document.getElementById('lightboxLocation').innerHTML = `<i class="fa-solid fa-location-dot mr-1 text-[#8c8273]"></i> ${albumContentEscape(formatPhotoLocation(photo.location))}${photo.date ? ' ' + albumContentEscape(formatPhotoDate(photo.date)) : ''}`;
             albumPhotoCoordinates(photo);
             document.getElementById('lightboxDesc').innerText = photo.desc;document.getElementById('lightboxDesc').parentNode.hidden=!String(photo.desc||'').trim();
 
