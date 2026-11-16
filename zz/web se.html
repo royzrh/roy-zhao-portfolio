@@ -828,7 +828,7 @@
 }
 function formatPhotoDate(value){
  return String(value||'').replace(/(\d{1,2}:\d{2}):\d{2}(?:\.\d+)?(?=$|[ Z+-])/g,'$1')
-}</script><script id="album-photo-coordinates">function albumPhotoCoordinates(photo){const node=document.getElementById('lightboxCoordinates'),g=photo.gps;if(!node)return;const valid=g&&Number.isFinite(g.latitude)&&Number.isFinite(g.longitude)&&Math.abs(g.latitude)<=90&&Math.abs(g.longitude)<=180;node.hidden=!valid;node.textContent=valid?'纬度 '+Math.abs(g.latitude).toFixed(2)+'° '+(g.latitude<0?'S':'N')+' · 经度 '+Math.abs(g.longitude).toFixed(2)+'° '+(g.longitude<0?'W':'E'):'';}</script><script id="album-location-format">function formatPhotoLocation(value){
+}</script><script id="album-photo-coordinates">function albumPhotoCoordinates(photo){const node=document.getElementById('lightboxCoordinates'),g=photo.gps;if(!node)return;const valid=g&&Number.isFinite(g.latitude)&&Number.isFinite(g.longitude)&&Math.abs(g.latitude)<=90&&Math.abs(g.longitude)<=180;node.hidden=!valid;node.textContent=valid?'纬度 '+Math.abs(g.latitude).toFixed(2)+'° '+(g.latitude<0?'S':'N')+', 经度 '+Math.abs(g.longitude).toFixed(2)+'° '+(g.longitude<0?'W':'E'):'';}</script><script id="album-location-format">function formatPhotoLocation(value){
  return String(value??'').replace(/\s*·\s*/g,' ').trim()
 }</script><style id="album-lightbox-style">
 #lightbox{background:#737578;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;-webkit-overflow-scrolling:touch;touch-action:pan-y pinch-zoom;box-sizing:border-box}
