@@ -5,9 +5,9 @@
   "locale": "zh",
   "contentLanguage": "zh",
   "title": "北疆",
-  "description": "北疆 · 2026.01.30 - 02.05",
+  "description": "2026.01.30 - 02.05",
   "publishDate": "2026-01-30T00:00:00.000Z",
-  "updatedDate": null,
+  "updatedDate": "2026-11-17T14:54:10.428Z",
   "tags": [
     "Travel"
   ],
@@ -20,8 +20,9 @@
   "category": "travel",
   "editorMetadata": {
     "title": "北疆",
-    "description": "北疆 · 2026.01.30 - 02.05",
+    "description": "2026.01.30 - 02.05",
     "publishDate": "2026-01-30T00:00:00.000Z",
+    "updatedDate": "2026-11-17T14:54:10.428Z",
     "tags": [
       "Travel"
     ],

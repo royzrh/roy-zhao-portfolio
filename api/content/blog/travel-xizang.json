@@ -5,9 +5,9 @@
   "locale": "zh",
   "contentLanguage": "zh",
   "title": "西藏",
-  "description": "西藏 · 2026.07.27 - 08.09",
+  "description": "2026.07.27 - 08.09",
   "publishDate": "2026-07-27T00:00:00.000Z",
-  "updatedDate": null,
+  "updatedDate": "2026-11-17T14:54:10.428Z",
   "tags": [
     "Travel"
   ],
@@ -20,8 +20,9 @@
   "category": "travel",
   "editorMetadata": {
     "title": "西藏",
-    "description": "西藏 · 2026.07.27 - 08.09",
+    "description": "2026.07.27 - 08.09",
     "publishDate": "2026-07-27T00:00:00.000Z",
+    "updatedDate": "2026-11-17T14:54:10.428Z",
     "tags": [
       "Travel"
     ],
