@@ -10027,7 +10027,7 @@ class Xt extends De {
     super(t, "AuthInvalidJwtError", 400, "invalid_jwt");
   }
 }
-const Zt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_".split(""), zr = `
+const Zt = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_".split(""), zr = ` 	
 \r=`.split(""), Bh = (() => {
   const n = new Array(128);
   for (let t = 0; t < n.length; t += 1)

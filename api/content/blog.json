@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "type": "blog",
   "locale": "zh",
-  "total": 3,
+  "total": 8,
   "items": [
     {
       "id": "optical-neural-networks-review",
@@ -49,6 +49,46 @@
       "category": "research"
     },
     {
+      "id": "travel-xizang",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "西藏",
+      "description": "西藏 · 2026.07.27 - 08.09",
+      "publishDate": "2026-07-27T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "Travel"
+      ],
+      "url": "https://royzhao.cn/blog/travel-xizang",
+      "path": "/blog/travel-xizang",
+      "heroImage": {
+        "src": "/assets/site-album-cover.C0B1DAoU.webp",
+        "alt": "西藏"
+      },
+      "category": "travel"
+    },
+    {
+      "id": "travel-xinjiang",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "北疆",
+      "description": "北疆 · 2026.01.30 - 02.05",
+      "publishDate": "2026-01-30T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "Travel"
+      ],
+      "url": "https://royzhao.cn/blog/travel-xinjiang",
+      "path": "/blog/travel-xinjiang",
+      "heroImage": {
+        "src": "/assets/site-album-cover.C5tDl1fW.webp",
+        "alt": "北疆"
+      },
+      "category": "travel"
+    },
+    {
       "id": "autumn",
       "type": "blog",
       "locale": "zh",
@@ -67,6 +107,66 @@
         "alt": "cdf3508d4v1d082f8c5de2e6a1420b06.jpeg"
       },
       "category": "daily"
+    },
+    {
+      "id": "travel-garze",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "甘孜州",
+      "description": "甘孜州 · 2025.08.02 - 08.10",
+      "publishDate": "2025-08-02T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "Travel"
+      ],
+      "url": "https://royzhao.cn/blog/travel-garze",
+      "path": "/blog/travel-garze",
+      "heroImage": {
+        "src": "/assets/site-album-cover.Xy2mMPnu.webp",
+        "alt": "甘孜州"
+      },
+      "category": "travel"
+    },
+    {
+      "id": "travel-gannan",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "甘南",
+      "description": "甘南 · 2022.08.03 - 08.07",
+      "publishDate": "2022-08-03T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "Travel"
+      ],
+      "url": "https://royzhao.cn/blog/travel-gannan",
+      "path": "/blog/travel-gannan",
+      "heroImage": {
+        "src": "/assets/site-album-cover.CiXFPANZ.webp",
+        "alt": "甘南"
+      },
+      "category": "travel"
+    },
+    {
+      "id": "travel-lankawi",
+      "type": "blog",
+      "locale": "zh",
+      "contentLanguage": "zh",
+      "title": "兰卡威",
+      "description": "兰卡威 · 2018,06.24 - 06.29",
+      "publishDate": "2018-06-24T00:00:00.000Z",
+      "updatedDate": null,
+      "tags": [
+        "Travel"
+      ],
+      "url": "https://royzhao.cn/blog/travel-lankawi",
+      "path": "/blog/travel-lankawi",
+      "heroImage": {
+        "src": "/assets/site-album-cover.D29PaZ3l.webp",
+        "alt": "兰卡威"
+      },
+      "category": "travel"
     }
   ]
 }

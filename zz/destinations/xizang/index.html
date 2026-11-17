@@ -60,74 +60,64 @@
   熙熙攘攘的人群散去，买了本地芭蕉回酒店休息。明天我们就要离开这里了......good night~</p>
 <h3><strong>Day4 7月30日</strong></h3>
 <p>  本着不赶时间的原则，大家起床已经九十点，大家状态都可以。计划先去牧场打卡游玩，然后回到林芝市区。</p>
-<h3><strong>未完待续......</strong></h3></article><section class="notes" id="destination-notes"><h2>旅途留言</h2><p data-status role="status">正在读取留言…</p><roy-account-auth></roy-account-auth><form data-comment-form hidden><textarea name="body" rows="3" maxlength="2000" placeholder="留下一点旅途的回声…" required></textarea><button type="submit">留下留言</button></form><ul data-comments></ul><button data-more hidden>更多留言</button></section></main><footer><div>© 2026 Roy Zhao / 赵润涵. 保留所有权利。</div><a href="/zz/">返回相册 →</a></footer><script type="module">import '/shared/photo-client.js';
-// Destination comments share the site's verified accounts, nicknames and RLS.
+<h3><strong>未完待续......</strong></h3></article><section class="notes" id="destination-notes" data-page="/zz/destinations/xizang"><h2>旅途留言</h2><p data-status role="status">正在读取留言…</p><roy-account-auth></roy-account-auth><form data-comment-form hidden><textarea name="body" rows="3" maxlength="2000" placeholder="留下一点旅途的回声…" required></textarea><button type="submit">留下留言</button></form><ul data-comments></ul><button data-more hidden>更多留言</button></section></main><footer><div>© 2026 Roy Zhao / 赵润涵. 保留所有权利。</div><a href="/zz/">返回相册 →</a></footer><script type="module">import '/shared/photo-client.js';
+// Keep the album's original form and list; both sites address the same comment rows.
 const section=document.getElementById('destination-notes');
-const find=selector=>section.querySelector(selector);
-const list=find('[data-comments]'),form=find('[data-comment-form]'),profileForm=find('[data-profile-form]'),more=find('[data-more]'),reload=find('[data-reload]'),authPanel=find('[data-auth-panel]'),authWidget=find('roy-account-auth'),authToggle=find('[data-auth-toggle]'),accountNote=find('[data-account-note]'),postStatus=find('[data-post-status]'),bodyInput=form.elements.body,submit=form.querySelector('[type=submit]');
-const page=section.dataset.page;
-let richComposer;
-let api,user=null,nickname='',profileLoaded=false,profileIssue='',rows=[],offset=0,loading=false,posting=false,started=false,request=0,profileRequest=0,authRequest=0;
-function message(value){find('[data-status]').textContent=value}
-function postMessage(value){postStatus.textContent=value}
+const statusNode=section.querySelector('[data-status]'),list=section.querySelector('[data-comments]'),form=section.querySelector('[data-comment-form]'),more=section.querySelector('[data-more]'),auth=section.querySelector('roy-account-auth');
+const page=section.dataset.page||location.pathname.replace(/\/+$/,'');
+const input=form.elements.body,submit=form.querySelector('[type=submit]');
+let api,user=null,nickname='',rows=[],offset=0,loading=false,posting=false,started=false,request=0,authRequest=0,profileNote='',retry=false;
+function message(text){statusNode.textContent=text+(profileNote?' '+profileNote:'')}
+function failure(){return '暂时无法连接留言服务，请点击重试。'}
+function identity(){form.hidden=!user?.email_confirmed_at||!nickname;submit.disabled=posting||!input.value.trim();input.disabled=posting}
 function text(tag,value){const node=document.createElement(tag);node.textContent=value;return node}
-function failure(error){const code=error?.code;if(code==='23505')return '账号昵称已设置，请点击刷新重新读取。';if(code==='P0001'||String(code).includes('rate_limit'))return '操作过于频繁，请稍候再试。';if(code==='42501')return '请先验证邮箱并登录，再进行操作。';if(code==='PGRST205')return '留言服务暂未开放，请稍后再来。';return '暂时无法连接留言服务，请点击刷新重试。'}
-async function timed(promise){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>timer=setTimeout(()=>reject(Error('timeout')),12000))])}finally{clearTimeout(timer)}}
-function identity(){
- const verified=!!user?.email_confirmed_at,canPost=verified&&!!nickname;
- find('[data-current-user]').hidden=!user;find('[data-identity]').textContent=nickname?'已登录：'+nickname:'已登录';
- authToggle.hidden=!!user;profileForm.hidden=!verified||!profileLoaded||!!nickname;
- form.querySelector('fieldset').disabled=!canPost;
- submit.disabled=!canPost||posting||(!bodyInput.value.trim()&&!richComposer?.hasSticker)||!!richComposer?.busy;
- accountNote.textContent=profileIssue||(!user?'登录后可以留言，账号与相册主站通用。':!verified?'请先完成邮箱验证。':!profileLoaded?'正在读取账号昵称…':!nickname?'请先设置账号昵称，保存后固定使用。':'使用固定昵称留言，支持删除自己的留言。');
- if(user&&authWidget.hidden)authPanel.hidden=true;
- find('[data-count]').textContent=bodyInput.value.length+' / 2000';
+async function syncSession(){
+ const version=++authRequest;
+ try{
+  const {data,error}=await api.auth.getSession();if(error)throw error;
+  const next=data.session?.user||null;let name='';
+  if(next?.email_confirmed_at){const result=await api.from('roy_top_profiles').select('nickname').eq('user_id',next.id).abortSignal(AbortSignal.timeout(12000)).maybeSingle();if(result.error)throw result.error;name=result.data?.nickname||''}
+  if(version!==authRequest)return;
+  if(user?.id!==next?.id){input.value='';++request}
+  user=next;nickname=name;profileNote=user&&!nickname?'请先在主站留言区设置固定昵称，再返回这里留言。':'';identity();await load(true)
+ }catch{if(version===authRequest){user=null;nickname='';identity();retry=true;more.hidden=false;more.textContent='重试';message(failure())}}
 }
-async function loadProfile(){
- const version=++profileRequest,id=user?.id;profileIssue='';profileLoaded=!id;
- if(!id){nickname='';identity();return}
- identity();
- try{const {data,error}=await api.from('roy_top_profiles').select('nickname').eq('user_id',id).abortSignal(AbortSignal.timeout(12000)).maybeSingle();if(version!==profileRequest||user?.id!==id)return;if(error)throw error;nickname=data?.nickname||'';profileLoaded=true}
- catch(error){if(version!==profileRequest)return;nickname='';profileIssue=failure(error)}
- identity();
-}
-async function applyUser(next){const changed=user?.id!==next?.id;user=next||null;if(changed){richComposer?.clear();nickname='';profileLoaded=false;rows=[];offset=0;list.replaceChildren();postMessage('')}identity();await loadProfile()}
-async function syncSession(){const version=++authRequest;try{const {data,error}=await timed(api.auth.getSession());if(version!==authRequest)return;if(error)throw error;await applyUser(data.session?.user||null)}catch(error){if(version===authRequest){profileIssue=failure(error);identity()}}}
 function render(){
  list.replaceChildren();
  for(const row of rows){
-  const item=document.createElement('li'),header=document.createElement('div');header.className='note-meta';header.append(text('strong',row.author_name));
-  const date=document.createElement('time');date.dateTime=row.created_at;date.textContent=new Date(row.created_at).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});header.append(date);
-  const body=text('p',row.body);item.append(header,body);
+  const item=document.createElement('li'),header=document.createElement('div');header.append(text('strong',row.author_name+(row.parent_id?' · 回复':'')));
+  const date=text('time',' '+new Date(row.created_at).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'}));date.dateTime=row.created_at;header.append(date);
+  const body=document.createElement('div');if(window.RoyRichComments)window.RoyRichComments.renderBody(body,row.body);else body.textContent=row.body;
+  item.append(header,body);
   if(row.status==='pending'&&row.user_id===user?.id)item.append(text('small','待审核，仅自己可见'));
-  if(row.user_id===user?.id){const remove=text('button','删除');remove.type='button';remove.className='note-delete';remove.onclick=async()=>{if(!confirm('删除这条留言？'))return;remove.disabled=true;try{const {error}=await api.from('roy_top_comments').delete().eq('id',row.id).eq('user_id',user.id).abortSignal(AbortSignal.timeout(12000));if(error)throw error;await load(true);postMessage('留言已删除。')}catch(error){remove.disabled=false;postMessage(failure(error))}};item.append(remove)}
+  if(row.user_id===user?.id){const remove=text('button','删除');remove.type='button';remove.onclick=async()=>{if(!confirm('删除这条留言？'))return;remove.disabled=true;try{const {error}=await api.from('roy_top_comments').delete().eq('id',row.id).eq('user_id',user.id).abortSignal(AbortSignal.timeout(12000));if(error)throw error;await load(true)}catch{remove.disabled=false;message(failure())}};item.append(remove)}
   list.append(item);
  }
 }
 async function load(reset=false){
  if(!api||loading&&!reset)return;
- const version=++request,start=reset?0:offset;loading=true;more.disabled=true;reload.disabled=true;message('正在读取留言…');
- try{const {data,error}=await api.from('roy_top_comments').select('id,user_id,author_name,body,created_at,status').eq('page_path',page).is('parent_id',null).order('created_at',{ascending:false}).order('id',{ascending:false}).range(start,start+19).abortSignal(AbortSignal.timeout(12000));if(version!==request)return;if(error)throw error;
-  const incoming=data||[];rows=reset?incoming:[...rows,...incoming.filter(row=>!rows.some(existing=>existing.id===row.id))];offset=start+incoming.length;more.hidden=incoming.length<20;render();message(rows.length?(more.hidden?rows.length+' 条留言':'已加载 '+rows.length+' 条留言'):'还没有留言，欢迎写下第一句。')
- }catch(error){if(version===request)message(failure(error))}finally{if(version===request){loading=false;more.disabled=false;reload.disabled=false}}
+ const version=++request,start=reset?0:offset;loading=true;more.disabled=true;message('正在读取留言…');
+ try{
+  const {data,error}=await api.from('roy_top_comments').select('id,user_id,author_name,body,created_at,status,parent_id').eq('page_path',page).order('created_at',{ascending:false}).order('id',{ascending:false}).range(start,start+19).abortSignal(AbortSignal.timeout(12000));
+  if(version!==request)return;if(error)throw error;
+  const incoming=data||[];rows=reset?incoming:[...rows,...incoming.filter(row=>!rows.some(existing=>existing.id===row.id))];offset=start+incoming.length;more.hidden=incoming.length<20;more.textContent='更多留言';retry=false;render();message(rows.length?rows.length+' 条留言与回复':'还没有留言，欢迎写下第一句。');
+ }catch{if(version===request){retry=true;more.hidden=false;more.textContent='重试';message(failure())}}finally{if(version===request){loading=false;more.disabled=false}}
 }
 async function ready(){
- if(started||!window.RoyPhotoClient)return;
- started=true;clearTimeout(startupTimer);api=window.RoyPhotoClient;
- if(window.RoyRichComments){richComposer=window.RoyRichComments.createComposer(bodyInput,{limit:2000,markdown:false});bodyInput.addEventListener('roy-rich-change',identity)}
- api.auth.onAuthStateChange((_event,next)=>{++authRequest;setTimeout(async()=>{await applyUser(next?.user||null);await load(true)},0)});
- await Promise.all([syncSession(),load(true)]);
+ if(started||!window.RoyPhotoClient)return;started=true;clearTimeout(startupTimer);api=window.RoyPhotoClient;
+ api.auth.onAuthStateChange(()=>{setTimeout(()=>void syncSession(),0)});await syncSession();
 }
-authToggle.onclick=()=>{authPanel.hidden=!authPanel.hidden;authToggle.setAttribute('aria-expanded',String(!authPanel.hidden));if(!authPanel.hidden)authPanel.querySelector('input')?.focus()};
-authWidget.addEventListener('roy-auth-complete',()=>void syncSession());
-find('[data-logout]').onclick=async()=>{try{const {error}=await api.auth.signOut({scope:'local'});if(error)throw error;authPanel.hidden=true;await applyUser(null);await load(true)}catch(error){postMessage(failure(error))}};
-profileForm.onsubmit=async event=>{event.preventDefault();if(!user||nickname)return;const value=profileForm.elements.nickname.value.trim();if(!value||value.length>40)return;const button=profileForm.querySelector('button');button.disabled=true;try{const {error}=await api.from('roy_top_profiles').insert({user_id:user.id,nickname:value}).abortSignal(AbortSignal.timeout(12000));if(error)throw error;await loadProfile();postMessage('昵称已保存，可以留言了。')}catch(error){postMessage(failure(error));if(error?.code==='23505')await loadProfile()}finally{button.disabled=false}};
-bodyInput.oninput=identity;
-form.onsubmit=async event=>{event.preventDefault();const body=bodyInput.value.trim();if(posting||!user?.email_confirmed_at||!nickname||(!body&&!richComposer?.hasSticker)||richComposer?.busy||body.length>2000)return;posting=true;identity();postMessage('正在发送…');try{const {error}=await api.from('roy_top_comments').insert({page_path:page,user_id:user.id,author_name:nickname,body:richComposer?richComposer.value():body,parent_id:null}).abortSignal(AbortSignal.timeout(12000));if(error)throw error;bodyInput.value='';richComposer?.clear();await load(true);postMessage('留言已发送。')}catch(error){postMessage(failure(error))}finally{posting=false;identity()}};
-more.onclick=()=>void load();reload.onclick=async()=>{if(!api){void ready();return}await Promise.all([syncSession(),load(true)])};
+input.addEventListener('input',identity);
+auth.addEventListener('roy-auth-complete',()=>void syncSession());
+form.onsubmit=async event=>{
+ event.preventDefault();const body=input.value.trim();if(posting||!user?.email_confirmed_at||!nickname||!body||body.length>2000)return;
+ posting=true;identity();message('正在发送…');
+ try{const {error}=await api.from('roy_top_comments').insert({page_path:page,user_id:user.id,author_name:nickname,body,parent_id:null}).abortSignal(AbortSignal.timeout(12000));if(error)throw error;input.value='';await load(true)}catch{message(failure())}finally{posting=false;identity()}
+};
+more.onclick=()=>{if(!api){void ready();return}if(retry)void syncSession();else void load()};
 identity();
-const startupTimer=setTimeout(()=>{if(!started){message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'}},12000);
+const startupTimer=setTimeout(()=>{if(!started){retry=true;more.hidden=false;more.textContent='重试';message(failure())}},12000);
 window.addEventListener('roy-photo-ready',()=>void ready(),{once:true});
-if(window.RoyPhotoClient)void ready();else import('/shared/photo-client.js?v=20261024-rich').then(()=>void ready()).catch(()=>{clearTimeout(startupTimer);message('留言模块未能加载，请刷新页面重试。');accountNote.textContent='登录模块暂不可用，请检查网络后重试。'});
+if(window.RoyPhotoClient)void ready();else import('/shared/photo-client.js').then(()=>void ready()).catch(()=>{clearTimeout(startupTimer);more.hidden=false;more.textContent='重试';retry=true;message(failure())});
 
 </script></body></html>
