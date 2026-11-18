@@ -1,66 +1,63 @@
-.site-distribution h2 {
-  scroll-margin-top: 6rem;
-}
-
+/* Compatibility for older published HTML. */
+.site-distribution h2 { scroll-margin-top: 6rem; }
 .distribution-links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 1.25rem 0;
+  gap: .75rem;
+  margin: 1.5rem 0 2rem;
 }
-
 .site-distribution .distribution-card {
   display: flex;
-  flex-direction: column;
-  gap: .65rem;
-  padding: 1.1rem 1.25rem;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem;
   border: 1px solid hsl(var(--border));
-  border-radius: .9rem;
+  border-radius: 1rem;
+  background: hsl(var(--card));
   color: inherit;
   text-decoration: none;
-  transition: border-color .2s, background-color .2s;
+  transition: border-color .2s, box-shadow .2s;
 }
-
 .site-distribution .distribution-card:hover {
-  border-color: currentColor;
-  background-color: hsl(var(--muted) / .4);
+  border-color: hsl(var(--foreground) / .25);
+  box-shadow: 0 8px 20px hsl(var(--foreground) / .06);
 }
-
-.site-distribution .distribution-card:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-}
-
-.distribution-platform {
+.site-distribution .distribution-card:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.distribution-icon {
   display: flex;
   align-items: center;
-  gap: .6rem;
-  font-size: .9rem;
-  font-weight: 500;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex: 0 0 3rem;
+  border-radius: .5rem;
+  background: hsl(var(--muted));
 }
-
-.distribution-platform svg {
-  width: 1.15rem;
-  height: 1.15rem;
-  flex-shrink: 0;
+.site-distribution .distribution-icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  max-width: 24px;
+  min-height: 24px;
+  max-height: 24px;
+  flex: 0 0 24px;
+  margin: 0;
 }
-
-.distribution-address {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: .5rem;
-  font-size: 1.15rem;
+.distribution-logo {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: currentColor;
+  -webkit-mask: var(--distribution-logo) center / contain no-repeat;
+  mask: var(--distribution-logo) center / contain no-repeat;
 }
-
-.site-distribution .distribution-note {
-  font-size: .875rem;
-  opacity: .7;
-}
-
-@media (max-width: 540px) {
-  .distribution-links {
-    grid-template-columns: 1fr;
-    gap: .75rem;
-  }
-}
+.distribution-copy { display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
+.distribution-platform { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+.distribution-address { font-size: .875rem; line-height: 1.5; color: hsl(var(--muted-foreground)); overflow-wrap: anywhere; }
+.distribution-arrow { margin-left: auto; color: hsl(var(--muted-foreground)); transition: transform .2s; }
+.distribution-card:hover .distribution-arrow { transform: translateX(3px); }
+.site-distribution .distribution-note { font-size: .875rem; color: inherit; opacity: .7; }
+@media (max-width: 767px) { .distribution-links { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .site-distribution .distribution-card, .distribution-arrow { transition: none; } }
