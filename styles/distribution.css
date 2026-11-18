@@ -1,3 +1,4 @@
+/* Compatibility for older published HTML. */
 .site-distribution h2 { scroll-margin-top: 6rem; }
 .distribution-links {
   display: grid;
@@ -33,7 +34,17 @@
   border-radius: .5rem;
   background: hsl(var(--muted));
 }
-.distribution-icon svg { width: 1.5rem; height: 1.5rem; }
+.site-distribution .distribution-icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  max-width: 24px;
+  min-height: 24px;
+  max-height: 24px;
+  flex: 0 0 24px;
+  margin: 0;
+}
 .distribution-logo {
   display: block;
   width: 1.5rem;
