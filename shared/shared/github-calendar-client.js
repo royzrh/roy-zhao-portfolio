@@ -13,7 +13,13 @@ export async function latestActivity(username,{fetchImpl=fetch,storage,now=Date.
  if(fresh(saved))return saved
  try{
   const response=await fetchImpl(`/github-activity/${encodeURIComponent(username)}.json`,{cache:'no-store',signal:AbortSignal.timeout(6000)})
-  if(response.ok){const local=snapshot(await response.json(),username);if(!saved||Date.parse(local.updatedAt)>Date.parse(saved.updatedAt))saved=local}
+  if(response.ok){
+   const local=snapshot(await response.json(),username)
+   if(!saved||(
+    local.data.contributions.at(-1).date>=saved.data.contributions.at(-1).date&&
+    Date.parse(local.updatedAt)>Date.parse(saved.updatedAt)
+   ))saved=local
+  }
  }catch{}
  if(!fresh(saved))try{
   const response=await fetchImpl(`https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last`,{cache:'no-store',signal:AbortSignal.timeout(10000)})
@@ -41,11 +47,11 @@ export function renderCalendar(root,value){
 }
 async function refreshCalendars(){
  for(const root of document.querySelectorAll('[data-github-calendar]')){
-  if(root.dataset.refreshing)return;root.dataset.refreshing='true'
+  if(root.dataset.refreshing)continue;root.dataset.refreshing='true'
   try{
    let storage;try{storage=localStorage}catch{}
    const value=await latestActivity(root.dataset.username,{storage})
-   if(value&&root.isConnected&&value.data.contributions.at(-1).date>=root.dataset.lastDate&&Date.parse(value.updatedAt)>=Date.parse(root.dataset.updatedAt)){
+   if(value&&root.isConnected&&value.data.contributions.at(-1).date>=root.dataset.lastDate&&Date.parse(value.updatedAt)>Date.parse(root.dataset.updatedAt)){
     renderCalendar(root,value.data);root.dataset.updatedAt=value.updatedAt
    }
   }catch{}finally{delete root.dataset.refreshing}
@@ -54,4 +60,7 @@ async function refreshCalendars(){
 if(typeof document!=='undefined'){
  void refreshCalendars()
  document.addEventListener('astro:page-load',refreshCalendars)
+ const refreshWhenVisible=()=>{if(document.visibilityState==='visible')void refreshCalendars()}
+ document.addEventListener('visibilitychange',refreshWhenVisible)
+ window.setInterval(refreshWhenVisible,maxAge)
 }
