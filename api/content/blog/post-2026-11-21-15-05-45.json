@@ -7,7 +7,7 @@
   "title": "Dream’s notebook",
   "description": "我昨晚梦到…",
   "publishDate": "2026-11-21T15:05:45.000Z",
-  "updatedDate": null,
+  "updatedDate": "2026-11-21T17:54:00.000Z",
   "tags": [
     "notebook",
     "about roy"
@@ -23,6 +23,7 @@
     "title": "Dream’s notebook",
     "description": "我昨晚梦到…",
     "publishDate": "2026-11-21T15:05:45.000Z",
+    "updatedDate": "2026-11-21T17:54:00.000Z",
     "tags": [
       "notebook",
       "about roy"
@@ -37,5 +38,5 @@
     "category": "daily"
   },
   "format": "markdown",
-  "body": "## 睡觉💤  \n### 2026\n#### 11月20日\n记不到了！但是是好梦！\n### 2025\n##晚安"
+  "body": "## 睡觉💤  \n### 2026\n#### 11月20日\n记不到了！但是是好梦！\n### 2025\n## 晚安"
 }
