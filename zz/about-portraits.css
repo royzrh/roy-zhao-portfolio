@@ -1,0 +1,17 @@
+[data-about-portrait-switch] {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+[data-about-portrait-switch]:enabled {
+  cursor: pointer;
+}
+
+[data-about-portrait-switch]:focus-visible {
+  outline: 2px solid #5c554a;
+  outline-offset: 3px;
+}

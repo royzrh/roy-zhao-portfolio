@@ -819,6 +819,8 @@
 <link rel="stylesheet" href="../shared/photo-layout.css?v=20261115-guestbook">
 <link rel="stylesheet" href="/shared/photo-home.css?v=20261113-menu-continuous-close-v2">
 <script src="/shared/photo-home.js?v=20261113-menu-continuous-close-v2" defer></script>
+<link rel="stylesheet" href="about-portraits.css">
+<script src="about-portraits.js" defer></script>
 <link rel="stylesheet" href="/shared/photo-typography.css?v=20261115-header">
 <link rel="stylesheet" href="/shared/album-moments-base.css?v=20261114-album-v2">
 <link rel="stylesheet" href="/shared/moments-journal.css?v=20261114-album-v2">
@@ -1118,11 +1120,14 @@ html[data-theme] #destDetail,#destDetail{background:#7c7c7c!important;color:whit
                     <div class="w-full h-80 bg-stone-300"></div>
                 </div>
                 <div class="relative bg-white p-3 pb-12 shadow-2xl rounded-sm transform rotate-3 border border-[#e2dcd0] z-10 hover:rotate-0 transition-transform duration-500">
-                    <img src="images/ROY_8128_01.webp"
-                         alt="Photographer Portrait"
-                         data-admin="about-portrait"
-                         class="object-cover w-full h-80"
-                         onerror="this.src='https://placehold.co/600x800/d6cfc2/2c2a27?text=Roy+Zhao'">
+                    <button type="button" data-about-portrait-switch aria-label="切换头像" title="点击切换头像" disabled>
+                        <img src="images/ROY_8128_01.webp"
+                             alt="Photographer Portrait"
+                             data-admin="about-portrait"
+                             class="object-cover w-full h-80"
+                             loading="lazy"
+                             onerror="this.src='https://placehold.co/600x800/d6cfc2/2c2a27?text=Roy+Zhao'">
+                    </button>
                     <div class="mt-4 text-center">
                         <span class="text-xs text-[#5c554a] tracking-[0.2em] font-mono" data-admin="about-portrait-label">Self Portrait / Nikon Z5</span>
                     </div>
