@@ -1,17 +1,14 @@
 (() => {
   const button = document.querySelector('[data-about-portrait-switch]');
   const portrait = button?.querySelector('[data-admin="about-portrait"]');
-  const caption = document.querySelector('#about-section [data-admin="about-portrait-label"]');
-  if (!portrait || !caption) return;
+  if (!portrait) return;
 
   const portraits = [
-    {src: portrait.getAttribute('src'), alt: portrait.alt, caption: caption.textContent},
-    {src: 'images/about-portraits/sketch.webp', alt: '手绘小狗', caption: 'Sketch'},
-    {src: 'images/about-portraits/lake.webp', alt: '蓝色湖边的背影', caption: 'By the Lake'},
-    {src: 'images/about-portraits/woods.webp', alt: '林间的橙色身影', caption: 'Among the Pines'},
-    {src: 'images/about-portraits/train.webp', alt: '火车窗前的背影', caption: 'Train Window'},
-    {src: 'images/about-portraits/winter.webp', alt: '雪夜木桥上的身影', caption: 'Winter Night'},
-    {src: 'images/about-portraits/peaks.webp', alt: '雪山前的背影', caption: 'Snow Peaks'},
+    {src: portrait.getAttribute('src'), alt: portrait.alt},
+    {src: 'images/about-portraits/woods.webp', alt: '林间的橙色身影'},
+    {src: 'images/about-portraits/train.webp', alt: '火车窗前的背影'},
+    {src: 'images/about-portraits/winter.webp', alt: '雪夜木桥上的身影'},
+    {src: 'images/about-portraits/peaks.webp', alt: '雪山前的背影'},
   ];
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
@@ -36,7 +33,6 @@
         motion?.cancel();
         portrait.src = next.src;
         portrait.alt = next.alt;
-        caption.textContent = next.caption;
         current = index;
         if (animate && !reducedMotion.matches) {
           motion = portrait.animate(
