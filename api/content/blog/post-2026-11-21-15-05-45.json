@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "post-2026-11-21-15-05-45",
+  "type": "blog",
+  "locale": "zh",
+  "contentLanguage": "zh",
+  "title": "Dream’s notebook",
+  "description": "我昨晚梦到…",
+  "publishDate": "2026-11-21T15:05:45.000Z",
+  "updatedDate": null,
+  "tags": [
+    "notebook",
+    "about roy"
+  ],
+  "url": "https://royzhao.cn/blog/post-2026-11-21-15-05-45",
+  "path": "/blog/post-2026-11-21-15-05-45",
+  "heroImage": {
+    "src": "/assets/site-3d292d51fbadab9dbaa1e8ecb0409159.DPZ7pw56.jpeg",
+    "alt": "Dream’s notebook"
+  },
+  "category": "daily",
+  "editorMetadata": {
+    "title": "Dream’s notebook",
+    "description": "我昨晚梦到…",
+    "publishDate": "2026-11-21T15:05:45.000Z",
+    "tags": [
+      "notebook",
+      "about roy"
+    ],
+    "draft": false,
+    "comment": true,
+    "language": "zh",
+    "heroImage": {
+      "src": "/assets/site-3d292d51fbadab9dbaa1e8ecb0409159.DPZ7pw56.jpeg",
+      "alt": "Dream’s notebook"
+    },
+    "category": "daily"
+  },
+  "format": "markdown",
+  "body": "## 睡觉💤  \n### 2026\n#### 11月20日\n记不到了！但是是好梦！\n### 2025\n##晚安"
+}
