@@ -3898,7 +3898,7 @@ const xt = { url: Et, key: it, configured: !!(Et && it) };
 let eu;
 function Ot() {
   return eu ?? (eu = Promise.resolve().then(() => jc).then(({ createClient: n }) => n(xt.url, xt.key, {
-    auth: { persistSession: !0, autoRefreshToken: !0, detectSessionInUrl: !1, storageKey: "roy-top-auth" }
+    auth: { persistSession: !0, autoRefreshToken: !0, detectSessionInUrl: !1, flowType: "pkce", storageKey: "roy-top-auth" }
   })));
 }
 function Zn(n) {
